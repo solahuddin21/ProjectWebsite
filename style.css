@@ -1,4 +1,11 @@
+body {
+  background-color: antiquewhite;
+}
+
 .carousel {
   padding: 7rem 3rem;
-  background-color: antiquewhite;
+}
+
+.carousel-item {
+  height: 50%;
 }
