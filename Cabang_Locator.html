@@ -11,6 +11,27 @@
     <!-- We CSS -->
     <link rel="stylesheet" href="style3.css" />
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8erEK_vHul1IV6PzYlupU3zutZnD05AI&callback=initialize"
+    async defer></script>
+
+    <script type="text/javascript">
+      function initialize() {
+        var propertiPeta = {
+          center: new google.maps.LatLng(-1.605328,117.451067),
+        zoom: 10,
+          mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+        
+        var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
+        
+        // membuat Marker
+        var marker=new google.maps.Marker({
+            position: new google.maps.LatLng(-6.2084581341242755, 106.8437203383751),
+            map: peta
+        });
+      }
+      </script>
+
     <title>Prisai Sakti Mataram</title>
   </head>
   <body>
@@ -51,8 +72,7 @@
     <div class="container contents">
         <h2 class="featurette-heading text-center m-5">Cabang Locator</h2>
         <h4 class="featurette-heading text-center m-5">Prisai Sakti Mataram</h4>
-        <img src="img/maps.svg" class="card-img mb-4" alt="..." /> <br/>
-        <h3>Cari Lokasi</h3><br/>
+        <div id="googleMap" style="width:1100px;height:500px;"></div>
         <form>
             <div class="Searchbox">
                 <input class="search" type="text" placeholder="Cari lokasi..." required>
