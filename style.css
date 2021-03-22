@@ -307,6 +307,14 @@ footer{
   border-radius: 4px;
 }
 
+@media (max-width: 900px) {
+  .services{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
 .individu, .institusi {
   background: white;
   border-radius: 20px;
