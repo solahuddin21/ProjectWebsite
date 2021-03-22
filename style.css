@@ -4,21 +4,27 @@
   padding: 0;
 }
 
-body, html {
+body,
+html {
   font-family: 'Nunito', sans-serif;
 }
-.navbar-brand{
-  color:  rgba(255, 255, 255, 0.7);
+.nav-pills .nav-item .nav-link.active {
+  background: #ff4646;
+  color: #ffffff;
+  border-radius: 4px;
 }
-.navbar-brand:hover{
-  color: #ffb923
+.navbar-brand {
+  color: rgba(255, 255, 255, 0.7);
+}
+.navbar-brand:hover {
+  color: #ffb923;
 }
 .collapse a {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 500;
 }
-.collapse a:hover{
+.collapse a:hover {
   color: #ffb923;
 }
 
@@ -67,18 +73,17 @@ body, html {
   font-size: 48px;
   box-shadow: lavender;
 }
-
+/* Style Berita */
 .Berita {
   position: relative;
   bottom: 0px;
   width: 100%;
   background: rgb(228, 197, 197);
   color: #d9d9d9;
-  
 }
-.card-group .card  .card-body{
- margin: 20x 0 0 0;
- padding-left: 10px;
+.card-group .card .card-body {
+  margin: 20x 0 0 0;
+  padding-left: 10px;
 }
 .heading {
   text-align: left;
@@ -86,54 +91,55 @@ body, html {
   padding-bottom: 50px;
   color: #5f5d60;
 }
-
+/* Style Cabang */
 .Cabang-locator {
   padding-bottom: 80px;
   padding-left: 5%;
   padding-right: 5%;
   background-color: rgb(90, 86, 79);
 }
-
+/* Style Join */
 .Hubungi-kami {
   padding-bottom: 80px;
   padding-left: 5%;
   padding-right: 5%;
   background-color: white;
 }
-footer{
+/* Style Footer  */
+footer {
   position: relative;
   bottom: 0px;
   width: 100%;
   background: #111;
   color: #d9d9d9;
 }
-.main-content{
+.main-content {
   display: flex;
 }
-.main-content .box{
+.main-content .box {
   flex-basis: 50%;
   padding: 10px 20px;
 }
-.box h2{
+.box h2 {
   font-size: 1.125rem;
   font-weight: 600;
   text-transform: uppercase;
 }
-.box .content{
+.box .content {
   margin: 20 0 0 0;
 }
 
-.left .content p{
+.left .content p {
   text-align: justify;
 }
 .left .content .social {
   margin: 20x 0 0 0;
   padding-left: 10px;
 }
-.left .content .social a{
+.left .content .social a {
   padding: 0px 2px;
 }
-.left .content .social a span{
+.left .content .social a span {
   height: 40px;
   width: 40px;
   background: #1a1a1a;
@@ -146,7 +152,7 @@ footer{
 .left .content .social a span:hover {
   background: #ffb923;
 }
-.center .content .fas{
+.center .content .fas {
   font-size: 1.437rem;
   background: #1a1a1a;
   height: 45px;
@@ -157,27 +163,27 @@ footer{
   transition: 0.3s;
   cursor: pointer;
 }
-.center .content .fas:hover{
+.center .content .fas:hover {
   background: #ffb923;
 }
-.center .content .text{
+.center .content .text {
   font-size: 1.0625rem;
   font-weight: 500;
   padding-left: 10px;
 }
-.center .content .phone{
+.center .content .phone {
   margin: 10px 0;
 }
-.right form .text{
+.right form .text {
   font-size: 1.0625rem;
   margin-bottom: 2px;
   color: #656565;
-
 }
-.right form .msg{
+.right form .msg {
   margin-top: 10px;
 }
-.right form input, .right form textarea {
+.right form input,
+.right form textarea {
   width: 100%;
   font-size: 1.0625rem;
   background: #151515;
@@ -185,16 +191,16 @@ footer{
   border: 1px solid #222222;
 }
 .right form input:focus,
-.right form textarea:focus{
-  outline-color: #3498db ;
+.right form textarea:focus {
+  outline-color: #3498db;
 }
-.right form input{
+.right form input {
   height: 35px;
 }
-.right form .btn{
+.right form .btn {
   margin-top: 10px;
 }
-.right form button{
+.right form button {
   height: 40px;
   width: 100%;
   border: none;
@@ -204,44 +210,44 @@ footer{
   padding-left: 10px;
   font-weight: 500;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
-.right form .btn button:hover{
-  background : #ff4646;
+.right form .btn button:hover {
+  background: #ff4646;
 }
-.bottom center{
+.bottom center {
   padding: 5px;
   font-size: 0.9375rem;
   background: #151515;
 }
-.bottom center span{
+.bottom center span {
   color: #656565;
 }
-.bottom center a{
+.bottom center a {
   color: #f12020;
   text-decoration: none;
 }
-.bottom center a:hover{
+.bottom center a:hover {
   text-decoration: underline;
 }
 
-.cards{
+.cards {
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
   padding: 30px;
 }
-.cards h2.header{
+.cards h2.header {
   font-size: 40px;
   margin: 0 0 30px 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.services{
+.services {
   display: flex;
   align-items: center;
 }
-.konten{
+.konten {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
@@ -249,50 +255,50 @@ footer{
   padding: 20px;
   border: 2px solid black;
   border-radius: 4px;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
-.konten .fab{
+.konten .fab {
   font-size: 70px;
   margin: 16px 0;
 }
-.konten > *{
+.konten > * {
   flex: 1 1 100%;
 }
-.konten:hover{
+.konten:hover {
   color: white;
 }
-.konten:hover a{
+.konten:hover a {
   border-color: white;
   background: white;
 }
-.konten-1:hover{
+.konten-1:hover {
   border-color: #ffb923;
   background: #ffb923;
 }
-.konten-1:hover a{
+.konten-1:hover a {
   color: #ffb923;
 }
-.konten-2:hover{
+.konten-2:hover {
   border-color: #ffb923;
   background: #ffb923;
 }
-.konten-2:hover a{
+.konten-2:hover a {
   color: #ffb923;
 }
-.konten-3:hover{
+.konten-3:hover {
   border-color: #ff0000;
   background: #ff0000;
 }
-.konten-3:hover a{
+.konten-3:hover a {
   color: #ff0000;
 }
-.konten h2{
+.konten h2 {
   font-size: 30px;
   margin: 16px 0;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.konten a{
+.konten a {
   margin: 22px 0;
   background: black;
   color: white;
@@ -301,26 +307,26 @@ footer{
   border: 1px solid black;
   padding: 15px 0;
   border-radius: 25px;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
-.konten a:hover{
+.konten a:hover {
   border-radius: 4px;
 }
 
 @media (max-width: 900px) {
-  .services{
+  .services {
     display: flex;
     flex-direction: column;
   }
 }
 
-
-.individu, .institusi {
+.individu,
+.institusi {
   background: white;
   border-radius: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.page-item .page-item:hover{
-  background-color: #ffb923;
+.Page .pagination .page-item.active {
+  background: #ffb923;
 }
