@@ -225,7 +225,6 @@ footer{
   text-decoration: underline;
 }
 
-}
 .cards{
   max-width: 1100px;
   margin: 0 auto;
@@ -242,7 +241,7 @@ footer{
   display: flex;
   align-items: center;
 }
-.content{
+.konten{
   display: flex;
   flex-wrap: wrap;
   flex: 1;
@@ -252,48 +251,48 @@ footer{
   border-radius: 4px;
   transition: all .3s ease;
 }
-.content .fab{
+.konten .fab{
   font-size: 70px;
   margin: 16px 0;
 }
-.content > *{
+.konten > *{
   flex: 1 1 100%;
 }
-.content:hover{
+.konten:hover{
   color: white;
 }
-.content:hover a{
+.konten:hover a{
   border-color: white;
   background: white;
 }
-.content-1:hover{
+.konten-1:hover{
   border-color: #ffb923;
   background: #ffb923;
 }
-.content-1:hover a{
+.konten-1:hover a{
   color: #ffb923;
 }
-.content-2:hover{
+.konten-2:hover{
   border-color: #ffb923;
   background: #ffb923;
 }
-.content-2:hover a{
+.konten-2:hover a{
   color: #ffb923;
 }
-.content-3:hover{
+.konten-3:hover{
   border-color: #ff0000;
   background: #ff0000;
 }
-.content-3:hover a{
+.konten-3:hover a{
   color: #ff0000;
 }
-.content h2{
+.konten h2{
   font-size: 30px;
   margin: 16px 0;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.content a{
+.konten a{
   margin: 22px 0;
   background: black;
   color: white;
@@ -304,7 +303,7 @@ footer{
   border-radius: 25px;
   transition: .3s ease;
 }
-.content a:hover{
+.konten a:hover{
   border-radius: 4px;
 }
 
