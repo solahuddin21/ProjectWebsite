@@ -22,16 +22,12 @@
 
     <!-- We CSS -->
     <link rel="stylesheet" href="style.css" />
-    
+
     <!-- Jquery -->
     <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript">
-      $(function () {
-        $('#datepicker').datepicker();
-      });
-    </script>
+    <script type="text/javascript" src="script.js"></script>
 
     <title>Prisai Sakti Mataram</title>
 </head>
@@ -89,10 +85,9 @@
                 </div>
                 <div class="mb-3">
                     <div class="ui-widget">
-                        <label for="datepicker" class="form-label">Tanggal Lahir: </label> 
-                        <input id="datepicker" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required/>
-                      </div>
+                        <label for="datepicker" class="form-label">Tanggal Lahir: </label>
+                        <input id="datepicker" class="form-control" aria-describedby="emailHelp" required />
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
@@ -118,7 +113,8 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Bersedia Membayar Sebesar Rp. 30.000<span class="text-danger"> * </span></label>
+                    <label for="exampleInputEmail1" class="form-label">Bersedia Membayar Sebesar Rp. 30.000<span
+                            class="text-danger"> * </span></label>
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                         <label class="form-check-label" for="flexCheckDefault">
