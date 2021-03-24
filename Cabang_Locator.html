@@ -85,34 +85,37 @@
 
         // New map
         var map = new google.maps.Map(document.getElementById('map'), options);
-        // /*
-        // // Add Marker
-        // var marker = new google.maps.Marker({
-        //   position: { lat: -6.178306, lng: 106.631889 },
-        //   map: map,
-        //   icon: ''
-        // }); */
 
-        addMarker({ coords: { lat: -6.2, lng: 106.816666 } });
-        addMarker({ coords: { lat: -6.497641, lng: 106.828224 } });
-        addMarker({ coords: { lat: -6.178306, lng: 106.631889 } });
-        addMarker({ coords: { lat: -3.972201, lng: 122.5149 } });
-        addMarker({ coords: { lat: -6.966667, lng: 110.416664 } });
-        addMarker({ coords: { lat: -2.423779, lng: 115.250832 } });
-        addMarker({ coords: { lat: 1.045626, lng: 104.030457 } });
-        addMarker({ coords: { lat: -3.316694, lng: 114.590111 } });
-        addMarker({ coords: { lat: -6.12, lng: 106.150276 } });
-
-        // Add Marker Function
+        addMarker({ coords: { lat: -6.2, lng: 106.816666 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -6.2<br />Longitude: 106.816666<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -6.497641, lng: 106.828224 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -6.497641<br />Longitude: 106.828224<br />Gg. Elang</p>' });
+        addMarker({ coords: { lat: -6.178306, lng: 106.631889 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -6.178306<br />Longitude: 106.631889<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -3.972201, lng: 122.5149 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -3.972201<br />Longitude:  122.5149<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -6.966667, lng: 110.416664 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -6.966667<br />Longitude: 110.416664<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -2.423779, lng: 115.250832 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -2.423779<br />Longitude: 115.250832<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: 1.045626, lng: 104.030457 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude:  1.045626<br />Longitude: 104.030457<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -3.316694, lng: 114.590111 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -3.316694<br />Longitude: 114.590111<br />Gg. Elang</p>'  });
+        addMarker({ coords: { lat: -6.12, lng: 106.150276 }, content: '<h3>Lokasi Cabang</h3> <p>Latitude: -6.12<br />Longitude: 106.150276<br />Gg. Elang</p>'  });
+        
         function addMarker(props) {
           var marker = new google.maps.Marker({
             position: props.coords,
             map: map,
             icon: props.iconImage,
           });
+
+          if (props.content) {
+            var infoWindow = new google.maps.InfoWindow({
+              content: props.content
+            });
+
+            marker.addListener('click', function () {
+              infoWindow.open(map, marker);
+            });
+          }
         }
       }
     </script>
+
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly"
       async></script>
@@ -126,6 +129,7 @@
     </nav>
   </div>
   <!-- Akhir Cabang Locator -->
+
 
   <!-- Footer -->
   <footer>
