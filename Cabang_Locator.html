@@ -23,6 +23,9 @@
   <!-- We CSS -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- We JS -->
+  <script type="text/javascript" src="script.js"></script>
+
   <script type="text/javascript"
     src="https://embedmaps.com/google-maps-authorization/script.js?id=2816c03b88fd3b7bb211a86548d91cb326f1263b"></script>
   <!-- Maps Style  -->
@@ -75,44 +78,6 @@
     <h2 class="featurette-heading text-center m-5 fw-bold">Cabang Locator</h2>
     <hr class="featurette-divider mb-5" />
     <div id="map"></div>
-    <script>
-      function initMap() {
-        // Map Options
-        var options = {
-          zoom: 6,
-          center: { lat: -6.2, lng: 106.816666 },
-        };
-
-        // New map
-        var map = new google.maps.Map(document.getElementById('map'), options);
-        // /*
-        // // Add Marker
-        // var marker = new google.maps.Marker({
-        //   position: { lat: -6.178306, lng: 106.631889 },
-        //   map: map,
-        //   icon: ''
-        // }); */
-
-        addMarker({ coords: { lat: -6.2, lng: 106.816666 } });
-        addMarker({ coords: { lat: -6.497641, lng: 106.828224 } });
-        addMarker({ coords: { lat: -6.178306, lng: 106.631889 } });
-        addMarker({ coords: { lat: -3.972201, lng: 122.5149 } });
-        addMarker({ coords: { lat: -6.966667, lng: 110.416664 } });
-        addMarker({ coords: { lat: -2.423779, lng: 115.250832 } });
-        addMarker({ coords: { lat: 1.045626, lng: 104.030457 } });
-        addMarker({ coords: { lat: -3.316694, lng: 114.590111 } });
-        addMarker({ coords: { lat: -6.12, lng: 106.150276 } });
-
-        // Add Marker Function
-        function addMarker(props) {
-          var marker = new google.maps.Marker({
-            position: props.coords,
-            map: map,
-            icon: props.iconImage,
-          });
-        }
-      }
-    </script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly"
       async></script>
