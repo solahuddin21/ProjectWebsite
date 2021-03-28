@@ -6,7 +6,7 @@
 
 body,
 html {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 .nav-pills .nav-item .nav-link.active {
   background: #ff4646;
