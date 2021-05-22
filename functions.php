@@ -85,20 +85,6 @@
     return mysqli_affected_rows($koneksi);
   }
 
-  function ubah($data) {
-    global $koneksi;
-    $id = $data['id'];
-    $nim = htmlspecialchars($data['nim']);
-    $nama = htmlspecialchars($data['nama']);
-    $nilai = htmlspecialchars($data['nilai']);
-
-    $query = "UPDATE daftar_individu SET nim = $nim, nama = '$nama', nilai = $nilai, waktu = CURRENT_TIMESTAMP() WHERE id = $id";
-
-    mysqli_query($koneksi, $query);
-
-    return mysqli_affected_rows($koneksi);
-  }
-
   function cari_data_individu($keyword) {
     $query = "SELECT * FROM daftar_individu WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
     return query($query);
