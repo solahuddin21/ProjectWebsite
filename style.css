@@ -1,15 +1,337 @@
-body {
-  background-color: antiquewhite;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-hr{
-  color: goldenrod;
+body,
+html {
+  font-family: 'Nunito', sans-serif;
+}
+.nav-pills .nav-item .nav-link.active {
+  background: #ff4646;
+  color: #ffffff;
+  border-radius: 4px;
+}
+.navbar-brand {
+  color: rgba(255, 255, 255, 0.7);
+}
+.navbar-brand:hover {
+  color: #ffb923;
+}
+.collapse a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+.collapse a:hover {
+  color: #ffb923;
 }
 
 .carousel {
-  padding: 7rem 3rem;
+  margin-bottom: 4rem;
+  position: relative;
+}
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
 }
 
 .carousel-item {
-  height: 50%;
+  height: 35rem;
+  position: relative;
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  background-size: cover;
+}
+
+.carousel-item h3 {
+  opacity: 0.8;
+  font-size: 30px;
+  letter-spacing: 5px;
+  margin-top: 100px;
+}
+
+.Tentang-kami {
+  padding-bottom: 80px;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #f7f7f7;
+}
+
+.container p {
+  text-align: justify;
+  font-size: 20px;
+}
+
+.container h1 {
+  opacity: 0.8;
+  font-size: 48px;
+  box-shadow: lavender;
+}
+/* Style Berita */
+.Berita {
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  background: rgb(228, 197, 197);
+  color: #d9d9d9;
+}
+.card-group .card .card-body {
+  margin: 20x 0 0 0;
+  padding-left: 10px;
+}
+.heading {
+  text-align: left;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  color: #5f5d60;
+}
+/* Style Cabang */
+.Cabang-locator {
+  padding-bottom: 80px;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: rgb(90, 86, 79);
+}
+/* Style Join */
+.Hubungi-kami {
+  padding-bottom: 80px;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: white;
+}
+/* Style Footer  */
+footer {
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+  background: #111;
+  color: #d9d9d9;
+}
+.main-content {
+  display: flex;
+}
+.main-content .box {
+  flex-basis: 50%;
+  padding: 10px 20px;
+}
+.box h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.box .content {
+  margin: 20 0 0 0;
+}
+
+.left .content p {
+  text-align: justify;
+}
+.left .content .social {
+  margin: 20x 0 0 0;
+  padding-left: 10px;
+}
+.left .content .social a {
+  padding: 0px 2px;
+}
+.left .content .social a span {
+  height: 40px;
+  width: 40px;
+  background: #1a1a1a;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+.left .content .social a span:hover {
+  background: #ffb923;
+}
+.center .content .fas {
+  font-size: 1.437rem;
+  background: #1a1a1a;
+  height: 45px;
+  width: 45px;
+  line-height: 45px;
+  text-align: center;
+  border-radius: 50%;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.center .content .fas:hover {
+  background: #ffb923;
+}
+.center .content .text {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  padding-left: 10px;
+}
+.center .content .phone {
+  margin: 10px 0;
+}
+.right form .text {
+  font-size: 1.0625rem;
+  margin-bottom: 2px;
+  color: #656565;
+}
+.right form .msg {
+  margin-top: 10px;
+}
+.right form input,
+.right form textarea {
+  width: 100%;
+  font-size: 1.0625rem;
+  background: #151515;
+  padding-left: 10px;
+  border: 1px solid #222222;
+}
+.right form input:focus,
+.right form textarea:focus {
+  outline-color: #3498db;
+}
+.right form input {
+  height: 35px;
+}
+.right form .btn {
+  margin-top: 10px;
+}
+.right form button {
+  height: 40px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: #f12020;
+  font-size: 1.0625rem;
+  padding-left: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.right form .btn button:hover {
+  background: #ff4646;
+}
+.bottom center {
+  padding: 5px;
+  font-size: 0.9375rem;
+  background: #151515;
+}
+.bottom center span {
+  color: #656565;
+}
+.bottom center a {
+  color: #f12020;
+  text-decoration: none;
+}
+.bottom center a:hover {
+  text-decoration: underline;
+}
+
+.cards {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 30px;
+}
+.cards h2.header {
+  font-size: 40px;
+  margin: 0 0 30px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.services {
+  display: flex;
+  align-items: center;
+}
+.konten {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 20px;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+.konten .fab {
+  font-size: 70px;
+  margin: 16px 0;
+}
+.konten > * {
+  flex: 1 1 100%;
+}
+.konten:hover {
+  color: white;
+}
+.konten:hover a {
+  border-color: white;
+  background: white;
+}
+.konten-1:hover {
+  border-color: #ffb923;
+  background: #ffb923;
+}
+.konten-1:hover a {
+  color: #ffb923;
+}
+.konten-2:hover {
+  border-color: #ffb923;
+  background: #ffb923;
+}
+.konten-2:hover a {
+  color: #ffb923;
+}
+.konten-3:hover {
+  border-color: #ff0000;
+  background: #ff0000;
+}
+.konten-3:hover a {
+  color: #ff0000;
+}
+.konten h2 {
+  font-size: 30px;
+  margin: 16px 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.konten a {
+  margin: 22px 0;
+  background: black;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid black;
+  padding: 15px 0;
+  border-radius: 25px;
+  transition: 0.3s ease;
+}
+.konten a:hover {
+  border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+  .services {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.individu,
+.institusi {
+  background: white;
+  border-radius: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.Page .pagination .page-item.active {
+  background: #ffb923;
 }

@@ -1,2 +1,2 @@
 # ProjectWebsite
-Berikut ini file yang terkumpul dalam Project Tugas besar Ulangan Tengah Semester 
+Berikut ini file yang terkumpul dalam Project Tugas besar Ulangan Akhir Semester 
