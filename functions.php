@@ -29,7 +29,7 @@
 
     $query0 = "SELECT 1 FROM mysql.proc p WHERE db = 'psm' AND name = 'tambah_daftar_individu'";
 
-    mysqli_query($koneksi, $query0) or die('nol salah');
+    mysqli_query($koneksi, $query0);
     
     if(mysqli_num_rows(mysqli_query($koneksi, $query0)) == 0) {
       $query000 = "CREATE PROCEDURE tambah_daftar_individu(

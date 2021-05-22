@@ -5,7 +5,7 @@
     $pendaftar_individu = query("SELECT * FROM daftar_individu");
 
     if (isset($_POST['cari'])) {
-        $pendaftar_individu = cari($_POST['keyword']);
+        $pendaftar_individu = cari_data_individu($_POST['keyword']);
     }
 ?>
 
