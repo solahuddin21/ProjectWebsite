@@ -23,6 +23,16 @@
   <!-- We CSS -->
   <link rel="stylesheet" href="style.css" />
 
+  <!-- We JS -->
+  <script type="text/javascript" src="script.js"></script>
+
+  <!-- Maps Style  -->
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
   <title>Prisai Sakti Mataram</title>
 </head>
 
@@ -30,7 +40,7 @@
   <!-- Navbar  -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
         Prisai Sakti Mataram
       </a>
@@ -41,19 +51,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto nav-pills">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html">Beranda</a>
+            <a class="nav-link" aria-current="page" href="index.php">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Profil</a>
+            <a class="nav-link" aria-current="page" href="profil.php">Profil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="informasi.html">Informasi</a>
+            <a class="nav-link" aria-current="page" href="informasi.php">Informasi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="cabang_locator.html">Cabang</a>
+            <a class="nav-link active" aria-current="page" href="#">Cabang</a>
           </li>
-          <li class="nav-item ps-2">
-            <a href="index.html#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
+          <li class="nav-item">
+            <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
         </ul>
       </div>
@@ -61,53 +71,24 @@
   </nav>
   <!-- Akhir Navbar  -->
 
-  <!-- Profil -->
+  <!-- Cabang Locator -->
   <div class="container contents">
-    <h2 class="featurette-heading text-center m-5 fw-bold">Profil</h2>
+    <h2 class="featurette-heading text-center m-5 fw-bold">Cabang Locator</h2>
     <hr class="featurette-divider mb-5" />
-    <h3>Prisai Sakti Mataram</h3>
-    <p class="lead">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
-    </p>
-    <h3 class="mt-5">Visi Misi</h3>
-    <p class="lead">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
-    </p>
-    <h3 class="mt-5">Struktur Organisasi</h3>
-    <img src="img/struktur_organisasi.png" class="card-img mb-4" alt="..." />
-    <h3 class="mt-5">Pendidikan PSM</h3>
-    <p class="lead mb-5 pb-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
-    </p>
+    <div id="map"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly"
+      async></script>
+    <nav class="navbar navbar-light mb-5 pb-5">
+      <div class="container-fluid">
+        <form class="d-flex mx-auto">
+          <input class="form-control me-2" type="search" placeholder="Cari Cabang" aria-label="Search" />
+          <button class="btn btn-outline-warning" type="submit">Cari</button>
+        </form>
+      </div>
+    </nav>
   </div>
-  <!-- Akhir Profil -->
+  <!-- Akhir Cabang Locator -->
 
   <!-- Footer -->
   <footer>

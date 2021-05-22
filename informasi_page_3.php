@@ -30,7 +30,7 @@
   <!-- Navbar  -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
     <div class="container">
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="index.php">
         <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
         Prisai Sakti Mataram
       </a>
@@ -41,19 +41,19 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto nav-pills">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.html">Beranda</a>
+            <a class="nav-link" aria-current="page" href="index.php">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="profil.html">Profil</a>
+            <a class="nav-link" aria-current="page" href="profil.php">Profil</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Informasi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="cabang_locator.html">Cabang</a>
+            <a class="nav-link" aria-current="page" href="cabang_locator.php">Cabang</a>
           </li>
           <li class="nav-item ps-2">
-            <a href="index.html#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
+            <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
         </ul>
       </div>
@@ -81,7 +81,7 @@
               iste nemo asperiores repudiandae, provident laboriosam dolores facilis ratione, excepturi minus
               temporibus. Quo dolor ullam eaque fuga.
             </p>
-            <a href="berita.html" class="stretched-link"></a>
+            <a href="berita.php" class="stretched-link"></a>
           </div>
         </div>
       </div>
@@ -102,7 +102,7 @@
               iste nemo asperiores repudiandae, provident laboriosam dolores facilis ratione, excepturi minus
               temporibus. Quo dolor ullam eaque fuga.
             </p>
-            <a href="berita.html" class="stretched-link"></a>
+            <a href="berita.php" class="stretched-link"></a>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@
               iste nemo asperiores repudiandae, provident laboriosam dolores facilis ratione, excepturi minus
               temporibus. Quo dolor ullam eaque fuga.
             </p>
-            <a href="berita.html" class="stretched-link"></a>
+            <a href="berita.php" class="stretched-link"></a>
           </div>
         </div>
       </div>
@@ -144,7 +144,7 @@
               iste nemo asperiores repudiandae, provident laboriosam dolores facilis ratione, excepturi minus
               temporibus. Quo dolor ullam eaque fuga.
             </p>
-            <a href="berita.html" class="stretched-link"></a>
+            <a href="berita.php" class="stretched-link"></a>
           </div>
         </div>
       </div>
@@ -165,7 +165,7 @@
               iste nemo asperiores repudiandae, provident laboriosam dolores facilis ratione, excepturi minus
               temporibus. Quo dolor ullam eaque fuga.
             </p>
-            <a href="berita.html" class="stretched-link"></a>
+            <a href="berita.php" class="stretched-link"></a>
           </div>
         </div>
       </div>
@@ -178,13 +178,13 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item">
-          <a class="page-link text-warning" href="informasi.html" tabindex="-1" aria-disabled="true">Previous</a>
+          <a class="page-link text-warning" href="informasi_page_2.php" tabindex="-1" aria-disabled="true">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link text-warning" href="informasi.html">1</a></li>
-        <li class="page-item active"><a class="page-link text-warning" href="#">2</a></li>
-        <li class="page-item"><a class="page-link text-warning" href="informasi_page_3.html">3</a></li>
-        <li class="page-item">
-          <a class="page-link text-warning" href="informasi_page_3.html">Next</a>
+        <li class="page-item"><a class="page-link text-warning" href="informasi_page_2.php">2</a></li>
+        <li class="page-item active"><a class="page-link text-warning" href="#">3</a></li>
+        <li class="page-item"><a class="page-link text-warning" href="#">4</a></li>
+        <li class="page-item disabled">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
         </li>
       </ul>
     </nav>

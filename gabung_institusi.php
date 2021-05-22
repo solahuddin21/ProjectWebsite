@@ -1,3 +1,22 @@
+<?php
+    include 'functions.php';
+    session_start();
+
+    if (isset($_POST['submit'])) {
+        if (tambah_institusi($_POST) > 0) {
+          $_SESSION['tambahdata'] = 'sukses';
+          header('location:index.php');
+        } else {
+          echo "
+            <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+              <strong>Gagal!</strong> Masukkan data dengan benar.
+              <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>
+          ";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +49,7 @@
     <!-- Navbar  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
                 Prisai Sakti Mataram
             </a>
@@ -41,19 +60,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Beranda</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profil.html">Profil</a>
+                        <a class="nav-link active" aria-current="page" href="profil.php">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="informasi.html">Informasi</a>
+                        <a class="nav-link active" aria-current="page" href="informasi.php">Informasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="cabang_locator.html">Cabang</a>
+                        <a class="nav-link active" aria-current="page" href="cabang_locator.php">Cabang</a>
                     </li>
                     <li class="nav-item ps-2">
-                        <a href="index.html#gabung"><button class="btn btn-outline-warning"
+                        <a href="index.php#gabung"><button class="btn btn-outline-warning"
                                 type="submit">Gabung</button></a>
                     </li>
                 </ul>
@@ -66,36 +85,36 @@
     <section class="individu m-5">
         <div class="container">
             <h2 class="text-center pt-5 fw-bold">Form Pendaftaran Institusi</h2>
-            <form action="#">
+            <form action="" method="POST">
                 <div class="mb-3 pt-4">
                     <label for="exampleInputEmail1" class="form-label">Nama Institusi</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Jumlah Orang Yang Akan Mendaftar</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Alamat Institusi</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea name="alamat" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <select name="cabang" class="form-select" aria-label="Default select example">
                         <option selected hidden>Silahkan Pilih Cabang</option>
-                        <option value="1">Jakarta</option>
-                        <option value="2">Makassar</option>
-                        <option value="3">Medan</option>
+                        <option value="Jakarta">Jakarta</option>
+                        <option value="Makassar">Makassar</option>
+                        <option value="Medan">Medan</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-warning mb-5">Submit</button>
+                <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
             </form>
         </div>
     </section>

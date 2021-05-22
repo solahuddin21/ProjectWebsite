@@ -1,3 +1,14 @@
+<?php
+    include 'functions.php';
+    session_start();
+    
+    $pendaftar_individu = query("SELECT * FROM daftar_individu");
+
+    if (isset($_POST['cari'])) {
+        $pendaftar_individu = cari($_POST['keyword']);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,10 +35,22 @@
     <link rel="stylesheet" href="style.css" />
 
     <!-- Jquery -->
-    <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script type="text/javascript" src="script.js"></script>
+
+    <script>
+      // Animasi fadeout dan auto close untuk alert
+      window.setTimeout(function () {
+        $('.alert')
+          .fadeTo(500, 0)
+          .slideUp(500, function () {
+            $(this).remove();
+          });
+      }, 2500);
+    </script>
 
     <title>Prisai Sakti Mataram</title>
 </head>
@@ -36,7 +59,7 @@
     <!-- Navbar  -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.php">
                 <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
                 Prisai Sakti Mataram
             </a>
@@ -47,19 +70,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Beranda</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profil.html">Profil</a>
+                        <a class="nav-link active" aria-current="page" href="profil.php">Profil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="informasi.html">Informasi</a>
+                        <a class="nav-link active" aria-current="page" href="informasi.php">Informasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="cabang_locator.html">Cabang</a>
+                        <a class="nav-link active" aria-current="page" href="cabang_locator.php">Cabang</a>
                     </li>
                     <li class="nav-item ps-2">
-                        <a href="index.html#gabung"><button class="btn btn-outline-warning"
+                        <a href="index.php#gabung"><button class="btn btn-outline-warning"
                                 type="submit">Gabung</button></a>
                     </li>
                 </ul>
@@ -68,66 +91,90 @@
     </nav>
     <!-- Akhir Navbar  -->
 
-    <!-- Form Pendaftaran Individu -->
-    <section class="individu m-5">
-        <div class="container">
-            <h2 class="text-center pt-5 fw-bold">Form Pendaftaran Individu</h2>
-            <form action="#">
-                <div class="mb-3 pt-4">
-                    <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Domisili</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
-                </div>
-                <div class="mb-3">
-                    <div class="ui-widget">
-                        <label for="datepicker" class="form-label">Tanggal Lahir: </label>
-                        <input id="datepicker" class="form-control" aria-describedby="emailHelp" required />
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected hidden>Silahkan Pilih Cabang</option>
-                        <option value="1">Jakarta</option>
-                        <option value="2">Makassar</option>
-                        <option value="3">Medan</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Bersedia Membayar Sebesar Rp. 30.000<span
-                            class="text-danger"> * </span></label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Ya
-                        </label>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-warning mb-5">Submit</button>
-            </form>
+    <h1 class="text-center my-3">Data Pendaftar Individu</h1>
+    <section class="container">
+        <form action="" method="POST">
+            <div class="row justify-content-start">
+            <div class="col-5 my-2">
+                <input class="form-control" type="search" placeholder="Masukkan Nama atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
+            </div>
+            <div class="col-3 my-2">
+                <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
+            </div>
+            </div>
+        </form>
+        <?php if (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
+        <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+          <strong>Berhasil!</strong> Data telah dihapus.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <?php unset($_SESSION['hapusdata']) ?>
+      <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "gagal") : ?>
+        <div class="container alert alert-danger alert-dismissible fade show mt-2" role="alert">
+          <strong>Gagal!</strong> Data gagal dihapus.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <?php unset($_SESSION['hapusdata']) ?>
+      <?php endif; ?>
+      <?php if(!empty($pendaftar_individu)) : ?>
+        <table class="table table-hover mb-5">
+          <thead>
+            <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama</th>
+              <th scope="col">Domisili</th>
+              <th scope="col">Tanggal Lahir</th>
+              <th scope="col">Alamat</th>
+              <th scope="col">No Identitas</th>
+              <th scope="col">No Handphone</th>
+              <th scope="col">Cabang</th>
+              <th scope="col" style="width: 200px;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php $nomor = 1 ?>
+            <?php foreach ($pendaftar_individu as $indvidu) : ?>
+            <tr>
+              <td><?= $nomor ?></td>
+              <td><?= $indvidu['nama'] ?></td>
+              <td><?= $indvidu['domisili'] ?></td>
+              <td><?= $indvidu['tanggal_lahir'] ?></td>
+              <td><?= $indvidu['alamat'] ?></td>
+              <td><?= $indvidu['no_ktp'] ?></td>
+              <td><?= $indvidu['no_telp'] ?></td>
+              <td><?= $indvidu['cabang'] ?></td>
+              <td>
+                <a href="ubah_data.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+                <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLabel">Konfirmasi Hapus</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $nomor ?>?</label>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+                        <a href="hapus_data_daftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <?php $nomor++ ?>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      <?php else : ?>
+        <div class="container mt-5 pt-5">
+          <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>
+        </div>
+      <?php endif; ?>
     </section>
-    </div>
-    <!-- Akhir Form Pendaftaran Individu -->
 
     <!-- Footer -->
     <footer>
