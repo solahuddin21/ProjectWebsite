@@ -1,8 +1,10 @@
 <?php
-include 'functions.php';
-session_start();
+  include 'functions.php';
+  session_start();
 
-$array_berita = query("SELECT * FROM berita LIMIT 3");
+  $array_berita = query("SELECT * FROM berita LIMIT 3");
+
+  $cabang = query("SELECT * FROM lokasi_cabang");
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +45,60 @@ $array_berita = query("SELECT * FROM berita LIMIT 3");
     </script>
 
   <!-- We JS -->
-  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript">
+    // JS Untuk Maps
+    function initMap() {
+      // Map Options
+      var options = {
+        zoom: 6,
+        center: {
+          lat: -6.112566,
+          lng: 106.92834
+        },
+      };
+
+      // New map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      <?php if (!empty($cabang)) : ?>
+        <?php $nomor = 1 ?>
+        <?php foreach ($cabang as $cbg) : ?>
+            var contentMarker<?= $nomor ?> =
+              '<div class="fs-3">' +
+              '<h2>Detail Lokasi</h2>' +
+              '<div class="fs-5">' +
+              '<table><tr><td>Latitude</td><td>:</td><td><?= $cbg['latitude'] ?></td></tr>' +
+              '<tr><td>Longitude</td><td>:</td><td><?= $cbg['longitude'] ?></td></tr>' +
+              '<tr><td>Alamat</td><td>:</td><td><?= $cbg['alamat'] ?></td></tr></table></div>' +
+              '<style>table td, table td * {vertical-align: top;}</style>';
+
+            addMarker({ coords: { lat: <?= $cbg['latitude'] ?>, lng: <?= $cbg['longitude'] ?> }, content: contentMarker<?= $nomor ?> });
+          <?php $nomor++ ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      // Fungsi Add Marker
+      function addMarker(props) {
+        var marker = new google.maps.Marker({
+          position: props.coords,
+          map: map,
+          icon: props.iconImage,
+        });
+
+        // Menampikan Info Window
+        if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content,
+          });
+
+          // On Click Listener pada marker
+          marker.addListener('click', function () {
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+    }
+  </script>
 
   <!-- Maps Style  -->
   <style>
@@ -81,6 +136,11 @@ $array_berita = query("SELECT * FROM berita LIMIT 3");
           <li class="nav-item">
             <a class="nav-link " aria-current="page" href="cabang_locator.php">Cabang</a>
           </li>
+          <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="logout_admin.php">Logout</a>
+            </li>
+          <?php endif; ?>
           <li class="nav-item ps-2">
             <a href="#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
@@ -254,9 +314,16 @@ $array_berita = query("SELECT * FROM berita LIMIT 3");
             <a href="gabung_institusi.php">Gabung</a>
           </div>
         </div>
-        <a href="https://wa.me/+6282215716543" target="_blank"><button type="#" class="btn btn-outline-warning text-center mt-5">Kontak Kami</button></a><br>
-        <a href="data_pendaftar_individu.php"><button type="#" class="btn btn-outline-warning text-center mt-5">Data Pendaftar Individu</button></a>
-        <a href="data_pendaftar_institusi.php"><button type="#" class="btn btn-outline-warning text-center mt-5">Data Pendaftar Institusi</button></a>
+        <a href="https://wa.me/+6282215716543" target="_blank"><button type="#" class="btn btn-warning text-center mt-5">Kontak Kami</button></a><br>
+        <?php if (!isset($_SESSION['username']) and !isset($_SESSION['status'])) : ?>
+          <a href="login_admin.php"><button type="#" class="btn btn-warning text-center mt-5">Login Admin</button></a><br>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+          <a href="data_pendaftar_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Data Pendaftar Individu</button></a>
+          <a href="data_pendaftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Data Pendaftar Institusi</button></a><br>
+          <a href="data_peringkat_cabang_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Individu</button></a>
+          <a href="data_peringkat_cabang_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Institusi</button></a>
+        <?php endif; ?>
       </div>
   </section>
   <!-- Akhir Gabung -->

@@ -1,3 +1,14 @@
+<?php
+include 'functions.php';
+session_start();
+
+$cabang = query("SELECT * FROM lokasi_cabang");
+
+if (isset($_POST['cari'])) {
+  $cabang = cari_data_cabang($_POST['keyword']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
 
   <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -24,7 +34,60 @@
   <link rel="stylesheet" href="style.css" />
 
   <!-- We JS -->
-  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript">
+    // JS Untuk Maps
+    function initMap() {
+      // Map Options
+      var options = {
+        zoom: 6,
+        center: {
+          lat: -6.112566,
+          lng: 106.92834
+        },
+      };
+
+      // New map
+      var map = new google.maps.Map(document.getElementById('map'), options);
+
+      <?php if (!empty($cabang)) : ?>
+        <?php $nomor = 1 ?>
+        <?php foreach ($cabang as $cbg) : ?>
+            var contentMarker<?= $nomor ?> =
+              '<div class="fs-3">' +
+              '<h2>Detail Lokasi</h2>' +
+              '<div class="fs-5">' +
+              '<table><tr><td>Latitude</td><td>:</td><td><?= $cbg['latitude'] ?></td></tr>' +
+              '<tr><td>Longitude</td><td>:</td><td><?= $cbg['longitude'] ?></td></tr>' +
+              '<tr><td>Alamat</td><td>:</td><td><?= $cbg['alamat'] ?></td></tr></table></div>' +
+              '<style>table td, table td * {vertical-align: top;}</style>';
+
+            addMarker({ coords: { lat: <?= $cbg['latitude'] ?>, lng: <?= $cbg['longitude'] ?> }, content: contentMarker<?= $nomor ?> });
+          <?php $nomor++ ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      // Fungsi Add Marker
+      function addMarker(props) {
+        var marker = new google.maps.Marker({
+          position: props.coords,
+          map: map,
+          icon: props.iconImage,
+        });
+
+        // Menampikan Info Window
+        if (props.content) {
+          var infoWindow = new google.maps.InfoWindow({
+            content: props.content,
+          });
+
+          // On Click Listener pada marker
+          marker.addListener('click', function () {
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+    }
+  </script>
 
   <!-- Maps Style  -->
   <style>
@@ -44,8 +107,7 @@
         <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
         Prisai Sakti Mataram
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -76,23 +138,23 @@
     <h2 class="featurette-heading text-center m-5 fw-bold">Cabang Locator</h2>
     <hr class="featurette-divider mb-5" />
     <div id="map"></div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly"
-      async></script>
-    <nav class="navbar navbar-light mb-5 pb-5">
-      <div class="container-fluid">
-        <form class="d-flex mx-auto">
-          <input class="form-control me-2" type="search" placeholder="Cari Cabang" aria-label="Search" />
-          <button class="btn btn-outline-warning" type="submit">Cari</button>
-        </form>
-      </div>
-    </nav>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly" async></script>
+    <form action="" method="POST">
+        <div class="row justify-content-center ms-5 mt-3">
+          <div class="col-5 my-2">
+              <input class="form-control" type="search" placeholder="Masukkan Alamat atau Koordinat..." aria-label="Cari" name="keyword" autocomplete="off">
+          </div>
+          <div class="col-3 my-2">
+              <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
+          </div>
+        </div>
+    </form>
   </div>
   <!-- Akhir Cabang Locator -->
 
   <!-- Footer -->
   <footer>
-    <div class="main-content">
+    <div class="main-content mt-5">
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">
@@ -152,9 +214,7 @@
   <!-- Akhir dari Footer -->
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
     include 'functions.php';
     session_start();
     
-    $pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu");
+    $pendaftar_individu = query("SELECT cabang, SUM(jumlah) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_institusi GROUP BY cabang ORDER BY peringkat ASC");
 
     if (isset($_POST['cari'])) {
         $pendaftar_individu = cari_data_individu($_POST['keyword']);
@@ -91,45 +91,16 @@
     </nav>
     <!-- Akhir Navbar  -->
 
-    <h1 class="text-center my-3">Data Pendaftar Individu</h1>
+    <h1 class="text-center my-3">Data Peringkat Cabang Individu</h1>
     <section class="container">
-        <form action="" method="POST">
-            <div class="row justify-content-start">
-            <div class="col-5 my-2">
-                <input class="form-control" type="search" placeholder="Masukkan Nama atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
-            </div>
-            <div class="col-3 my-2">
-                <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
-            </div>
-            </div>
-        </form>
-        <?php if (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
-        <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
-          <strong>Berhasil!</strong> Data telah dihapus.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php unset($_SESSION['hapusdata']) ?>
-      <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "gagal") : ?>
-        <div class="container alert alert-danger alert-dismissible fade show mt-2" role="alert">
-          <strong>Gagal!</strong> Data gagal dihapus.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php unset($_SESSION['hapusdata']) ?>
-      <?php endif; ?>
       <?php if(!empty($pendaftar_individu)) : ?>
         <table class="table table-hover mb-5">
           <thead>
             <tr>
               <th scope="col">No</th>
-              <th scope="col">Nama</th>
-              <th scope="col">Domisili</th>
-              <th scope="col">Tanggal Lahir</th>
-              <th scope="col">Alamat</th>
-              <th scope="col">No Identitas</th>
-              <th scope="col">No Handphone</th>
-              <th scope="col">Cabang</th>
-              <th scope="col">Jenis</th>
-              <th scope="col" style="width: 198px;">Aksi</th>
+              <th scope="col">Lokasi Cabang</th>
+              <th scope="col">Jumlah Pendaftar</th>
+              <th scope="col">Peringkat</th>
             </tr>
           </thead>
           <tbody>
@@ -137,35 +108,9 @@
             <?php foreach ($pendaftar_individu as $indvidu) : ?>
             <tr>
               <td><?= $nomor ?></td>
-              <td><?= $indvidu['nama'] ?></td>
-              <td><?= $indvidu['domisili'] ?></td>
-              <td><?= $indvidu['tanggal_lahir'] ?></td>
-              <td><?= $indvidu['alamat'] ?></td>
-              <td><?= $indvidu['no_ktp'] ?></td>
-              <td><?= $indvidu['no_telp'] ?></td>
               <td><?= $indvidu['cabang'] ?></td>
-              <td><?= $indvidu['jenis_cabang'] ?></td>
-              <td>
-                <a href="ubah_data.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-                <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title text-dark" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $nomor ?>?</label>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-                        <a href="hapus_data_daftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+              <td><?= $indvidu['jml_pendaftar'] ?></td>
+              <td><?= $indvidu['peringkat'] ?></td>
             </tr>
             <?php $nomor++ ?>
             <?php endforeach; ?>

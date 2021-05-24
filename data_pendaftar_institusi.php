@@ -2,7 +2,7 @@
     include 'functions.php';
     session_start();
     
-    $pendaftar_institusi = query("SELECT * FROM daftar_institusi");
+    $pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi");
 
     if (isset($_POST['cari'])) {
         $pendaftar_institusi = cari_data_institusi($_POST['keyword']);
@@ -126,7 +126,8 @@
               <th scope="col">Alamat</th>
               <th scope="col">No Handphone</th>
               <th scope="col">Cabang</th>
-              <th scope="col" style="width: 200px;">Aksi</th>
+              <th scope="col">Jenis</th>
+              <th scope="col" style="width: 198px;">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -139,6 +140,7 @@
               <td><?= $institusi['alamat'] ?></td>
               <td><?= $institusi['no_telp'] ?></td>
               <td><?= $institusi['cabang'] ?></td>
+              <td><?= $institusi['jenis_cabang'] ?></td>
               <td>
                 <a href="ubah_data.php?id=<?= $institusi['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
                 <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $institusi['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>

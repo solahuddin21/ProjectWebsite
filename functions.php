@@ -95,6 +95,11 @@
     return query($query);
   }
 
+  function cari_data_cabang($keyword) {
+    $query = "SELECT * FROM lokasi_cabang WHERE alamat LIKE '%$keyword%' OR latitude = '$keyword' OR longitude = '$keyword'";
+    return query($query);
+  }
+
   function time_elapsed_string($datetime, $full = false) {
     ini_set('date.timezone', 'Asia/Jakarta');
     $now = new DateTime;
