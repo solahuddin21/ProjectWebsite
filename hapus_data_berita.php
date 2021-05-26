@@ -4,11 +4,11 @@
 
   $id = $_GET['id'];
 
-  if (hapus_individu($id) > 0) {
+  if (hapus_data_berita($id) > 0) {
     $_SESSION['hapusdata'] = 'sukses';
-    header('location:data_pendaftar_individu.php');
+    header('location:data_berita.php');
   } else {
     $_SESSION['hapusdata'] = 'gagal';
-    header('location:data_pendaftar_individu.php');
+    header('location:data_berita.php');
   }
 ?>

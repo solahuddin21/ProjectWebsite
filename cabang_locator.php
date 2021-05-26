@@ -52,16 +52,22 @@ if (isset($_POST['cari'])) {
       <?php if (!empty($cabang)) : ?>
         <?php $nomor = 1 ?>
         <?php foreach ($cabang as $cbg) : ?>
-            var contentMarker<?= $nomor ?> =
-              '<div class="fs-3">' +
-              '<h2>Detail Lokasi</h2>' +
-              '<div class="fs-5">' +
-              '<table><tr><td>Latitude</td><td>:</td><td><?= $cbg['latitude'] ?></td></tr>' +
-              '<tr><td>Longitude</td><td>:</td><td><?= $cbg['longitude'] ?></td></tr>' +
-              '<tr><td>Alamat</td><td>:</td><td><?= $cbg['alamat'] ?></td></tr></table></div>' +
-              '<style>table td, table td * {vertical-align: top;}</style>';
+          var contentMarker<?= $nomor ?> =
+            '<div class="fs-3">' +
+            '<h2>Detail Lokasi</h2>' +
+            '<div class="fs-5">' +
+            '<table><tr><td>Latitude</td><td>:</td><td><?= $cbg['latitude'] ?></td></tr>' +
+            '<tr><td>Longitude</td><td>:</td><td><?= $cbg['longitude'] ?></td></tr>' +
+            '<tr><td>Alamat</td><td>:</td><td><?= $cbg['alamat'] ?></td></tr></table></div>' +
+            '<style>table td, table td * {vertical-align: top;}</style>';
 
-            addMarker({ coords: { lat: <?= $cbg['latitude'] ?>, lng: <?= $cbg['longitude'] ?> }, content: contentMarker<?= $nomor ?> });
+          addMarker({
+            coords: {
+              lat: <?= $cbg['latitude'] ?>,
+              lng: <?= $cbg['longitude'] ?>
+            },
+            content: contentMarker<?= $nomor ?>
+          });
           <?php $nomor++ ?>
         <?php endforeach; ?>
       <?php endif; ?>
@@ -81,7 +87,7 @@ if (isset($_POST['cari'])) {
           });
 
           // On Click Listener pada marker
-          marker.addListener('click', function () {
+          marker.addListener('click', function() {
             infoWindow.open(map, marker);
           });
         }
@@ -140,14 +146,14 @@ if (isset($_POST['cari'])) {
     <div id="map"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly" async></script>
     <form action="" method="POST">
-        <div class="row justify-content-center ms-5 mt-3">
-          <div class="col-5 my-2">
-              <input class="form-control" type="search" placeholder="Masukkan Alamat atau Koordinat..." aria-label="Cari" name="keyword" autocomplete="off">
-          </div>
-          <div class="col-3 my-2">
-              <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
-          </div>
+      <div class="row justify-content-center ms-5 mt-3">
+        <div class="col-5 my-2">
+          <input class="form-control" type="search" placeholder="Masukkan Alamat atau Koordinat..." aria-label="Cari" name="keyword" autocomplete="off">
         </div>
+        <div class="col-3 my-2">
+          <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
+        </div>
+      </div>
     </form>
   </div>
   <!-- Akhir Cabang Locator -->

@@ -3,16 +3,17 @@ include 'functions.php';
 session_start();
 
 if (isset($_POST['submit'])) {
-    if (tambah_individu($_POST) > 0) {
+    var_dump($_POST);
+    if (tambah_data_berita($_POST) > 0) {
         $_SESSION['tambahdata'] = 'sukses';
-        header('location:index.php');
+        header('location:data_berita.php');
     } else {
         echo "
-            <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
-              <strong>Gagal!</strong> Masukkan data dengan benar.
-              <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-            </div>
-          ";
+        <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+          <strong>Gagal!</strong> Masukkan data dengan benar.
+          <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+        </div>
+      ";
     }
 }
 ?>
@@ -93,51 +94,29 @@ if (isset($_POST['submit'])) {
     <!-- Form Pendaftaran Individu -->
     <section class="individu m-5">
         <div class="container">
-            <h2 class="text-center pt-5 fw-bold">Form Pendaftaran Individu</h2>
+            <h2 class="text-center pt-5 fw-bold">Tambah Data Berita</h2>
             <form action="" method="POST">
                 <div class="mb-3 pt-4">
-                    <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-                    <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <label for="exampleInputEmail1" class="form-label">Tanggal</label>
+                    <input type="text" name="tanggal" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Domisili</label>
-                    <input type="text" name="domisili" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <label for="exampleInputEmail1" class="form-label">Judul</label>
+                    <input type="text" name="judul" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <div class="ui-widget">
-                        <label for="datepicker" class="form-label">Tanggal Lahir: </label>
-                        <input type="text" id="datepicker" name="tanggal_lahir" class="form-control" aria-describedby="emailHelp" required />
+                        <label for="datepicker" class="form-label">Isi Berita</label>
+                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
-                    <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
+                    <input type="text" name="gambar" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
-                    <input type="text" name="no_ktp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-                    <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
-                    <select class="form-select" name="cabang" aria-label="Default select example">
-                        <option selected hidden>Silahkan Pilih Cabang</option>
-                        <option value="Jakarta">Jakarta</option>
-                        <option value="Makassar">Makassar</option>
-                        <option value="Medan">Medan</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Bersedia Membayar Sebesar Rp. 30.000<span class="text-danger"> * </span></label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
-                        <label class="form-check-label" for="flexCheckDefault">
-                            Ya
-                        </label>
-                    </div>
+                    <label for="exampleInputEmail1" class="form-label">Penulis</label>
+                    <input type="text" name="penulis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
             </form>

@@ -1,12 +1,12 @@
 <?php
-    include 'functions.php';
-    session_start();
-    
-    $pendaftar_individu = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
+include 'functions.php';
+session_start();
 
-    if (isset($_POST['cari'])) {
-        $pendaftar_individu = cari_data_individu($_POST['keyword']);
-    }
+$pendaftar_individu = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
+
+if (isset($_POST['cari'])) {
+    $pendaftar_individu = cari_data_individu($_POST['keyword']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -39,17 +38,16 @@
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script type="text/javascript" src="script.js"></script>
 
     <script>
-      // Animasi fadeout dan auto close untuk alert
-      window.setTimeout(function () {
-        $('.alert')
-          .fadeTo(500, 0)
-          .slideUp(500, function () {
-            $(this).remove();
-          });
-      }, 2500);
+        // Animasi fadeout dan auto close untuk alert
+        window.setTimeout(function() {
+            $('.alert')
+                .fadeTo(500, 0)
+                .slideUp(500, function() {
+                    $(this).remove();
+                });
+        }, 2500);
     </script>
 
     <title>Prisai Sakti Mataram</title>
@@ -63,8 +61,7 @@
                 <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
                 Prisai Sakti Mataram
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -82,8 +79,7 @@
                         <a class="nav-link active" aria-current="page" href="cabang_locator.php">Cabang</a>
                     </li>
                     <li class="nav-item ps-2">
-                        <a href="index.php#gabung"><button class="btn btn-outline-warning"
-                                type="submit">Gabung</button></a>
+                        <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
                 </ul>
             </div>
@@ -93,34 +89,34 @@
 
     <h1 class="text-center my-3">Data Peringkat Cabang Individu</h1>
     <section class="container">
-      <?php if(!empty($pendaftar_individu)) : ?>
-        <table class="table table-hover mb-5">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Lokasi Cabang</th>
-              <th scope="col">Jumlah Pendaftar</th>
-              <th scope="col">Peringkat</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php $nomor = 1 ?>
-            <?php foreach ($pendaftar_individu as $indvidu) : ?>
-            <tr>
-              <td><?= $nomor ?></td>
-              <td><?= $indvidu['cabang'] ?></td>
-              <td><?= $indvidu['jml_pendaftar'] ?></td>
-              <td><?= $indvidu['peringkat'] ?></td>
-            </tr>
-            <?php $nomor++ ?>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      <?php else : ?>
-        <div class="container mt-5 pt-5">
-          <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>
-        </div>
-      <?php endif; ?>
+        <?php if (!empty($pendaftar_individu)) : ?>
+            <table class="table table-hover mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Lokasi Cabang</th>
+                        <th scope="col">Jumlah Pendaftar</th>
+                        <th scope="col">Peringkat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $nomor = 1 ?>
+                    <?php foreach ($pendaftar_individu as $indvidu) : ?>
+                        <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $indvidu['cabang'] ?></td>
+                            <td><?= $indvidu['jml_pendaftar'] ?></td>
+                            <td><?= $indvidu['peringkat'] ?></td>
+                        </tr>
+                        <?php $nomor++ ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <div class="container mt-5 pt-5">
+                <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>
+            </div>
+        <?php endif; ?>
     </section>
 
     <!-- Footer -->
@@ -186,9 +182,7 @@
     <!-- Akhir dari Footer -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>

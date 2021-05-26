@@ -71,6 +71,36 @@
     return mysqli_affected_rows($koneksi);
   }
 
+  function tambah_data_berita($post) {
+    global $koneksi;
+    $tanggal = htmlspecialchars($post['tanggal']);
+    $judul = htmlspecialchars($post['judul']);
+    $teks = htmlspecialchars($post['teks']);
+    $gambar = htmlspecialchars($post['gambar']);
+    $penulis = htmlspecialchars($post['penulis']);
+
+    $query = "INSERT INTO berita (tanggal, judul, teks, gambar, penulis) VALUES ('$tanggal', '$judul', '$teks', '$gambar', '$penulis')";
+
+    mysqli_query($koneksi, $query);
+    
+    return mysqli_affected_rows($koneksi);
+  }
+
+  function ubah_data_berita($post) {
+    global $koneksi;
+    $id = $post['id'];
+    $judul = htmlspecialchars($post['judul']);
+    $teks = htmlspecialchars($post['teks']);
+    $gambar = htmlspecialchars($post['gambar']);
+    $penulis = htmlspecialchars($post['penulis']);
+
+    $query = "UPDATE berita SET tanggal = CURRENT_TIMESTAMP(), judul = '$judul', teks = '$teks', gambar = '$gambar', penulis = '$penulis' WHERE id = $id";
+
+    mysqli_query($koneksi, $query);
+    
+    return mysqli_affected_rows($koneksi);
+  }
+
   function hapus_individu($get) {
     global $koneksi;
     mysqli_query($koneksi, "DELETE FROM daftar_individu WHERE id = $get");
@@ -81,6 +111,13 @@
   function hapus_institusi($get) {
     global $koneksi;
     mysqli_query($koneksi, "DELETE FROM daftar_institusi WHERE id = $get");
+    
+    return mysqli_affected_rows($koneksi);
+  }
+
+  function hapus_data_berita($get) {
+    global $koneksi;
+    mysqli_query($koneksi, "DELETE FROM berita WHERE id = $get");
     
     return mysqli_affected_rows($koneksi);
   }
@@ -97,6 +134,11 @@
 
   function cari_data_cabang($keyword) {
     $query = "SELECT * FROM lokasi_cabang WHERE alamat LIKE '%$keyword%' OR latitude = '$keyword' OR longitude = '$keyword'";
+    return query($query);
+  }
+
+  function cari_berita($keyword) {
+    $query = "SELECT * FROM berita WHERE judul LIKE '%$keyword%' OR teks LIKE '%$keyword%' OR penulis LIKE '%$keyword%' ORDER BY tanggal DESC";
     return query($query);
   }
 

@@ -2,7 +2,26 @@
 include 'functions.php';
 session_start();
 
-$array_berita = query("SELECT * FROM berita");
+$limit = 3;
+$query = "SELECT * FROM berita";
+$result = mysqli_query($koneksi, $query);
+$jumlah_result = mysqli_num_rows($result);
+$jumlah_page = ceil($jumlah_result / $limit);
+
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+$pagination = true;
+$page_awal = ($page - 1) * $limit;
+$array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC LIMIT $page_awal, $limit");
+
+if (isset($_POST['cari'])) {
+  $pagination = false;
+  $array_berita = cari_berita($_POST['keyword']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +88,17 @@ $array_berita = query("SELECT * FROM berita");
   <!-- Berita PSM -->
   <section class="container contents">
     <h2 class="featurette-heading text-center m-5 fw-bold">Berita PSM</h2>
-    <hr class="featurette-divider mb-5" />
+    <hr class="featurette-divider" />
+    <form action="" method="POST">
+      <div class="row justify-content-end mb-3 mt-4">
+        <div class="col-4 my-2">
+          <input class="form-control" type="search" placeholder="Masukkan Judul, Kata Kunci, atau Penulis..." aria-label="Cari" name="keyword" autocomplete="off">
+        </div>
+        <div class="col-1 my-2" style="width: 100px;">
+          <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
+        </div>
+      </div>
+    </form>
     <?php if (!empty($array_berita)) : ?>
       <?php foreach ($array_berita as $berita) : ?>
         <p class="card-text mb-0 fs-6"><?= $berita['tanggal'] ?></p>
@@ -111,15 +140,19 @@ $array_berita = query("SELECT * FROM berita");
   <section class="page my-5">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item active"><a class="page-link text-warning" href="#">1</a></li>
-        <li class="page-item"><a class="page-link text-warning" href="informasi_page_2.php">2</a></li>
-        <li class="page-item"><a class="page-link text-warning" href="informasi_page_3.php">3</a></li>
-        <li class="page-item">
-          <a class="page-link text-warning" href="informasi_page_2.php">Next</a>
-        </li>
+        <?php if (empty($_GET['page']) and $pagination == true) : ?>
+          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+            <li class="page-item"><a class="page-link text-warning" href="informasi.php?page=<?= $page ?>"><?= $page ?></a></li>
+          <?php endfor; ?>
+        <?php elseif (!empty($_GET['page']) and $pagination == true) : ?>
+          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+            <?php if ($page == $_GET['page']) : ?>
+              <li class="page-item active"><a class="page-link" href="informasi.php?page=<?= $page ?>"><?= $page ?></a></li>
+            <?php else : ?>
+              <li class="page-item"><a class="page-link text-warning" href="informasi.php?page=<?= $page ?>"><?= $page ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+        <?php endif; ?>
       </ul>
     </nav>
   </section>

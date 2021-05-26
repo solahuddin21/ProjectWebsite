@@ -1,20 +1,20 @@
 <?php
-    include 'functions.php';
-    session_start();
+include 'functions.php';
+session_start();
 
-    if (isset($_POST['submit'])) {
-        if (tambah_institusi($_POST) > 0) {
-          $_SESSION['tambahdata'] = 'sukses';
-          header('location:index.php');
-        } else {
-          echo "
+if (isset($_POST['submit'])) {
+    if (tambah_institusi($_POST) > 0) {
+        $_SESSION['tambahdata'] = 'sukses';
+        header('location:index.php');
+    } else {
+        echo "
             <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
               <strong>Gagal!</strong> Masukkan data dengan benar.
               <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
             </div>
           ";
-        }
     }
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -53,8 +52,7 @@
                 <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
                 Prisai Sakti Mataram
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -72,8 +70,7 @@
                         <a class="nav-link active" aria-current="page" href="cabang_locator.php">Cabang</a>
                     </li>
                     <li class="nav-item ps-2">
-                        <a href="index.php#gabung"><button class="btn btn-outline-warning"
-                                type="submit">Gabung</button></a>
+                        <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
                 </ul>
             </div>
@@ -88,13 +85,11 @@
             <form action="" method="POST">
                 <div class="mb-3 pt-4">
                     <label for="exampleInputEmail1" class="form-label">Nama Institusi</label>
-                    <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
+                    <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Jumlah Orang Yang Akan Mendaftar</label>
-                    <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
+                    <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Alamat Institusi</label>
@@ -102,8 +97,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-                    <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        required>
+                    <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
@@ -184,9 +178,7 @@
     <!-- Akhir dari Footer -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>

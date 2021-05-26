@@ -2,10 +2,10 @@
 include 'functions.php';
 session_start();
 
-$pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi");
+$array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC");
 
 if (isset($_POST['cari'])) {
-  $pendaftar_institusi = cari_data_institusi($_POST['keyword']);
+  $array_berita = cari_berita($_POST['keyword']);
 }
 ?>
 
@@ -87,19 +87,32 @@ if (isset($_POST['cari'])) {
   </nav>
   <!-- Akhir Navbar  -->
 
-  <h1 class="text-center my-3">Data Pendaftar Institusi</h1>
+  <h1 class="text-center my-3">Data Berita</h1>
   <section class="container">
+    <a href="tambah_data_berita.php"><button class="btn btn-dark my-1" type="button"><i class="fas fa-plus"></i> Tambah Data</button></a>
     <form action="" method="POST">
       <div class="row justify-content-start">
         <div class="col-5 my-2">
-          <input class="form-control" type="search" placeholder="Masukkan Nama atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
+          <input class="form-control" type="search" placeholder="Masukkan Judul, Kata Kunci, atau Penulis..." aria-label="Cari" name="keyword" autocomplete="off">
         </div>
         <div class="col-3 my-2">
           <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
         </div>
       </div>
     </form>
-    <?php if (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
+    <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "sukses") : ?>
+      <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+        <strong>Berhasil!</strong> Data telah ditambahkan.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <?php unset($_SESSION['tambahdata']) ?>
+    <?php elseif (isset($_SESSION['ubahdata']) and $_SESSION['ubahdata'] == "sukses") : ?>
+      <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+        <strong>Berhasil!</strong> Data telah diubah.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <?php unset($_SESSION['ubahdata']) ?>
+    <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah dihapus.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -112,35 +125,42 @@ if (isset($_POST['cari'])) {
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
     <?php endif; ?>
-    <?php if (!empty($pendaftar_institusi)) : ?>
+    <?php if (!empty($array_berita)) : ?>
       <table class="table table-hover mb-5">
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Jumlah</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">No Handphone</th>
-            <th scope="col">Cabang</th>
-            <th scope="col">Jenis</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Judul</th>
+            <th scope="col">Isi Berita</th>
+            <th scope="col">Gambar</th>
+            <th scope="col">Penulis</th>
             <th scope="col" style="width: 198px;">Aksi</th>
           </tr>
         </thead>
         <tbody>
           <?php $nomor = 1 ?>
-          <?php foreach ($pendaftar_institusi as $institusi) : ?>
+          <?php foreach ($array_berita as $berita) : ?>
             <tr>
               <td><?= $nomor ?></td>
-              <td><?= $institusi['nama'] ?></td>
-              <td><?= $institusi['jumlah'] ?></td>
-              <td><?= $institusi['alamat'] ?></td>
-              <td><?= $institusi['no_telp'] ?></td>
-              <td><?= $institusi['cabang'] ?></td>
-              <td><?= $institusi['jenis_cabang'] ?></td>
+              <td><?= $berita['tanggal'] ?></td>
+              <td><?= $berita['judul'] ?></td>
+              <?php
+              $teks = strip_tags($berita['teks']);
+              if (strlen($teks) > 80) {
+                $stringCut = substr($teks, 0, 80);
+                $endPoint = strrpos($stringCut, ' ');
+                $teks = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                $teks .= '...';
+              }
+              ?>
+              <td><?= $teks ?></td>
+              <td><img src="<?= $berita['gambar'] ?>" class="img-fluid" alt="..." style="width: 70px;" /></td>
+              <td><?= $berita['penulis'] ?></td>
               <td>
-                <a href="ubah_data.php?id=<?= $institusi['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $institusi['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-                <div class="modal fade" id="exampleModal<?= $institusi['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <a href="ubah_data_berita.php?id=<?= $berita['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $berita['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+                <div class="modal fade" id="exampleModal<?= $berita['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -152,7 +172,7 @@ if (isset($_POST['cari'])) {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-                        <a href="hapus_data_daftar_institusi.php?id=<?= $institusi['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
+                        <a href="hapus_data_berita.php?id=<?= $berita['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
                       </div>
                     </div>
                   </div>
@@ -164,8 +184,8 @@ if (isset($_POST['cari'])) {
         </tbody>
       </table>
     <?php else : ?>
-      <div class="container my-5 py-3">
-        <h4 class="text-center my-5">Data Tidak Ditemukan!</h4>
+      <div class="container mt-5 pt-5">
+        <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>
       </div>
     <?php endif; ?>
   </section>
