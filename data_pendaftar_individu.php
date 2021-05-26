@@ -1,6 +1,10 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
+
+if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+  header('location:forbidden.php');
+  exit;
+}
 
 $pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu");
 

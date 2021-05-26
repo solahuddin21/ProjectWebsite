@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $id = $_GET['id'];
 $berita = query("SELECT * FROM berita WHERE id = $id")[0];

@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi");
 

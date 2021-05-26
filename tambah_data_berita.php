@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
     if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {

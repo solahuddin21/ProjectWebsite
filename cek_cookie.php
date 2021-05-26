@@ -13,7 +13,7 @@
     $row = mysqli_fetch_assoc($query);
 
     if($username === hash('sha256', $row['username']) and $password === hash('sha256', $row['password'])) {
-      $_SESSION['username'] = $username;
+      $_SESSION['username'] = $row['username'];
       $_SESSION['status'] = "login";
     }
   }

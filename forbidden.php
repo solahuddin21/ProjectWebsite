@@ -1,10 +1,3 @@
-<?php
-include 'cek_cookie.php';
-
-$id = $_GET['id'];
-$berita = query("SELECT * FROM berita WHERE id = $id")[0];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +21,14 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
 
   <!-- We CSS -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .button-1:hover {
+      background: white;
+      border: 1px solid;
+      color: black;
+    }
+  </style>
 
   <title>Prisai Sakti Mataram</title>
 </head>
@@ -66,27 +67,11 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
   </nav>
   <!-- Akhir Navbar  -->
 
-  <!-- Berita -->
-  <section class="container contents">
-    <h1 class="text-center my-4"><?= $berita['judul'] ?></h1>
-    <p class="card-text fs-6"><?= $berita['tanggal'] ?></p>
-    <img src="<?= $berita['gambar'] ?>" class="img-fluid mx-auto d-block my-5" alt="..." style="max-width: 50%" />
-    <p class="lead"><?= $berita['teks'] ?></p>
-    <div class="container contents my-5">
-      <div class="row featurette">
-        <div class="col-md-1">
-          <span style="font-size: 3em">
-            <i class="fas fa-user text-warning"></i>
-          </span>
-        </div>
-        <div class="col-md-1">
-          <h4 class="fst-italic fs-6">Penulis</h4>
-          <p class="fs-2"><?= $berita['penulis'] ?></p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Akhir Berita -->
+  <div class="text-center">
+    <h1 class="fw-bold mt-5" style="font-size: 250px">403</h1>
+    <h4 style="margin-top: -30px">Anda tidak berhak mengakses halaman ini!</h4>
+    <a class="button-1 btn btn-dark btn-lg mt-4 mb-5" href="index.php">Kembali</a>
+  </div>
 
   <!-- Footer -->
   <footer>

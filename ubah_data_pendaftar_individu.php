@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $id = $_GET['id'];
 $pendaftar_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];

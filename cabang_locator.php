@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $cabang = query("SELECT * FROM lokasi_cabang");
 

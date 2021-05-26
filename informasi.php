@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $limit = 3;
 $query = "SELECT * FROM berita";

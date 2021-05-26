@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC");
 

@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 $pendaftar_individu = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
 

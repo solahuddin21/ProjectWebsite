@@ -1,6 +1,5 @@
 <?php
-include 'functions.php';
-session_start();
+include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
     if (tambah_individu($_POST) > 0) {
