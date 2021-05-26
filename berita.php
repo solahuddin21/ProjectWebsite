@@ -69,7 +69,7 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
   <!-- Berita -->
   <section class="container contents">
     <h1 class="text-center my-4"><?= $berita['judul'] ?></h1>
-    <p class="card-text fs-6"><?= $berita['tanggal'] ?></p>
+    <p class="card-text fs-6"><?= $berita['tanggal'] ?> &#8226 <?= time_elapsed_string($berita['tanggal']) ?></p>
     <img src="<?= $berita['gambar'] ?>" class="img-fluid mx-auto d-block my-5" alt="..." style="max-width: 50%" />
     <p class="lead"><?= $berita['teks'] ?></p>
     <div class="container contents my-5">
