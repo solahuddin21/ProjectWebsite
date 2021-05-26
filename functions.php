@@ -89,12 +89,48 @@
   function ubah_data_berita($post) {
     global $koneksi;
     $id = $post['id'];
+    $tanggal = htmlspecialchars($post['tanggal']);
     $judul = htmlspecialchars($post['judul']);
     $teks = htmlspecialchars($post['teks']);
     $gambar = htmlspecialchars($post['gambar']);
     $penulis = htmlspecialchars($post['penulis']);
 
-    $query = "UPDATE berita SET tanggal = CURRENT_TIMESTAMP(), judul = '$judul', teks = '$teks', gambar = '$gambar', penulis = '$penulis' WHERE id = $id";
+    $query = "UPDATE berita SET tanggal = '$tanggal', judul = '$judul', teks = '$teks', gambar = '$gambar', penulis = '$penulis' WHERE id = $id";
+
+    mysqli_query($koneksi, $query);
+    
+    return mysqli_affected_rows($koneksi);
+  }
+
+  function ubah_data_pendaftar_individu($post) {
+    global $koneksi;
+    $id = $post['id'];
+    $nama = htmlspecialchars($post['nama']);
+    $domisili = htmlspecialchars($post['domisili']);
+    $tgl_lahir = htmlspecialchars($post['tanggal_lahir']);
+    $alamat = htmlspecialchars($post['alamat']);
+    $no_ktp = htmlspecialchars($post['no_ktp']);
+    $no_telp = htmlspecialchars($post['no_telp']);
+    $cabang = htmlspecialchars($post['cabang']);
+    $tanggal_lahir  = date("Y-m-d",strtotime($tgl_lahir));
+
+    $query = "UPDATE daftar_individu SET nama = '$nama', domisili = '$domisili', tanggal_lahir = '$tanggal_lahir', alamat = '$alamat', no_ktp = '$no_ktp', no_telp = '$no_telp', cabang = '$cabang' WHERE id = $id";
+
+    mysqli_query($koneksi, $query);
+    
+    return mysqli_affected_rows($koneksi);
+  }
+
+  function ubah_data_pendaftar_institusi($post) {
+    global $koneksi;
+    $id = $post['id'];
+    $nama = htmlspecialchars($post['nama']);
+    $jumlah = htmlspecialchars($post['jumlah']);
+    $alamat = htmlspecialchars($post['alamat']);
+    $no_telp = htmlspecialchars($post['no_telp']);
+    $cabang = htmlspecialchars($post['cabang']);
+    
+    $query = "UPDATE daftar_institusi SET nama = '$nama', jumlah = $jumlah, alamat = '$alamat', no_telp = '$no_telp', cabang = '$cabang' WHERE id = $id";
 
     mysqli_query($koneksi, $query);
     
@@ -123,12 +159,12 @@
   }
 
   function cari_data_individu($keyword) {
-    $query = "SELECT * FROM daftar_individu WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
+    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
     return query($query);
   }
 
   function cari_data_institusi($keyword) {
-    $query = "SELECT * FROM daftar_institusi WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
+    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
     return query($query);
   }
 

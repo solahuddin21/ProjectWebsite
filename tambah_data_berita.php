@@ -3,7 +3,13 @@ include 'functions.php';
 session_start();
 
 if (isset($_POST['submit'])) {
-    var_dump($_POST);
+    if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {
+        $_POST['gambar'] = $_POST['gambar2'];
+    } else {
+        if (!file_exists($_POST['gambar'])) {
+            $_POST['gambar'] = "img/" . $_POST['gambar'];
+        }
+    }
     if (tambah_data_berita($_POST) > 0) {
         $_SESSION['tambahdata'] = 'sukses';
         header('location:data_berita.php');
@@ -112,7 +118,22 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Gambar</label>
-                    <input type="text" name="gambar" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <div class="row featurette">
+                        <div class="col-lg-6 text-center">
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required /><br>
+                            <i class="far fa-images fa-2x"></i><br>Local Image
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="inputGroupFile02" name="gambar">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required /><br>
+                            <i class="fas fa-link fa-2x"></i><br>URL
+                            <div class="input-group">
+                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Penulis</label>

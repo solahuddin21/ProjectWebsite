@@ -101,7 +101,7 @@ if (isset($_POST['cari'])) {
     </form>
     <?php if (!empty($array_berita)) : ?>
       <?php foreach ($array_berita as $berita) : ?>
-        <p class="card-text mb-0 fs-6"><?= $berita['tanggal'] ?></p>
+        <p class="card-text mb-0 fs-6"><?= $berita['tanggal'] ?> &#8226 <?= time_elapsed_string($berita['tanggal']) ?></p>
         <div class="card mb-3" style="max-width: 100%">
           <div class="row g-0">
             <div class="col-md-4">

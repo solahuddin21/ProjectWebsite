@@ -92,7 +92,7 @@ if (isset($_POST['cari'])) {
     <form action="" method="POST">
       <div class="row justify-content-start">
         <div class="col-5 my-2">
-          <input class="form-control" type="search" placeholder="Masukkan Nama atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
+          <input class="form-control" type="search" placeholder="Masukkan Nama Pendaftar atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
         </div>
         <div class="col-3 my-2">
           <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
@@ -142,7 +142,7 @@ if (isset($_POST['cari'])) {
               <td><?= $indvidu['cabang'] ?></td>
               <td><?= $indvidu['jenis_cabang'] ?></td>
               <td>
-                <a href="ubah_data.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <a href="ubah_data_pendaftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
                 <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
                 <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">

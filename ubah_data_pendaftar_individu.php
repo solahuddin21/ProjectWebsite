@@ -2,10 +2,21 @@
 include 'functions.php';
 session_start();
 
-$pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi");
+$id = $_GET['id'];
+$pendaftar_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];
 
-if (isset($_POST['cari'])) {
-  $pendaftar_institusi = cari_data_institusi($_POST['keyword']);
+if (isset($_POST['submit'])) {
+  if (ubah_data_pendaftar_individu($_POST) > 0) {
+    $_SESSION['ubahdata'] = 'sukses';
+    header('location:data_pendaftar_individu.php');
+  } else {
+    echo "
+      <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+      <strong>Gagal!</strong> Masukkan data dengan benar.
+      <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+      </div>
+    ";
+  }
 }
 ?>
 
@@ -37,17 +48,12 @@ if (isset($_POST['cari'])) {
   <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
   <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
   <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
-  <script>
-    // Animasi fadeout dan auto close untuk alert
-    window.setTimeout(function() {
-      $('.alert')
-        .fadeTo(500, 0)
-        .slideUp(500, function() {
-          $(this).remove();
-        });
-    }, 2500);
+  <script type="text/javascript">
+    $(function() {
+      $("#datepicker").datepicker({
+        dateFormat: "dd-mm-yy",
+      });
+    });
   </script>
 
   <title>Prisai Sakti Mataram</title>
@@ -87,88 +93,56 @@ if (isset($_POST['cari'])) {
   </nav>
   <!-- Akhir Navbar  -->
 
-  <h1 class="text-center my-3">Data Pendaftar Institusi</h1>
-  <section class="container">
-    <form action="" method="POST">
-      <div class="row justify-content-start">
-        <div class="col-5 my-2">
-          <input class="form-control" type="search" placeholder="Masukkan Nama Institusi atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
+  <!-- Form Pendaftaran Individu -->
+  <section class="individu m-5">
+    <div class="container">
+      <h2 class="text-center pt-5 fw-bold">Ubah Data Pendaftar Individu</h2>
+      <form action="" method="POST">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label" hidden>ID</label>
+          <input type="hidden" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['id'] ?>" required>
         </div>
-        <div class="col-3 my-2">
-          <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
+        <div class="mb-3 pt-4">
+          <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
+          <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['nama'] ?>" required>
         </div>
-      </div>
-    </form>
-    <?php if (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
-      <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
-        <strong>Berhasil!</strong> Data telah dihapus.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <?php unset($_SESSION['hapusdata']) ?>
-    <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "gagal") : ?>
-      <div class="container alert alert-danger alert-dismissible fade show mt-2" role="alert">
-        <strong>Gagal!</strong> Data gagal dihapus.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <?php unset($_SESSION['hapusdata']) ?>
-    <?php endif; ?>
-    <?php if (!empty($pendaftar_institusi)) : ?>
-      <table class="table table-hover mb-5">
-        <thead>
-          <tr>
-            <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Jumlah</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">No Handphone</th>
-            <th scope="col">Cabang</th>
-            <th scope="col">Jenis</th>
-            <th scope="col" style="width: 198px;">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php $nomor = 1 ?>
-          <?php foreach ($pendaftar_institusi as $institusi) : ?>
-            <tr>
-              <td><?= $nomor ?></td>
-              <td><?= $institusi['nama'] ?></td>
-              <td><?= $institusi['jumlah'] ?></td>
-              <td><?= $institusi['alamat'] ?></td>
-              <td><?= $institusi['no_telp'] ?></td>
-              <td><?= $institusi['cabang'] ?></td>
-              <td><?= $institusi['jenis_cabang'] ?></td>
-              <td>
-                <a href="ubah_data_pendaftar_institusi.php?id=<?= $institusi['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $institusi['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-                <div class="modal fade" id="exampleModal<?= $institusi['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title text-dark" id="exampleModalLabel">Konfirmasi Hapus</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $nomor ?>?</label>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-                        <a href="hapus_data_daftar_institusi.php?id=<?= $institusi['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <?php $nomor++ ?>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php else : ?>
-      <div class="container my-5 py-3">
-        <h4 class="text-center my-5">Data Tidak Ditemukan!</h4>
-      </div>
-    <?php endif; ?>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Domisili</label>
+          <input type="text" name="domisili" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['domisili'] ?>" required>
+        </div>
+        <div class="mb-3">
+          <div class="ui-widget">
+            <label for="datepicker" class="form-label">Tanggal Lahir: </label>
+            <input type="text" id="datepicker" name="tanggal_lahir" class="form-control" aria-describedby="emailHelp" value="<?= $pendaftar_individu['tanggal_lahir'] ?>" required />
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
+          <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"><?= $pendaftar_individu['alamat'] ?></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
+          <input type="text" name="no_ktp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['no_ktp'] ?>" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
+          <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['no_telp'] ?>" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
+          <select class="form-select" name="cabang" aria-label="Default select example">
+            <option hidden>Silahkan Pilih Cabang</option>
+            <option value="Jakarta" <?php if ($pendaftar_individu['cabang'] == 'Jakarta') echo 'selected="Jakarta"' ?>>Jakarta</option>
+            <option value="Makassar" <?php if ($pendaftar_individu['cabang'] == 'Makassar') echo 'selected="Makassar"' ?>>Makassar</option>
+            <option value="Medan" <?php if ($pendaftar_individu['cabang'] == 'Medan') echo 'selected="Medan"' ?>>Medan</option>
+          </select>
+        </div>
+        <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
+      </form>
+    </div>
   </section>
+  </div>
+  <!-- Akhir Form Pendaftaran Individu -->
 
   <!-- Footer -->
   <footer>

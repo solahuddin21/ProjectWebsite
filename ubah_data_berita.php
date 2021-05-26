@@ -6,11 +6,11 @@ $id = $_GET['id'];
 $berita = query("SELECT * FROM berita WHERE id = $id")[0];
 
 if (isset($_POST['submit'])) {
-    if ($_POST['gambar'] == $berita['gambar']) {
-        if (file_exists($_POST['gambar2'])) {
-            $_POST['gambar'] = $_POST['gambar2'];
-        } else {
-            $_POST['gambar'] = "img/" . $_POST['gambar2'];
+    if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {
+        $_POST['gambar'] = $_POST['gambar2'];
+    } else {
+        if (!file_exists($_POST['gambar'])) {
+            $_POST['gambar'] = "img/" . $_POST['gambar'];
         }
     }
     if (ubah_data_berita($_POST) > 0) {
@@ -120,21 +120,30 @@ if (isset($_POST['submit'])) {
                 <div class="mb-3">
                     <div class="ui-widget">
                         <label for="datepicker" class="form-label">Isi Berita</label>
-                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="3"><?= $berita['teks'] ?></textarea>
+                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="15"><?= $berita['teks'] ?></textarea>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Gambar</label><br>
-                    <img src="<?= $berita['gambar'] ?>" class="img-fluid mb-3" alt="..." style="width: 200px;" />
-                    <div class="input-group">
-                        <input type="file" class="form-control" id="inputGroupFile02" name="gambar2">
+                    <div class="text-center">
+                        <img src="<?= $berita['gambar'] ?>" class="img-fluid mb-3" alt="..." style="width: 300px;" />
                     </div>
-                    <div style="width: 100%; height: 20px; border-bottom: 1px solid darkgrey; text-align: center" class="mb-4 mt-2">
-                        <span style="font-size: 20px; background-color: white; padding: 0 10px;">
-                            Atau
-                        </span>
+                    <div class="row featurette">
+                        <div class="col-lg-6 text-center">
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required /><br>
+                            <i class="far fa-images fa-2x"></i><br>Local Image
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="inputGroupFile02" name="gambar">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 text-center">
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required /><br>
+                            <i class="fas fa-link fa-2x"></i><br>URL
+                            <div class="input-group">
+                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" name="gambar" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['gambar'] ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Penulis</label>
