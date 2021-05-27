@@ -322,6 +322,7 @@ $cabang = query("SELECT * FROM lokasi_cabang");
           <h3 class="mt-5 text-center">Selamat datang,  <?= ucwords($_SESSION['username']) ?></h3>
           <a href="data_pendaftar_individu.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Individu</button></a>
           <a href="data_pendaftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Institusi</button></a><br>
+          <a href="log_daftar_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Individu</button></a><br>
           <a href="data_peringkat_cabang_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Individu</button></a>
           <a href="data_peringkat_cabang_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Institusi</button></a><br>
           <a href="data_berita.php"><button type="#" class="btn btn-warning text-center mt-5">Data Berita</button></a><br>

@@ -168,6 +168,11 @@
     return query($query);
   }
 
+  function cari_log_individu($keyword) {
+    $query = "SELECT * FROM log_daftar_individu WHERE status LIKE '%$keyword%' OR waktu LIKE '%$keyword%' OR id_pendaftar LIKE '%$keyword%'";
+    return query($query);
+  }
+
   function cari_data_cabang($keyword) {
     $query = "SELECT * FROM lokasi_cabang WHERE alamat LIKE '%$keyword%' OR latitude = '$keyword' OR longitude = '$keyword'";
     return query($query);
