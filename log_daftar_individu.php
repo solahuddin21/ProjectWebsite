@@ -38,10 +38,9 @@ if (isset($_POST['cari'])) {
   <link rel="stylesheet" href="style.css" />
 
   <!-- Jquery -->
-  <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
-  <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 
   <script>
     // Animasi fadeout dan auto close untuk alert
@@ -129,15 +128,15 @@ if (isset($_POST['cari'])) {
         </thead>
         <tbody>
           <?php $nomor = 1 ?>
-          <?php foreach ($pendaftar_individu as $indvidu) : ?>
+          <?php foreach ($pendaftar_individu as $individu) : ?>
             <tr>
               <td><?= $nomor ?></td>
-              <td><?= $indvidu['waktu'] ?></td>
-              <td><?= $indvidu['status'] ?></td>
-              <td><?= $indvidu['id_pendaftar'] ?></td>
+              <td><?= $individu['waktu'] ?></td>
+              <td><?= $individu['status'] ?></td>
+              <td><?= $individu['id_pendaftar'] ?></td>
               <td>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="fas fa-info-circle fa-lg"></i> Lihat Detail</button>
-                <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $individu['id']; ?>"><i class="fas fa-info-circle fa-lg"></i> Lihat Detail</button>
+                <div class="modal fade" id="exampleModal<?= $individu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -148,9 +147,9 @@ if (isset($_POST['cari'])) {
                         <table class="table table-hover mb-5">
                           <thead class="text-center">
                             <th scope="col"></th>
-                            <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                            <?php if ($individu['status'] == 'Insert Data Pendaftar') : ?>
                               <th scope="col">Data Baru</th>
-                            <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
+                            <?php elseif ($individu['status'] == 'Delete Data Pendaftar') : ?>
                               <th scope="col">Data Lama</th>
                             <?php else : ?>
                               <th scope="col">Data Baru</th>
@@ -158,131 +157,131 @@ if (isset($_POST['cari'])) {
                             <?php endif; ?>
                           </thead>
                           <tbody>
-                            <?php $id_individu = $indvidu['id'] ?>
+                            <?php $id_individu = $individu['id'] ?>
                             <?php $detail_pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', jenis_cabang(cabang_lama) as 'jenis_cabang_lama' FROM log_daftar_individu WHERE id = $id_individu"); ?>
-                            <?php foreach ($detail_pendaftar_individu as $detail_indvidu) : ?>
-                              <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                            <?php foreach ($detail_pendaftar_individu as $detail_individu) : ?>
+                              <?php if ($individu['status'] == 'Insert Data Pendaftar') : ?>
                                 <tr>
                                   <th style="width: 150px;">Nama</th>
-                                  <td><?= $detail_indvidu['nama'] ?></td>
+                                  <td><?= $detail_individu['nama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Domisili</th>
-                                  <td><?= $detail_indvidu['domisili'] ?></td>
+                                  <td><?= $detail_individu['domisili'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Tanggal Lahir</th>
-                                  <?php if ($detail_indvidu['tanggal_lahir'] == "0000-00-00") : ?>
+                                  <?php if ($detail_individu['tanggal_lahir'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
-                                    <td><?= $detail_indvidu['tanggal_lahir'] ?></td>
+                                    <td><?= $detail_individu['tanggal_lahir'] ?></td>
                                   <?php endif; ?>
                                 </tr>
                                 <tr>
                                   <th>Alamat</th>
-                                  <td><?= $detail_indvidu['alamat'] ?></td>
+                                  <td><?= $detail_individu['alamat'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. KTP</th>
-                                  <td><?= $detail_indvidu['no_ktp'] ?></td>
+                                  <td><?= $detail_individu['no_ktp'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. Telp</th>
-                                  <td><?= $detail_indvidu['no_telp'] ?></td>
+                                  <td><?= $detail_individu['no_telp'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Cabang</th>
-                                  <td><?= $detail_indvidu['cabang'] ?></td>
+                                  <td><?= $detail_individu['cabang'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Jenis Cabang</th>
-                                  <td><?= $detail_indvidu['jenis_cabang'] ?></td>
+                                  <td><?= $detail_individu['jenis_cabang'] ?></td>
                                 </tr>
-                              <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
+                              <?php elseif ($individu['status'] == 'Delete Data Pendaftar') : ?>
                                 <tr>
                                   <th style="width: 150px;">Nama</th>
-                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
+                                  <td><?= $detail_individu['nama_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Domisili</th>
-                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
+                                  <td><?= $detail_individu['domisili_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Tanggal Lahir</th>
-                                  <?php if ($detail_indvidu['tanggal_lahir_lama'] == "0000-00-00") : ?>
+                                  <?php if ($detail_individu['tanggal_lahir_lama'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
-                                    <td><?= $detail_indvidu['tanggal_lahir_lama'] ?></td>
+                                    <td><?= $detail_individu['tanggal_lahir_lama'] ?></td>
                                   <?php endif; ?>
                                 </tr>
                                 <tr>
                                   <th>Alamat</th>
-                                  <td><?= $detail_indvidu['alamat_lama'] ?></td>
+                                  <td><?= $detail_individu['alamat_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. KTP</th>
-                                  <td><?= $detail_indvidu['no_ktp_lama'] ?></td>
+                                  <td><?= $detail_individu['no_ktp_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. Telp</th>
-                                  <td><?= $detail_indvidu['no_telp_lama'] ?></td>
+                                  <td><?= $detail_individu['no_telp_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Cabang</th>
-                                  <td><?= $detail_indvidu['cabang_lama'] ?></td>
+                                  <td><?= $detail_individu['cabang_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Jenis Cabang</th>
-                                  <td><?= $detail_indvidu['jenis_cabang_lama'] ?></td>
+                                  <td><?= $detail_individu['jenis_cabang_lama'] ?></td>
                                 </tr>
                               <?php else : ?>
                                 <tr>
                                   <th style="width: 150px;">Nama</th>
-                                  <td><?= $detail_indvidu['nama'] ?></td>
-                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
+                                  <td><?= $detail_individu['nama'] ?></td>
+                                  <td><?= $detail_individu['nama_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Domisili</th>
-                                  <td><?= $detail_indvidu['domisili'] ?></td>
-                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
+                                  <td><?= $detail_individu['domisili'] ?></td>
+                                  <td><?= $detail_individu['domisili_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Tanggal Lahir</th>
-                                  <?php if ($detail_indvidu['tanggal_lahir'] == "0000-00-00") : ?>
+                                  <?php if ($detail_individu['tanggal_lahir'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
-                                    <td><?= $detail_indvidu['tanggal_lahir'] ?></td>
+                                    <td><?= $detail_individu['tanggal_lahir'] ?></td>
                                   <?php endif; ?>
-                                  <?php if ($detail_indvidu['tanggal_lahir_lama'] == "0000-00-00") : ?>
+                                  <?php if ($detail_individu['tanggal_lahir_lama'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
-                                    <td><?= $detail_indvidu['tanggal_lahir_lama'] ?></td>
+                                    <td><?= $detail_individu['tanggal_lahir_lama'] ?></td>
                                   <?php endif; ?>
                                 </tr>
                                 <tr>
                                   <th>Alamat</th>
-                                  <td><?= $detail_indvidu['alamat'] ?></td>
-                                  <td><?= $detail_indvidu['alamat_lama'] ?></td>
+                                  <td><?= $detail_individu['alamat'] ?></td>
+                                  <td><?= $detail_individu['alamat_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. KTP</th>
-                                  <td><?= $detail_indvidu['no_ktp'] ?></td>
-                                  <td><?= $detail_indvidu['no_ktp_lama'] ?></td>
+                                  <td><?= $detail_individu['no_ktp'] ?></td>
+                                  <td><?= $detail_individu['no_ktp_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>No. Telp</th>
-                                  <td><?= $detail_indvidu['no_telp'] ?></td>
-                                  <td><?= $detail_indvidu['no_telp_lama'] ?></td>
+                                  <td><?= $detail_individu['no_telp'] ?></td>
+                                  <td><?= $detail_individu['no_telp_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Cabang</th>
-                                  <td><?= $detail_indvidu['cabang'] ?></td>
-                                  <td><?= $detail_indvidu['cabang_lama'] ?></td>
+                                  <td><?= $detail_individu['cabang'] ?></td>
+                                  <td><?= $detail_individu['cabang_lama'] ?></td>
                                 </tr>
                                 <tr>
                                   <th>Jenis Cabang</th>
-                                  <td><?= $detail_indvidu['jenis_cabang'] ?></td>
-                                  <td><?= $detail_indvidu['jenis_cabang_lama'] ?></td>
+                                  <td><?= $detail_individu['jenis_cabang'] ?></td>
+                                  <td><?= $detail_individu['jenis_cabang_lama'] ?></td>
                                 </tr>
                               <?php endif; ?>
                             <?php endforeach; ?>

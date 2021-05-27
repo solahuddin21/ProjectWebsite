@@ -33,10 +33,9 @@ if (isset($_POST['cari'])) {
   <link rel="stylesheet" href="style.css" />
 
   <!-- Jquery -->
-  <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
-  <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
-  <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
-  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
 
   <script>
     // Animasi fadeout dan auto close untuk alert

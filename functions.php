@@ -73,11 +73,12 @@
 
   function tambah_data_berita($post) {
     global $koneksi;
-    $tanggal = htmlspecialchars($post['tanggal']);
+    $tgl = htmlspecialchars($post['tanggal']);
     $judul = htmlspecialchars($post['judul']);
     $teks = htmlspecialchars($post['teks']);
     $gambar = htmlspecialchars($post['gambar']);
     $penulis = htmlspecialchars($post['penulis']);
+    $tanggal  = date("Y-m-d H-i-s",strtotime($tgl));
 
     $query = "INSERT INTO berita (tanggal, judul, teks, gambar, penulis) VALUES ('$tanggal', '$judul', '$teks', '$gambar', '$penulis')";
 
@@ -89,11 +90,12 @@
   function ubah_data_berita($post) {
     global $koneksi;
     $id = $post['id'];
-    $tanggal = htmlspecialchars($post['tanggal']);
+    $tgl = htmlspecialchars($post['tanggal']);
     $judul = htmlspecialchars($post['judul']);
     $teks = htmlspecialchars($post['teks']);
     $gambar = htmlspecialchars($post['gambar']);
     $penulis = htmlspecialchars($post['penulis']);
+    $tanggal  = date("Y-m-d H-i-s",strtotime($tgl));
 
     $query = "UPDATE berita SET tanggal = '$tanggal', judul = '$judul', teks = '$teks', gambar = '$gambar', penulis = '$penulis' WHERE id = $id";
 
@@ -170,6 +172,11 @@
 
   function cari_log_individu($keyword) {
     $query = "SELECT * FROM log_daftar_individu WHERE status LIKE '%$keyword%' OR waktu LIKE '%$keyword%' OR id_pendaftar LIKE '%$keyword%'";
+    return query($query);
+  }
+  
+  function cari_log_institusi($keyword) {
+    $query = "SELECT * FROM log_daftar_institusi WHERE status LIKE '%$keyword%' OR waktu LIKE '%$keyword%' OR id_pendaftar LIKE '%$keyword%'";
     return query($query);
   }
 

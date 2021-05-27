@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 05:56 AM
+-- Generation Time: May 27, 2021 at 04:15 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -168,7 +168,30 @@ INSERT INTO `daftar_institusi` (`id`, `nama`, `jumlah`, `alamat`, `no_telp`, `ca
 (1, 'Universitas Pendidikan Indonesia', 10, 'Jl. Setiabudi', '081245687997', 'Jakarta'),
 (2, 'Institut Teknologi Bandung', 180, 'Jl. Ganesa', '081235467887', 'Makassar'),
 (6, 'Universitas Pertanian Bogor', 11, 'Jl. Raya Dramaga', '081325467887', 'Jakarta'),
-(7, 'Universitas Padjajaran', 77, 'Jl. Raya Jatinangor', '081213497221', 'Medan');
+(7, 'Universitas Padjajaran', 77, 'Jl. Raya Jatinangor', '081213497221', 'Medan'),
+(22, 'UNISBA', 60, 'Jl. B', '0812213113', 'Makassar');
+
+--
+-- Triggers `daftar_institusi`
+--
+DELIMITER $$
+CREATE TRIGGER `log_delete_daftar_institusi` AFTER DELETE ON `daftar_institusi` FOR EACH ROW begin
+insert into log_daftar_institusi (waktu, status, id_pendaftar, nama_lama, jumlah_lama, alamat_lama, no_telp_lama, cabang_lama) values (CURRENT_TIMESTAMP(), 'Delete Data Pendaftar', old.id, old.nama, old.jumlah, old.alamat, old.no_telp, old.cabang);
+end
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_insert_daftar_institusi` AFTER INSERT ON `daftar_institusi` FOR EACH ROW begin
+insert into log_daftar_institusi (waktu, status, id_pendaftar, nama, jumlah, alamat, no_telp, cabang) values (CURRENT_TIMESTAMP(), 'Insert Data Pendaftar', new.id, new.nama, new.jumlah, new.alamat, new.no_telp, new.cabang);
+end
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_update_daftar_institusi` BEFORE UPDATE ON `daftar_institusi` FOR EACH ROW begin
+insert into log_daftar_institusi (waktu, status, id_pendaftar, nama, jumlah, alamat, no_telp, cabang, nama_lama, jumlah_lama, alamat_lama, no_telp_lama, cabang_lama) values (CURRENT_TIMESTAMP(), 'Update Data Pendaftar', new.id, new.nama, new.jumlah, new.alamat, new.no_telp, new.cabang, old.nama, old.jumlah, old.alamat, old.no_telp, old.cabang);
+end
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -205,6 +228,39 @@ INSERT INTO `log_daftar_individu` (`id`, `waktu`, `status`, `id_pendaftar`, `nam
 (1, '2021-05-27 10:25:22', 'Insert Data Pendaftar', 31, 'Jajang', 'Bandung', '2021-05-13', 'Jl. Cigondewah', '123456789', '321654978', 'Jakarta', '-', '-', '0000-00-00', '-', '-', '-', '-'),
 (2, '2021-05-27 10:25:59', 'Update Data Pendaftar', 27, 'Asep Junaedi', 'Jakarta', '2021-05-04', 'Jl. Cikajang', '987654321', '0821235645', 'Makassar', 'Juned', 'Bandung', '2021-05-11', 'Jl. Cinambo', '123456789123', '082132564778', 'Jakarta'),
 (3, '2021-05-27 10:27:01', 'Delete Data Pendaftar', 30, '-', '-', '0000-00-00', '-', '-', '-', '-', 'Sutarman', 'Bandung', '2021-05-01', 'Jl. Cinambo', '987654321854', '081236547885', 'Jakarta');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_daftar_institusi`
+--
+
+CREATE TABLE `log_daftar_institusi` (
+  `id` int(9) NOT NULL,
+  `waktu` datetime NOT NULL DEFAULT current_timestamp(),
+  `status` varchar(200) NOT NULL,
+  `id_pendaftar` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `jumlah` int(9) NOT NULL,
+  `alamat` varchar(100) NOT NULL,
+  `no_telp` varchar(50) NOT NULL,
+  `cabang` varchar(50) NOT NULL,
+  `nama_lama` varchar(100) NOT NULL,
+  `jumlah_lama` int(9) NOT NULL,
+  `alamat_lama` varchar(100) NOT NULL,
+  `no_telp_lama` varchar(50) NOT NULL,
+  `cabang_lama` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `log_daftar_institusi`
+--
+
+INSERT INTO `log_daftar_institusi` (`id`, `waktu`, `status`, `id_pendaftar`, `nama`, `jumlah`, `alamat`, `no_telp`, `cabang`, `nama_lama`, `jumlah_lama`, `alamat_lama`, `no_telp_lama`, `cabang_lama`) VALUES
+(1, '2021-05-27 21:13:23', 'Insert Data Pendaftar', 22, 'UNPAS', 20, 'Jl. A', '08132546445', 'Jakarta', '', 0, '', '', ''),
+(2, '2021-05-27 21:13:54', 'Insert Data Pendaftar', 23, 'IPDN', 12, 'Jl. Jatingangor', '08132156455', 'Makassar', '', 0, '', '', ''),
+(3, '2021-05-27 21:14:31', 'Update Data Pendaftar', 22, 'UNISBA', 60, 'Jl. B', '0812213113', 'Makassar', 'UNPAS', 20, 'Jl. A', '08132546445', 'Jakarta'),
+(4, '2021-05-27 21:14:45', 'Delete Data Pendaftar', 23, '', 0, '', '', '', 'IPDN', 12, 'Jl. Jatingangor', '08132156455', 'Makassar');
 
 -- --------------------------------------------------------
 
@@ -269,6 +325,12 @@ ALTER TABLE `log_daftar_individu`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `log_daftar_institusi`
+--
+ALTER TABLE `log_daftar_institusi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `lokasi_cabang`
 --
 ALTER TABLE `lokasi_cabang`
@@ -288,7 +350,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `daftar_individu`
@@ -300,13 +362,19 @@ ALTER TABLE `daftar_individu`
 -- AUTO_INCREMENT for table `daftar_institusi`
 --
 ALTER TABLE `daftar_institusi`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `log_daftar_individu`
 --
 ALTER TABLE `log_daftar_individu`
   MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `log_daftar_institusi`
+--
+ALTER TABLE `log_daftar_institusi`
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `lokasi_cabang`

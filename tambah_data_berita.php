@@ -48,13 +48,18 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="style.css" />
 
     <!-- Jquery -->
-    <link href="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet">
-    <script type="text/javascript" src="https://repo.rachmat.id/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="https://repo.rachmat.id/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="https://trentrichardson.com/examples/timepicker/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
     <script type="text/javascript">
         $(function() {
-            $("#datepicker").datepicker({
+            $("#datepicker").datetimepicker({
                 dateFormat: "dd-mm-yy",
+                timeFormat:  "HH:mm:ss",
+                changeMonth: true,
+                changeYear: true
             });
         });
     </script>
@@ -102,8 +107,8 @@ if (isset($_POST['submit'])) {
             <h2 class="text-center pt-5 fw-bold">Tambah Data Berita</h2>
             <form action="" method="POST">
                 <div class="mb-3 pt-4">
-                    <label for="exampleInputEmail1" class="form-label">Tanggal</label>
-                    <input type="text" name="tanggal" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <label for="datepicker" class="form-label">Tanggal</label>
+                    <input type="text" name="tanggal" class="form-control" id="datepicker" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Judul</label>
@@ -112,7 +117,7 @@ if (isset($_POST['submit'])) {
                 <div class="mb-3">
                     <div class="ui-widget">
                         <label for="datepicker" class="form-label">Isi Berita</label>
-                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="15"></textarea>
                     </div>
                 </div>
                 <div class="mb-3">

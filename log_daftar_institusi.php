@@ -6,10 +6,10 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
   exit;
 }
 
-$pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu");
+$pendaftar_institusi = query("SELECT id, waktu, status, id_pendaftar FROM log_daftar_institusi");
 
 if (isset($_POST['cari'])) {
-  $pendaftar_individu = cari_data_individu($_POST['keyword']);
+  $pendaftar_institusi = cari_log_institusi($_POST['keyword']);
 }
 ?>
 
@@ -90,12 +90,12 @@ if (isset($_POST['cari'])) {
   </nav>
   <!-- Akhir Navbar  -->
 
-  <h1 class="text-center my-3">Data Pendaftar Individu</h1>
+  <h1 class="text-center my-3">Log Data Pendaftar Institusi</h1>
   <section class="container">
     <form action="" method="POST">
       <div class="row justify-content-start">
         <div class="col-5 my-2">
-          <input class="form-control" type="search" placeholder="Masukkan Nama Pendaftar atau Cabang..." aria-label="Cari" name="keyword" autocomplete="off">
+          <input class="form-control" type="search" placeholder="Masukkan Status, Waktu, atau ID Pendaftar..." aria-label="Cari" name="keyword" autocomplete="off">
         </div>
         <div class="col-3 my-2">
           <button class="btn btn-dark" type="submit" name="cari"><i class="fas fa-search"></i> Cari</button>
@@ -115,51 +115,138 @@ if (isset($_POST['cari'])) {
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
     <?php endif; ?>
-    <?php if (!empty($pendaftar_individu)) : ?>
+    <?php if (!empty($pendaftar_institusi)) : ?>
       <table class="table table-hover mb-5">
         <thead>
           <tr>
             <th scope="col">No</th>
-            <th scope="col">Nama</th>
-            <th scope="col">Domisili</th>
-            <th scope="col">Tanggal Lahir</th>
-            <th scope="col">Alamat</th>
-            <th scope="col">No Identitas</th>
-            <th scope="col">No Handphone</th>
-            <th scope="col">Cabang</th>
-            <th scope="col">Jenis</th>
+            <th scope="col">Waktu</th>
+            <th scope="col">Status</th>
+            <th scope="col">ID Pendaftar</th>
             <th scope="col" style="width: 198px;">Aksi</th>
           </tr>
         </thead>
         <tbody>
           <?php $nomor = 1 ?>
-          <?php foreach ($pendaftar_individu as $indvidu) : ?>
+          <?php foreach ($pendaftar_institusi as $institusi) : ?>
             <tr>
               <td><?= $nomor ?></td>
-              <td><?= $indvidu['nama'] ?></td>
-              <td><?= $indvidu['domisili'] ?></td>
-              <td><?= $indvidu['tanggal_lahir'] ?></td>
-              <td><?= $indvidu['alamat'] ?></td>
-              <td><?= $indvidu['no_ktp'] ?></td>
-              <td><?= $indvidu['no_telp'] ?></td>
-              <td><?= $indvidu['cabang'] ?></td>
-              <td><?= $indvidu['jenis_cabang'] ?></td>
+              <td><?= $institusi['waktu'] ?></td>
+              <td><?= $institusi['status'] ?></td>
+              <td><?= $institusi['id_pendaftar'] ?></td>
               <td>
-                <a href="ubah_data_pendaftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-                <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $institusi['id']; ?>"><i class="fas fa-info-circle fa-lg"></i> Lihat Detail</button>
+                <div class="modal fade" id="exampleModal<?= $institusi['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title text-dark" id="exampleModalLabel">Konfirmasi Hapus</h5>
+                        <h5 class="modal-title text-dark" id="exampleModalLabel">Detail Log No. <?= $nomor ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $nomor ?>?</label>
+                        <table class="table table-hover mb-5">
+                          <thead class="text-center">
+                            <th scope="col"></th>
+                            <?php if ($institusi['status'] == 'Insert Data Pendaftar') : ?>
+                              <th scope="col">Data Baru</th>
+                            <?php elseif ($institusi['status'] == 'Delete Data Pendaftar') : ?>
+                              <th scope="col">Data Lama</th>
+                            <?php else : ?>
+                              <th scope="col">Data Baru</th>
+                              <th scope="col">Data Lama</th>
+                            <?php endif; ?>
+                          </thead>
+                          <tbody>
+                            <?php $id_institusi = $institusi['id'] ?>
+                            <?php $detail_pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', jenis_cabang(cabang_lama) as 'jenis_cabang_lama' FROM log_daftar_institusi WHERE id = $id_institusi"); ?>
+                            <?php foreach ($detail_pendaftar_institusi as $detail_institusi) : ?>
+                              <?php if ($institusi['status'] == 'Insert Data Pendaftar') : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
+                                  <td><?= $detail_institusi['nama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jumlah</th>
+                                  <td><?= $detail_institusi['jumlah'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
+                                  <td><?= $detail_institusi['alamat'] ?></td>
+                                </tr>
+                                  <th>No. Telp</th>
+                                  <td><?= $detail_institusi['no_telp'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
+                                  <td><?= $detail_institusi['cabang'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_institusi['jenis_cabang'] ?></td>
+                                </tr>
+                              <?php elseif ($institusi['status'] == 'Delete Data Pendaftar') : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
+                                  <td><?= $detail_institusi['nama_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jumlah</th>
+                                  <td><?= $detail_institusi['jumlah_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
+                                  <td><?= $detail_institusi['alamat_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. Telp</th>
+                                  <td><?= $detail_institusi['no_telp_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
+                                  <td><?= $detail_institusi['cabang_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_institusi['jenis_cabang_lama'] ?></td>
+                                </tr>
+                              <?php else : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
+                                  <td><?= $detail_institusi['nama'] ?></td>
+                                  <td><?= $detail_institusi['nama_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jumlah</th>
+                                  <td><?= $detail_institusi['jumlah'] ?></td>
+                                  <td><?= $detail_institusi['jumlah_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
+                                  <td><?= $detail_institusi['alamat'] ?></td>
+                                  <td><?= $detail_institusi['alamat_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. Telp</th>
+                                  <td><?= $detail_institusi['no_telp'] ?></td>
+                                  <td><?= $detail_institusi['no_telp_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
+                                  <td><?= $detail_institusi['cabang'] ?></td>
+                                  <td><?= $detail_institusi['cabang_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_institusi['jenis_cabang'] ?></td>
+                                  <td><?= $detail_institusi['jenis_cabang_lama'] ?></td>
+                                </tr>
+                              <?php endif; ?>
+                            <?php endforeach; ?>
+                          </tbody>
+                        </table>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-                        <a href="hapus_data_daftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Tutup</button>
                       </div>
                     </div>
                   </div>
