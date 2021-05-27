@@ -161,95 +161,117 @@ if (isset($_POST['cari'])) {
                             <?php $id_individu = $indvidu['id'] ?>
                             <?php $detail_pendaftar_individu = query("SELECT * FROM log_daftar_individu WHERE id = $id_individu"); ?>
                             <?php foreach ($detail_pendaftar_individu as $detail_indvidu) : ?>
-                              <tr>
-                                <th style="width: 150px;">Nama</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                              <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
                                   <td><?= $detail_indvidu['nama'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
-                                <?php else : ?>
-                                  <td><?= $detail_indvidu['nama'] ?></td>
-                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>Domisili</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                                </tr>
+                                <tr>
+                                  <th>Domisili</th>
                                   <td><?= $detail_indvidu['domisili'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
-                                <?php else : ?>
-                                  <td><?= $detail_indvidu['domisili'] ?></td>
-                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>Tanggal Lahir</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
+                                </tr>
+                                <tr>
+                                  <th>Tanggal Lahir</th>
                                   <?php if ($detail_indvidu['tanggal_lahir'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
                                     <td><?= $detail_indvidu['tanggal_lahir'] ?></td>
                                   <?php endif; ?>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
+                                  <td><?= $detail_indvidu['alamat'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. KTP</th>
+                                  <td><?= $detail_indvidu['no_ktp'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. Telp</th>
+                                  <td><?= $detail_indvidu['no_telp'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
+                                  <td><?= $detail_indvidu['cabang'] ?></td>
+                                </tr>
+                              <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
+                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Domisili</th>
+                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Tanggal Lahir</th>
                                   <?php if ($detail_indvidu['tanggal_lahir_lama'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
                                     <td><?= $detail_indvidu['tanggal_lahir_lama'] ?></td>
                                   <?php endif; ?>
-                                <?php else : ?>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
+                                  <td><?= $detail_indvidu['alamat_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. KTP</th>
+                                  <td><?= $detail_indvidu['no_ktp_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>No. Telp</th>
+                                  <td><?= $detail_indvidu['no_telp_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
+                                  <td><?= $detail_indvidu['cabang_lama'] ?></td>
+                                </tr>
+                              <?php else : ?>
+                                <tr>
+                                  <th style="width: 150px;">Nama</th>
+                                  <td><?= $detail_indvidu['nama'] ?></td>
+                                  <td><?= $detail_indvidu['nama_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Domisili</th>
+                                  <td><?= $detail_indvidu['domisili'] ?></td>
+                                  <td><?= $detail_indvidu['domisili_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Tanggal Lahir</th>
                                   <?php if ($detail_indvidu['tanggal_lahir'] == "0000-00-00") : ?>
                                     <td>-</td>
                                   <?php else : ?>
                                     <td><?= $detail_indvidu['tanggal_lahir'] ?></td>
+                                  <?php endif; ?>
+                                  <?php if ($detail_indvidu['tanggal_lahir_lama'] == "0000-00-00") : ?>
+                                    <td>-</td>
+                                  <?php else : ?>
                                     <td><?= $detail_indvidu['tanggal_lahir_lama'] ?></td>
                                   <?php endif; ?>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>Alamat</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['alamat'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['alamat_lama'] ?></td>
-                                <?php else : ?>
+                                </tr>
+                                <tr>
+                                  <th>Alamat</th>
                                   <td><?= $detail_indvidu['alamat'] ?></td>
                                   <td><?= $detail_indvidu['alamat_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>No. KTP</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['no_ktp'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['no_ktp_lama'] ?></td>
-                                <?php else : ?>
+                                </tr>
+                                <tr>
+                                  <th>No. KTP</th>
                                   <td><?= $detail_indvidu['no_ktp'] ?></td>
                                   <td><?= $detail_indvidu['no_ktp_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>No. Telp</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['no_telp'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['no_telp_lama'] ?></td>
-                                <?php else : ?>
+                                </tr>
+                                <tr>
+                                  <th>No. Telp</th>
                                   <td><?= $detail_indvidu['no_telp'] ?></td>
                                   <td><?= $detail_indvidu['no_telp_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
-                              <tr>
-                                <th>Cabang</th>
-                                <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['cabang'] ?></td>
-                                <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
-                                  <td><?= $detail_indvidu['cabang_lama'] ?></td>
-                                <?php else : ?>
+                                </tr>
+                                <tr>
+                                  <th>Cabang</th>
                                   <td><?= $detail_indvidu['cabang'] ?></td>
                                   <td><?= $detail_indvidu['cabang_lama'] ?></td>
-                                <?php endif; ?>
-                              </tr>
+                                </tr>
+                              <?php endif; ?>
                             <?php endforeach; ?>
                           </tbody>
                         </table>
@@ -261,19 +283,6 @@ if (isset($_POST['cari'])) {
                   </div>
                 </div>
               </td>
-              <!-- <td><?= $indvidu['domisili'] ?></td>
-              <td><?= $indvidu['tanggal_lahir'] ?></td>
-              <td><?= $indvidu['alamat'] ?></td>
-              <td><?= $indvidu['no_ktp'] ?></td>
-              <td><?= $indvidu['no_telp'] ?></td>
-              <td><?= $indvidu['cabang'] ?></td>
-              <td><?= $indvidu['nama_lama'] ?></td>
-              <td><?= $indvidu['domisili_lama'] ?></td>
-              <td><?= $indvidu['tanggal_lahir_lama'] ?></td>
-              <td><?= $indvidu['alamat_lama'] ?></td>
-              <td><?= $indvidu['no_ktp_lama'] ?></td>
-              <td><?= $indvidu['no_telp_lama'] ?></td>
-              <td><?= $indvidu['cabang_lama'] ?></td> -->
             </tr>
             <?php $nomor++ ?>
           <?php endforeach; ?>
