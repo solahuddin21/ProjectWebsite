@@ -159,7 +159,7 @@ if (isset($_POST['cari'])) {
                           </thead>
                           <tbody>
                             <?php $id_individu = $indvidu['id'] ?>
-                            <?php $detail_pendaftar_individu = query("SELECT * FROM log_daftar_individu WHERE id = $id_individu"); ?>
+                            <?php $detail_pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', jenis_cabang(cabang_lama) as 'jenis_cabang_lama' FROM log_daftar_individu WHERE id = $id_individu"); ?>
                             <?php foreach ($detail_pendaftar_individu as $detail_indvidu) : ?>
                               <?php if ($indvidu['status'] == 'Insert Data Pendaftar') : ?>
                                 <tr>
@@ -194,6 +194,10 @@ if (isset($_POST['cari'])) {
                                   <th>Cabang</th>
                                   <td><?= $detail_indvidu['cabang'] ?></td>
                                 </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_indvidu['jenis_cabang'] ?></td>
+                                </tr>
                               <?php elseif ($indvidu['status'] == 'Delete Data Pendaftar') : ?>
                                 <tr>
                                   <th style="width: 150px;">Nama</th>
@@ -226,6 +230,10 @@ if (isset($_POST['cari'])) {
                                 <tr>
                                   <th>Cabang</th>
                                   <td><?= $detail_indvidu['cabang_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_indvidu['jenis_cabang_lama'] ?></td>
                                 </tr>
                               <?php else : ?>
                                 <tr>
@@ -270,6 +278,11 @@ if (isset($_POST['cari'])) {
                                   <th>Cabang</th>
                                   <td><?= $detail_indvidu['cabang'] ?></td>
                                   <td><?= $detail_indvidu['cabang_lama'] ?></td>
+                                </tr>
+                                <tr>
+                                  <th>Jenis Cabang</th>
+                                  <td><?= $detail_indvidu['jenis_cabang'] ?></td>
+                                  <td><?= $detail_indvidu['jenis_cabang_lama'] ?></td>
                                 </tr>
                               <?php endif; ?>
                             <?php endforeach; ?>
