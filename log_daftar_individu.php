@@ -6,7 +6,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
   exit;
 }
 
-$pendaftar_individu = query("SELECT * FROM log_daftar_individu");
+$pendaftar_individu = query("SELECT id, waktu, status, id_pendaftar FROM log_daftar_individu");
 
 if (isset($_POST['cari'])) {
   $pendaftar_individu = cari_log_individu($_POST['keyword']);
