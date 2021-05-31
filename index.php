@@ -318,7 +318,7 @@ $cabang = query("SELECT * FROM lokasi_cabang");
         </div>
         <a href="https://wa.me/+6282215716543" target="_blank"><button type="#" class="btn btn-warning text-center mt-5">Kontak Kami</button></a><br>
         <?php if (!isset($_SESSION['username']) and !isset($_SESSION['status'])) : ?>
-          <a href="login_admin.php"><button type="#" class="btn btn-warning text-center mt-5">Login Admin</button></a><br>
+          <a href="login_admin.php"><button type="#" class="btn btn-outline-light text-center mt-5">Login Admin</button></a><br>
         <?php endif; ?>
         <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
           <h3 class="mt-5 text-center">Selamat datang,  <?= ucwords($_SESSION['username']) ?></h3>
