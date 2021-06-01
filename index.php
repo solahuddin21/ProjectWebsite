@@ -4,6 +4,8 @@ include 'cek_cookie.php';
 $array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC LIMIT 3");
 
 $cabang = query("SELECT * FROM lokasi_cabang");
+
+$data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LIMIT 1")[0];
 ?>
 
 <!DOCTYPE html>
@@ -33,17 +35,6 @@ $cabang = query("SELECT * FROM lokasi_cabang");
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-
-  <script>
-    // Animasi fadeout dan auto close untuk alert
-    window.setTimeout(function() {
-      $('.alert')
-        .fadeTo(500, 0)
-        .slideUp(500, function() {
-          $(this).remove();
-        });
-    }, 2500);
-  </script>
 
   <!-- We JS -->
   <script type="text/javascript">
@@ -153,9 +144,30 @@ $cabang = query("SELECT * FROM lokasi_cabang");
   <!-- Akhir Navbar  -->
 
   <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "sukses") : ?>
-    <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
-      <strong>Berhasil!</strong> Data telah ditambahkan.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#staticBackdrop<?= $data_daftar_individu['id'] ?>').modal('show');
+      });
+    </script>
+    <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_individu['id'] ?>">Hidden Button Invoice</button>
+    <div class="modal fade" id="staticBackdrop<?= $data_daftar_individu['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+              <strong>Berhasil!</strong><br>
+              Silahkan lihat invoice untuk melanjutkan pembayaran.
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a href="invoice.php?id=<?= $data_daftar_individu['id']; ?>" target="_blank"><button class="btn btn-dark" type="button">Lihat Invoice</button></a>
+          </div>
+        </div>
+      </div>
     </div>
     <?php unset($_SESSION['tambahdata']) ?>
   <?php endif; ?>
@@ -321,10 +333,11 @@ $cabang = query("SELECT * FROM lokasi_cabang");
           <a href="login_admin.php"><button type="#" class="btn btn-warning text-center mt-5">Login Admin</button></a><br>
         <?php endif; ?>
         <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
-          <h3 class="mt-5 text-center">Selamat datang,  <?= ucwords($_SESSION['username']) ?></h3>
+          <h3 class="mt-5 text-center">Selamat datang, <?= ucwords($_SESSION['username']) ?></h3>
           <a href="data_pendaftar_individu.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Individu</button></a>
           <a href="data_pendaftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Institusi</button></a><br>
-          <a href="log_daftar_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Individu</button></a><br>
+          <a href="log_daftar_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Individu</button></a>
+          <a href="log_daftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Institusi</button></a><br>
           <a href="data_peringkat_cabang_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Individu</button></a>
           <a href="data_peringkat_cabang_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Institusi</button></a><br>
           <a href="data_berita.php"><button type="#" class="btn btn-warning text-center mt-5">Data Berita</button></a><br>

@@ -2,7 +2,7 @@
 include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
-    if (tambah_institusi($_POST) > 0) {
+    if (tambah_institusi($_POST) == true) {
         $_SESSION['tambahdata'] = 'sukses';
         header('location:index.php');
     } else {
@@ -88,7 +88,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Jumlah Orang Yang Akan Mendaftar</label>
-                    <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input type="number" name="jumlah" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Alamat Institusi</label>

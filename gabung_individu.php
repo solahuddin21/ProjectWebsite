@@ -2,7 +2,7 @@
 include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
-    if (tambah_individu($_POST) > 0) {
+    if (tambah_individu($_POST) == true) {
         $_SESSION['tambahdata'] = 'sukses';
         header('location:index.php');
     } else {

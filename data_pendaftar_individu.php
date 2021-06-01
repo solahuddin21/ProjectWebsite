@@ -114,6 +114,12 @@ if (isset($_POST['cari'])) {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
+    <?php elseif (isset($_SESSION['ubahdata']) and $_SESSION['ubahdata'] == "sukses") : ?>
+      <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+        <strong>Berhasil!</strong> Data telah diubah.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <?php unset($_SESSION['ubahdata']) ?>
     <?php endif; ?>
     <?php if (!empty($pendaftar_individu)) : ?>
       <table class="table table-hover mb-5">
@@ -128,7 +134,8 @@ if (isset($_POST['cari'])) {
             <th scope="col">No Handphone</th>
             <th scope="col">Cabang</th>
             <th scope="col">Jenis</th>
-            <th scope="col" style="width: 198px;">Aksi</th>
+            <th scope="col">Invoice</th>
+            <th scope="col">Aksi</th>
           </tr>
         </thead>
         <tbody>
@@ -144,8 +151,10 @@ if (isset($_POST['cari'])) {
               <td><?= $indvidu['no_telp'] ?></td>
               <td><?= $indvidu['cabang'] ?></td>
               <td><?= $indvidu['jenis_cabang'] ?></td>
+              <td><?= $indvidu['invoice'] ?></td>
               <td>
-                <a href="ubah_data_pendaftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <a href="ubah_data_pendaftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark mb-2" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <br>
                 <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
                 <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
