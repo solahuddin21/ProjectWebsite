@@ -2,10 +2,12 @@
 include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
-    if (tambah_individu($_POST) == true) {
+    if (tambah_individu($_POST) > 0) {
+        mysqli_query($koneksi,"COMMIT");
         $_SESSION['tambahdata'] = 'sukses';
         header('location:index.php');
     } else {
+        mysqli_query($koneksi,"ROLLBACK");
         echo "
             <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
               <strong>Gagal!</strong> Masukkan data dengan benar.
@@ -141,7 +143,26 @@ if (isset($_POST['submit'])) {
                         </label>
                     </div>
                 </div>
-                <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
+                
+                <button type="button" class="btn btn-warning mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Data </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah yakin data sudah benar?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                        <button type="submit" name="submit" class="btn btn-warning">Submit</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                
             </form>
         </div>
     </section>
@@ -211,105 +232,7 @@ if (isset($_POST['submit'])) {
     <!-- Akhir dari Footer -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> <!-- Footer -->
-  <footer>
-    <div class="main-content">
-      <div class="left box">
-        <h2>Tentang Kami</h2>
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat nulla at doloribus minus
-            possimus
-            ullam suscipit omnis laudantium cupiditate!</p>
-          <div class="social">
-            <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
-            <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
-            <a href="#"><span style="color: red;" class="fab fa-instagram"></span></a>
-            <a href="#"><span style="color: red;" class="fab fa-whatsapp"></span></a>
-          </div>
-        </div>
-      </div>
-      <div class="center box">
-        <h2>Address</h2>
-        <div class="content">
-          <div class="place">
-            <span style="color: red;" class="fas fa-map-marker-alt"></span>
-            <span class="text">Jakarta, Indonesia</span>
-          </div>
-          <div class="phone">
-            <span style="color: red;" class="fas fa-phone-alt"></span>
-            <span class="text">0822292929</span>
-          </div>
-          <div class="place">
-            <span style="color: red;" class="fas fa-envelope"></span>
-            <span class="text">abs@mail.com</span>
-          </div>
-        </div>
-      </div>
-      <div class="right box">
-        <h2>Contact us </h2>
-        <div class="content">
-          <div class="alert alert-primary alert-dismissible fade show d-none my-alert" role="alert">
-            <strong>Terima Kasih!</strong> Pesan terkirim. Akan kami kontak kembali.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          <form action="#" method = "post" name= "PSM-kontak">
-            <div class="email">
-              <div class="text">Email <span class="text-danger">*</span></div>
-              <input class="text-white" type="email" name = "email" required>
-            </div>
-            <div class="msg">
-              <div class="text">Message <span class="text-danger">*</span></div>
-              <textarea class="text-white" rows="2" cols="25" name = "pesan" required></textarea>
-            </div>
-              <button class="btn btn-danger text-center btn-kirim" type="submit">Send</button>
-              <button class="btn btn-danger text-center btn-loading d-none" type="button" disabled>
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              Loading...
-              </button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div class="bottom">
-      <center>
-        <span class="credit">Created By <a href="#">Kelompok 8</a> | Prisai Sakti Mataram</span>
-        <span class="far fa-copyright"></span><span>2021 All Right Reserved</span>
-      </center>
-    </div>
-  </footer>
-  <!-- Akhir dari Footer -->
-
-
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-  <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbz1fgAPY6aoWrtpG7BbduiQvU0hbbN-0HpVkdmCVp2e49sh49dynMS08pI2lSh8TudM/exec';
-  const form = document.forms['PSM-kontak'];
-  const btnKirim = document.querySelector('.btn-kirim');
-  const btnLoading = document.querySelector('.btn-loading'); 
-  const myAlert  = document.querySelector('.my-alert');
-
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    // Ketika tombol submit diklik 
-    btnLoading.classList.toggle('d-none');
-    btnKirim.classList.toggle('d-none');
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
-        // menampilkan tombol loading, hidden tombol kirim
-        btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');
-        // Tampilkan Alert
-        myAlert.classList.toggle('d-none');
-        //reset formnya
-        form.reset();
-        console.log('Success!', response);
-      })
-      .catch(error => console.error('Error!', error.message))
-  })
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>
