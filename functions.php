@@ -65,6 +65,8 @@
     $no_telp = htmlspecialchars($post['no_telp']);
     $cabang = htmlspecialchars($post['cabang']);
 
+    mysqli_query($koneksi,"SET autocommit = OFF");
+    mysqli_query($koneksi,"START TRANSACTION");
     $query = "INSERT INTO daftar_institusi (nama, jumlah, alamat, no_telp, cabang) VALUES ('$nama', $jumlah, '$alamat', '$no_telp', '$cabang')";
 
     mysqli_query($koneksi, $query);
