@@ -333,9 +333,6 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
             <a href="gabung_institusi.php">Gabung</a>
           </div>
         </div>
-        <?php if (!isset($_SESSION['username']) and !isset($_SESSION['status'])) : ?>
-          <a href="login_admin.php"><button type="#" class="btn btn-outline-light text-center mt-5">Login Admin</button></a><br>
-        <?php endif; ?>
       </div>
   </section>
   <!-- Akhir Gabung -->

@@ -67,7 +67,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
                         </a>
                         <a class="nav-link" href="index.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                            Index
+                            Website 
                         </a>
                         <div class="sb-sidenav-menu-heading">Menu</div>
 
