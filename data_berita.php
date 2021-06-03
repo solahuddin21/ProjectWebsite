@@ -1,14 +1,20 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Kondisi jika session login tidak ditemukan (admin belum login)
 if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+  // Arahkan ke forbidden.php untuk menampilkan pesan error 403
   header('location:forbidden.php');
   exit;
 }
 
+// Lakukan query berita dengan urutan berdasarkan tanggal
 $array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC");
 
+// Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
+  // Kirim keyword ke fungsi cari_berita pada function.php dan perbarui hasil query baru ke variabel array_berita
   $array_berita = cari_berita($_POST['keyword']);
 }
 ?>
@@ -84,11 +90,13 @@ if (isset($_POST['cari'])) {
           <li class="nav-item ps-2">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
           <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
             <li class="nav-item">
               <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
             </li>
           <?php endif; ?>
+          <!-- Akhir kondisi -->
         </ul>
       </div>
     </div>
@@ -108,31 +116,40 @@ if (isset($_POST['cari'])) {
         </div>
       </div>
     </form>
+    <!-- Kondisi jika session tambahdata ditemukan dan bernilai sukses -->
     <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah ditambahkan.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['tambahdata']) ?>
+    <!-- Akhir kondisi session tambahdata ditemukan dan bernilai sukses -->
+    <!-- Kondisi jika session ubahdata ditemukan dan bernilai sukses -->
     <?php elseif (isset($_SESSION['ubahdata']) and $_SESSION['ubahdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah diubah.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['ubahdata']) ?>
+    <!-- Akhir kondisi session ubahdata ditemukan dan bernilai sukses -->
+    <!-- Kondisi jika session hapusdata ditemukan dan bernilai sukses -->
     <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah dihapus.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
+    <!-- Akhir kondisi jika session hapusdata ditemukan dan bernilai sukses -->
+    <!-- Kondisi jika session hapusdata ditemukan dan bernilai gagal -->
     <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "gagal") : ?>
       <div class="container alert alert-danger alert-dismissible fade show mt-2" role="alert">
         <strong>Gagal!</strong> Data gagal dihapus.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
+    <!-- Akhir kondisi jika session hapusdata ditemukan dan bernilai gagal -->
     <?php endif; ?>
+    <!-- Kondisi jika array_berita tidak kosong -->
     <?php if (!empty($array_berita)) : ?>
       <table class="table table-hover mb-5">
         <thead>
@@ -147,15 +164,20 @@ if (isset($_POST['cari'])) {
           </tr>
         </thead>
         <tbody>
+          <!-- Definisikan variabel nomor sebagai urutan -->
           <?php $nomor = 1 ?>
+          <!-- Lakukakan loop foreach untuk setiap array_berita dan assign ke variabel berita -->
           <?php foreach ($array_berita as $berita) : ?>
             <tr>
               <td><?= $nomor ?></td>
               <td><?= $berita['tanggal'] ?></td>
               <td><?= $berita['judul'] ?></td>
               <?php
+              // Potong sebagian teks dari isi berita
               $teks = strip_tags($berita['teks']);
+              // Kondisi jika panjang teks lebih dari 80 karakter
               if (strlen($teks) > 80) {
+                // Lakukan pemotongan dengan substring dan lakukan limit di 80 karakter
                 $stringCut = substr($teks, 0, 80);
                 $endPoint = strrpos($stringCut, ' ');
                 $teks = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
@@ -187,10 +209,12 @@ if (isset($_POST['cari'])) {
                 </div>
               </td>
             </tr>
+            <!-- Jalankan statement increment untuk variabel nomor -->
             <?php $nomor++ ?>
           <?php endforeach; ?>
         </tbody>
       </table>
+    <!-- Kondisi jika array_berita kosong -->
     <?php else : ?>
       <div class="container mt-5 pt-5">
         <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>

@@ -1,12 +1,17 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Kondisi jika tombol submit ditekan
 if (isset($_POST['submit'])) {
+    // Cek kondisi hasil POST ke fungsi tambah_individu mengembalikan nilai affected row lebih dari 0 (seluruh query pada fungsi tambah_individu sukses dijalankan)
     if (tambah_individu($_POST) > 0) {
+        // Lakukan COMMIT, set session tambahdata dengan nilai sukses, lalu arahkan ke index.php
         mysqli_query($koneksi, "COMMIT");
         $_SESSION['tambahdata'] = 'sukses';
         header('location:index.php');
     } else {
+        // Kondisi jika terdapat query pada fungsi tambah_individu yang gagal dijalankan maka lakukan ROLLBACK dan tampilkan notif gagal
         mysqli_query($koneksi, "ROLLBACK");
         echo "
             <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
@@ -88,11 +93,13 @@ if (isset($_POST['submit'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
                     <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
                         <li class="nav-item">
                             <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
                         </li>
                     <?php endif; ?>
+                    <!-- Akhir kondisi -->
                 </ul>
             </div>
         </div>

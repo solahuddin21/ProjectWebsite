@@ -1,9 +1,13 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Query seluruh lokasi cabang di database
 $cabang = query("SELECT * FROM lokasi_cabang");
 
+// Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
+  // Kirim keyword ke fungsi cari_data_cabang pada function.php dan perbarui hasil query baru ke variabel cabang
   $cabang = cari_data_cabang($_POST['keyword']);
 }
 ?>
@@ -48,6 +52,7 @@ if (isset($_POST['cari'])) {
       // New map
       var map = new google.maps.Map(document.getElementById('map'), options);
 
+      // Jika lokasi cabang pada database tidak kosong definisikan dan tambahkan content marker
       <?php if (!empty($cabang)) : ?>
         <?php $nomor = 1 ?>
         <?php foreach ($cabang as $cbg) : ?>
@@ -132,11 +137,13 @@ if (isset($_POST['cari'])) {
           <li class="nav-item">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
           <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
             <li class="nav-item">
               <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
             </li>
           <?php endif; ?>
+          <!-- Akhir kondisi -->
         </ul>
       </div>
     </div>

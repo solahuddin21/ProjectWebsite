@@ -1,14 +1,20 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Kondisi jika session login tidak ditemukan (admin belum login)
 if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+  // Arahkan ke forbidden.php untuk menampilkan pesan error 403
   header('location:forbidden.php');
   exit;
 }
 
+// Lakukan query data pendaftar individu serta panggil fungsi jenis_cabang pada DB
 $pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu");
 
+// Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
+  // Kirim keyword ke fungsi cari_data_individu pada function.php dan perbarui hasil query baru ke variabel pendaftar_individu
   $pendaftar_individu = cari_data_individu($_POST['keyword']);
 }
 ?>
@@ -84,11 +90,13 @@ if (isset($_POST['cari'])) {
           <li class="nav-item ps-2">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
           <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
             <li class="nav-item">
               <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
             </li>
           <?php endif; ?>
+          <!-- Akhir kondisi -->
         </ul>
       </div>
     </div>
@@ -107,25 +115,32 @@ if (isset($_POST['cari'])) {
         </div>
       </div>
     </form>
+    <!-- Kondisi jika session hapusdata ditemukan dan bernilai sukses -->
     <?php if (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah dihapus.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
+    <!-- Akhir kondisi jika session hapusdata ditemukan dan bernilai sukses -->
+    <!-- Kondisi jika session hapusdata ditemukan dan bernilai gagal -->
     <?php elseif (isset($_SESSION['hapusdata']) and $_SESSION['hapusdata'] == "gagal") : ?>
       <div class="container alert alert-danger alert-dismissible fade show mt-2" role="alert">
         <strong>Gagal!</strong> Data gagal dihapus.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['hapusdata']) ?>
+    <!-- Akhir kondisi jika session hapusdata ditemukan dan bernilai gagal -->
+    <!-- Kondisi jika session ubahdata ditemukan dan bernilai sukses -->
     <?php elseif (isset($_SESSION['ubahdata']) and $_SESSION['ubahdata'] == "sukses") : ?>
       <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
         <strong>Berhasil!</strong> Data telah diubah.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <?php unset($_SESSION['ubahdata']) ?>
+    <!-- Akhir kondisi session ubahdata ditemukan dan bernilai sukses -->
     <?php endif; ?>
+    <!-- Kondisi jika pendaftar_individu tidak kosong -->
     <?php if (!empty($pendaftar_individu)) : ?>
       <table class="table table-hover mb-5">
         <thead>
@@ -144,24 +159,26 @@ if (isset($_POST['cari'])) {
           </tr>
         </thead>
         <tbody>
+          <!-- Definisikan variabel nomor sebagai urutan -->
           <?php $nomor = 1 ?>
-          <?php foreach ($pendaftar_individu as $indvidu) : ?>
+          <!-- Lakukakan loop foreach untuk setiap pendaftar_individu dan assign ke variabel individu -->
+          <?php foreach ($pendaftar_individu as $individu) : ?>
             <tr>
               <td><?= $nomor ?></td>
-              <td><?= $indvidu['nama'] ?></td>
-              <td><?= $indvidu['domisili'] ?></td>
-              <td><?= $indvidu['tanggal_lahir'] ?></td>
-              <td><?= $indvidu['alamat'] ?></td>
-              <td><?= $indvidu['no_ktp'] ?></td>
-              <td><?= $indvidu['no_telp'] ?></td>
-              <td><?= $indvidu['cabang'] ?></td>
-              <td><?= $indvidu['jenis_cabang'] ?></td>
-              <td><?= $indvidu['invoice'] ?></td>
+              <td><?= $individu['nama'] ?></td>
+              <td><?= $individu['domisili'] ?></td>
+              <td><?= $individu['tanggal_lahir'] ?></td>
+              <td><?= $individu['alamat'] ?></td>
+              <td><?= $individu['no_ktp'] ?></td>
+              <td><?= $individu['no_telp'] ?></td>
+              <td><?= $individu['cabang'] ?></td>
+              <td><?= $individu['jenis_cabang'] ?></td>
+              <td><?= $individu['invoice'] ?></td>
               <td>
-                <a href="ubah_data_pendaftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark mb-2" type="button"><i class="far fa-edit"></i> Ubah</button></a>
+                <a href="ubah_data_pendaftar_individu.php?id=<?= $individu['id']; ?>"><button class="btn btn-dark mb-2" type="button"><i class="far fa-edit"></i> Ubah</button></a>
                 <br>
-                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $indvidu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
-                <div class="modal fade" id="exampleModal<?= $indvidu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <button class="btn btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $individu['id']; ?>"><i class="far fa-trash-alt"></i> Hapus</button>
+                <div class="modal fade" id="exampleModal<?= $individu['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -173,17 +190,19 @@ if (isset($_POST['cari'])) {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-                        <a href="hapus_data_daftar_individu.php?id=<?= $indvidu['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
+                        <a href="hapus_data_daftar_individu.php?id=<?= $individu['id']; ?>"><button class="btn btn-dark" type="button">Hapus</button></a>
                       </div>
                     </div>
                   </div>
                 </div>
               </td>
             </tr>
+            <!-- Jalankan statement increment untuk variabel nomor -->
             <?php $nomor++ ?>
           <?php endforeach; ?>
         </tbody>
       </table>
+    <!-- Kondisi jika pendaftar_individu kosong -->
     <?php else : ?>
       <div class="container mt-5 pt-5">
         <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>

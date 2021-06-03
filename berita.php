@@ -1,7 +1,10 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Dapatkan id berita dengan GET
 $id = $_GET['id'];
+// Lakukan query pencarian berita di database berdasarkan id
 $berita = query("SELECT * FROM berita WHERE id = $id")[0];
 ?>
 
@@ -60,11 +63,13 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
           <li class="nav-item ps-2">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
           <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
             <li class="nav-item">
               <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
             </li>
           <?php endif; ?>
+          <!-- Akhir kondisi -->
         </ul>
       </div>
     </div>
@@ -188,7 +193,7 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
           btnKirim.classList.toggle('d-none');
           // Tampilkan Alert
           myAlert.classList.toggle('d-none');
-          //reset formnya
+          // reset formnya
           form.reset();
           console.log('Success!', response);
         })

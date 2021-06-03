@@ -1,16 +1,16 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Kondisi jika session login tidak ditemukan (admin belum login)
 if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    // Arahkan ke forbidden.php untuk menampilkan pesan error 403
     header('location:forbidden.php');
     exit;
 }
 
-$pendaftar_individu = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
-
-if (isset($_POST['cari'])) {
-    $pendaftar_individu = cari_data_individu($_POST['keyword']);
-}
+// Lakukan query data cabang, hitung jumlah pendaftar, serta panggil fungsi dense_rank untuk mendapatkan peringkat berdasarkan pendaftar terbanyak pada DB
+$array_cabang = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
 ?>
 
 <!DOCTYPE html>
@@ -84,11 +84,13 @@ if (isset($_POST['cari'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
                     <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
                         <li class="nav-item">
                             <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
                         </li>
                     <?php endif; ?>
+                    <!-- Akhir kondisi -->
                 </ul>
             </div>
         </div>
@@ -97,7 +99,8 @@ if (isset($_POST['cari'])) {
 
     <h1 class="text-center my-3">Data Peringkat Cabang Individu</h1>
     <section class="container">
-        <?php if (!empty($pendaftar_individu)) : ?>
+        <!-- Kondisi jika array_cabang tidak kosong -->
+        <?php if (!empty($array_cabang)) : ?>
             <table class="table table-hover mb-5">
                 <thead>
                     <tr>
@@ -108,18 +111,22 @@ if (isset($_POST['cari'])) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Definisikan variabel nomor sebagai urutan -->
                     <?php $nomor = 1 ?>
-                    <?php foreach ($pendaftar_individu as $indvidu) : ?>
+                    <!-- Lakukakan loop foreach untuk setiap array_cabang dan assign ke variabel cabang -->
+                    <?php foreach ($array_cabang as $cabang) : ?>
                         <tr>
                             <td><?= $nomor ?></td>
-                            <td><?= $indvidu['cabang'] ?></td>
-                            <td><?= $indvidu['jml_pendaftar'] ?></td>
-                            <td><?= $indvidu['peringkat'] ?></td>
+                            <td><?= $cabang['cabang'] ?></td>
+                            <td><?= $cabang['jml_pendaftar'] ?></td>
+                            <td><?= $cabang['peringkat'] ?></td>
                         </tr>
+                        <!-- Jalankan statement increment untuk variabel nomor -->
                         <?php $nomor++ ?>
                     <?php endforeach; ?>
                 </tbody>
             </table>
+        <!-- Kondisi jika pendaftar_institusi kosong -->
         <?php else : ?>
             <div class="container mt-5 pt-5">
                 <h4 class="text-center mt-5 pt-5">Data Tidak Ditemukan!</h4>

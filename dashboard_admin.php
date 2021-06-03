@@ -1,7 +1,10 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 
+// Kondisi jika session login tidak ditemukan (admin belum login)
 if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    // Arahkan ke forbidden.php untuk menampilkan pesan error 403
     header('location:forbidden.php');
     exit;
 }
@@ -114,17 +117,6 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link" href="login.html">Detail</a>
-                                <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Authentication
-                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a> -->
-                                <!-- <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">Login</a>
-                                            <a class="nav-link" href="register.html">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                </nav> -->
                         </div>
                         <a class="nav-link" href="logout_admin.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>

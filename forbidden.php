@@ -1,4 +1,5 @@
 <?php
+// Include file php untuk cek cookie dan seluruh function
 include 'cek_cookie.php';
 ?>
 
@@ -65,11 +66,13 @@ include 'cek_cookie.php';
           <li class="nav-item ps-2">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <!-- Cek kondisi jika admin sudah login tampilkan menu ke dashboard admin -->
           <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
             <li class="nav-item">
               <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
             </li>
           <?php endif; ?>
+          <!-- Akhir kondisi -->
         </ul>
       </div>
     </div>
