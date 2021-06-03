@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 04:15 PM
+-- Generation Time: Jun 03, 2021 at 04:11 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -25,9 +25,15 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `tambah_daftar_individu` (IN `nama_anggota` VARCHAR(50), IN `domisili_anggota` VARCHAR(100), IN `tanggal_lahir_anggota` DATE, IN `alamat_anggota` VARCHAR(100), IN `no_ktp_anggota` VARCHAR(25), IN `no_telp_anggota` VARCHAR(50), IN `cabang_anggota` VARCHAR(50))  BEGIN
-        INSERT INTO daftar_individu (nama, domisili, tanggal_lahir, alamat, no_ktp, no_telp, cabang) VALUES (nama_anggota, domisili_anggota, tanggal_lahir_anggota, alamat_anggota, no_ktp_anggota, no_telp_anggota, cabang_anggota);
-      END$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tambah_daftar_individu` (IN `nama_anggota` VARCHAR(50), IN `domisili_anggota` VARCHAR(100), IN `tanggal_lahir_anggota` DATE, IN `alamat_anggota` VARCHAR(100), IN `no_ktp_anggota` VARCHAR(25), IN `no_telp_anggota` VARCHAR(50), IN `cabang_anggota` VARCHAR(50), IN `invoice_anggota` VARCHAR(100))  BEGIN
+          INSERT INTO daftar_individu (nama, domisili, tanggal_lahir, alamat, no_ktp, no_telp, cabang, invoice)
+          VALUES (nama_anggota, domisili_anggota, tanggal_lahir_anggota, alamat_anggota, no_ktp_anggota, no_telp_anggota, cabang_anggota, invoice_anggota);
+        END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tambah_daftar_institusi` (IN `nama_anggota` VARCHAR(50), IN `jumlah_anggota` INT(9), IN `alamat_anggota` VARCHAR(100), IN `no_telp_anggota` VARCHAR(50), IN `cabang_anggota` VARCHAR(50))  BEGIN
+          INSERT INTO daftar_institusi (nama, jumlah, alamat, no_telp, cabang)
+          VALUES (nama_anggota, jumlah_anggota, alamat_anggota, no_telp_anggota, cabang_anggota);
+        END$$
 
 --
 -- Functions
@@ -108,20 +114,19 @@ CREATE TABLE `daftar_individu` (
   `alamat` varchar(100) NOT NULL,
   `no_ktp` varchar(25) NOT NULL,
   `no_telp` varchar(50) NOT NULL,
-  `cabang` varchar(50) NOT NULL
+  `cabang` varchar(50) NOT NULL,
+  `invoice` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `daftar_individu`
 --
 
-INSERT INTO `daftar_individu` (`id`, `nama`, `domisili`, `tanggal_lahir`, `alamat`, `no_ktp`, `no_telp`, `cabang`) VALUES
-(1, 'Derry Dwi Aditya', 'Bandung', '2001-08-05', 'Jl. Cikawao', '123456789123', '081232457778', 'Medan'),
-(2, 'Bagus Julyawan', 'Bandung', '2000-05-24', 'Jl. Ciburial', '987654321987', '082135467887', 'Makassar'),
-(4, 'Athoillah Sholahuddin', 'Jakarta', '2001-05-02', 'Jl. Cinambo', '123456789654', '082135467887', 'Jakarta'),
-(27, 'Asep Junaedi', 'Jakarta', '2021-05-04', 'Jl. Cikajang', '987654321', '0821235645', 'Makassar'),
-(29, 'Elvis Sukaesih', 'Jakarta', '2021-05-04', 'Jl. Ciburial', '321654741891', '082325467112', 'Makassar'),
-(31, 'Jajang', 'Bandung', '2021-05-13', 'Jl. Cigondewah', '123456789', '321654978', 'Jakarta');
+INSERT INTO `daftar_individu` (`id`, `nama`, `domisili`, `tanggal_lahir`, `alamat`, `no_ktp`, `no_telp`, `cabang`, `invoice`) VALUES
+(1, 'Derry Dwi Aditya', 'Bandung', '2001-02-08', 'Jl. Cikawao', '123456789852', '081236547887', 'Jakarta', 'INV/28/05/2021/00001'),
+(2, 'Athoillah Sholahudin', 'Jakarta', '2001-03-07', 'Jl. Cigondewah', '987654321852', '08136547997', 'Jakarta', 'INV/28/05/2021/00002'),
+(3, 'Bagus Julyawan', 'Jatinangor', '2001-04-05', 'Jl. Jatinangor', '654321987852', '081365497882', 'Makassar', 'INV/28/05/2021/00003'),
+(5, 'Dadang', 'Bandung', '2001-05-05', 'Jl. Cisaranten', '564987321753', '08132654887', 'Jakarta', 'INV/28/05/2021/00005');
 
 --
 -- Triggers `daftar_individu`
@@ -169,7 +174,7 @@ INSERT INTO `daftar_institusi` (`id`, `nama`, `jumlah`, `alamat`, `no_telp`, `ca
 (2, 'Institut Teknologi Bandung', 180, 'Jl. Ganesa', '081235467887', 'Makassar'),
 (6, 'Universitas Pertanian Bogor', 11, 'Jl. Raya Dramaga', '081325467887', 'Jakarta'),
 (7, 'Universitas Padjajaran', 77, 'Jl. Raya Jatinangor', '081213497221', 'Medan'),
-(22, 'UNISBA', 60, 'Jl. B', '0812213113', 'Makassar');
+(22, 'UNISBA', 22, 'Jl. Tamansari', '081325647887', 'Makassar');
 
 --
 -- Triggers `daftar_institusi`
@@ -220,15 +225,6 @@ CREATE TABLE `log_daftar_individu` (
   `cabang_lama` varchar(50) NOT NULL DEFAULT '-'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `log_daftar_individu`
---
-
-INSERT INTO `log_daftar_individu` (`id`, `waktu`, `status`, `id_pendaftar`, `nama`, `domisili`, `tanggal_lahir`, `alamat`, `no_ktp`, `no_telp`, `cabang`, `nama_lama`, `domisili_lama`, `tanggal_lahir_lama`, `alamat_lama`, `no_ktp_lama`, `no_telp_lama`, `cabang_lama`) VALUES
-(1, '2021-05-27 10:25:22', 'Insert Data Pendaftar', 31, 'Jajang', 'Bandung', '2021-05-13', 'Jl. Cigondewah', '123456789', '321654978', 'Jakarta', '-', '-', '0000-00-00', '-', '-', '-', '-'),
-(2, '2021-05-27 10:25:59', 'Update Data Pendaftar', 27, 'Asep Junaedi', 'Jakarta', '2021-05-04', 'Jl. Cikajang', '987654321', '0821235645', 'Makassar', 'Juned', 'Bandung', '2021-05-11', 'Jl. Cinambo', '123456789123', '082132564778', 'Jakarta'),
-(3, '2021-05-27 10:27:01', 'Delete Data Pendaftar', 30, '-', '-', '0000-00-00', '-', '-', '-', '-', 'Sutarman', 'Bandung', '2021-05-01', 'Jl. Cinambo', '987654321854', '081236547885', 'Jakarta');
-
 -- --------------------------------------------------------
 
 --
@@ -251,16 +247,6 @@ CREATE TABLE `log_daftar_institusi` (
   `no_telp_lama` varchar(50) NOT NULL,
   `cabang_lama` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `log_daftar_institusi`
---
-
-INSERT INTO `log_daftar_institusi` (`id`, `waktu`, `status`, `id_pendaftar`, `nama`, `jumlah`, `alamat`, `no_telp`, `cabang`, `nama_lama`, `jumlah_lama`, `alamat_lama`, `no_telp_lama`, `cabang_lama`) VALUES
-(1, '2021-05-27 21:13:23', 'Insert Data Pendaftar', 22, 'UNPAS', 20, 'Jl. A', '08132546445', 'Jakarta', '', 0, '', '', ''),
-(2, '2021-05-27 21:13:54', 'Insert Data Pendaftar', 23, 'IPDN', 12, 'Jl. Jatingangor', '08132156455', 'Makassar', '', 0, '', '', ''),
-(3, '2021-05-27 21:14:31', 'Update Data Pendaftar', 22, 'UNISBA', 60, 'Jl. B', '0812213113', 'Makassar', 'UNPAS', 20, 'Jl. A', '08132546445', 'Jakarta'),
-(4, '2021-05-27 21:14:45', 'Delete Data Pendaftar', 23, '', 0, '', '', '', 'IPDN', 12, 'Jl. Jatingangor', '08132156455', 'Makassar');
 
 -- --------------------------------------------------------
 
@@ -356,25 +342,25 @@ ALTER TABLE `berita`
 -- AUTO_INCREMENT for table `daftar_individu`
 --
 ALTER TABLE `daftar_individu`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `daftar_institusi`
 --
 ALTER TABLE `daftar_institusi`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `log_daftar_individu`
 --
 ALTER TABLE `log_daftar_individu`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `log_daftar_institusi`
 --
 ALTER TABLE `log_daftar_institusi`
-  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(9) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `lokasi_cabang`
