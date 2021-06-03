@@ -54,6 +54,7 @@ if (isset($_POST['submit'])) {
 
     <!-- We CSS -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles.css" />
 
     <!-- Jquery -->
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
@@ -75,168 +76,177 @@ if (isset($_POST['submit'])) {
     <title>Prisai Sakti Mataram</title>
 </head>
 
-<body>
-    <!-- Navbar  -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="img/Logo_PSM.png" alt="" width="30" height="39" />
-                Prisai Sakti Mataram
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">Beranda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="profil.php">Profil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="informasi.php">Informasi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="cabang_locator.php">Cabang</a>
-                    </li>
-                    <li class="nav-item ps-2">
-                        <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
-                    </li>
-                    <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
-                        <li class="nav-item">
-                            <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
-                        </li>
-                    <?php endif; ?>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <!-- <a class="navbar-brand ps-3" href="index.html">Perisai Sakti Mataram</a> -->
+        <a class="navbar-brand ps-2" href="#">
+            <img src="img/Logo_PSM.png" alt="" width="20" height="29" />
+            Prisai Sakti Mataram
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group" hidden>
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="logout_admin.php">Logout</a></li>
                 </ul>
-            </div>
-        </div>
+            </li>
+        </ul>
     </nav>
-    <!-- Akhir Navbar  -->
 
-    <!-- Form Pendaftaran Individu -->
-    <section class="individu m-5">
-        <div class="container">
-            <h2 class="text-center pt-5 fw-bold">Ubah Data Berita</h2>
-            <form action="" method="POST">
-                <div class="mb-3 pt-4">
-                    <label for="exampleInputEmail1" class="form-label" hidden>ID</label>
-                    <input type="hidden" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['id'] ?>" required>
-                </div>
-                <div class="mb-3 pt-4">
-                    <label for="datepicker" class="form-label">Tanggal</label>
-                    <input type="text" name="tanggal" class="form-control" id="datepicker" aria-describedby="emailHelp" value="<?= $berita['tanggal'] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Judul</label>
-                    <input type="text" name="judul" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['judul'] ?>" required>
-                </div>
-                <div class="mb-3">
-                    <div class="ui-widget">
-                        <label for="datepicker" class="form-label">Isi Berita</label>
-                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="15"><?= $berita['teks'] ?></textarea>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Gambar</label><br>
-                    <div class="text-center">
-                        <img src="<?= $berita['gambar'] ?>" class="img-fluid mb-3" alt="..." style="width: 300px;" />
-                    </div>
-                    <div class="row featurette">
-                        <div class="col-lg-6 text-center">
-                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required <?php if (strpos($berita['gambar'], "http") === false) : echo "checked";
-                                                                                                                            endif; ?> /><br>
-                            <i class="far fa-images fa-2x"></i><br>Local Image
-                            <div class="input-group">
-                                <input type="file" class="form-control" id="inputGroupFile02" name="gambar">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 text-center">
-                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required <?php if (strpos($berita['gambar'], "http") !== false) : echo "checked";
-                                                                                                                    endif; ?> /><br>
-                            <i class="fas fa-link fa-2x"></i><br>URL
-                            <div class="input-group">
-                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if (strpos($berita['gambar'], "http") !== false) : echo $berita['gambar'];
-                                                                                                                                                    endif; ?>">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Penulis</label>
-                    <input type="text" name="penulis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['penulis'] ?>" required>
-                </div>
-                <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
-            </form>
-        </div>
-    </section>
-    </div>
-    <!-- Akhir Form Pendaftaran Individu -->
+    <!-- Navbar  Kanan-->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark bg-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Halaman</div>
+                        <a class="nav-link" href="dashboard_admin.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <a class="nav-link" href="index.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                            Website
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Menu</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="main-content">
-            <div class="left box">
-                <h2>Tentang Kami</h2>
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat nulla at doloribus
-                        minus possimus
-                        ullam suscipit omnis laudantium cupiditate!</p>
-                    <div class="social">
-                        <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
-                        <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
-                        <a href="#"><span style="color: red;" class="fab fa-instagram"></span></a>
-                        <a href="#"><span style="color: red;" class="fab fa-whatsapp"></span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="center box">
-                <h2>Address</h2>
-                <div class="content">
-                    <div class="place">
-                        <span style="color: red;" class="fas fa-map-marker-alt"></span>
-                        <span class="text">Jakarta, Indonesia</span>
-                    </div>
-                    <div class="phone">
-                        <span style="color: red;" class="fas fa-phone-alt"></span>
-                        <span class="text">0822292929</span>
-                    </div>
-                    <div class="place">
-                        <span style="color: red;" class="fas fa-envelope"></span>
-                        <span class="text">abs@mail.com</span>
-                    </div>
-                </div>
-            </div>
-            <div class="right box">
-                <h2>Contact us </h2>
-                <div class="content">
-                    <form action="#">
-                        <div class="email">
-                            <div class="text">Email <span class="text-danger">*</span></div>
-                            <input class="text-white" type="email" required>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseIndividu" aria-expanded="false" aria-controls="collapseIndividu">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                            Data Individu
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseIndividu" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="data_pendaftar_individu.php">List Daftar Individu</a>
+                                <a class="nav-link" href="log_daftar_individu.php">Log Daftar Individu</a>
+                                <a class="nav-link" href="data_peringkat_cabang_individu.php">Peringkat Cabang Individu</a>
+                            </nav>
                         </div>
-                        <div class="msg">
-                            <div class="text">Message <span class="text-danger">*</span></div>
-                            <textarea class="text-white" rows="2" cols="25" required></textarea>
-                        </div>
-                        <div class="btn">
-                            <button class="btn btn-danger text-center" type="submit">Send</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="bottom">
-            <center>
-                <span class="credit">Created By <a href="#">Kelompok 8</a> | Prisai Sakti Mataram</span>
-                <span class="far fa-copyright"></span><span>2021 All Right Reserved</span>
-            </center>
-        </div>
-    </footer>
-    <!-- Akhir dari Footer -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseInstitusi" aria-expanded="false" aria-controls="collapseInstitusi">
+                            <div class="sb-nav-link-icon"><i class="fas fa-university"></i></div>
+                            Data Institusi
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseInstitusi" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="data_pendaftar_institusi.php">List Daftar Institusi</a>
+                                <a class="nav-link" href="log_daftar_institusi.php">Log Daftar Institusi</a>
+                                <a class="nav-link" href="data_peringkat_cabang_institusi.php">Peringkat Cabang Institusi</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed active" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBerita" aria-expanded="false" aria-controls="collapseBerita">
+                            <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
+                            Data Berita
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseBerita" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link active" href="data_berita.php">Kelola Daftar Berita</a>
+                            </nav>
+                        </div>
+
+
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
+                            Data Admin
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="menu_data_admin.php">Detail</a>
+                        </div>
+                        <a class="nav-link" href="logout_admin.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Masuk sebagai:</div>
+                    <?= ucwords($_SESSION['username']) ?>
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar Kiri -->
+        <!-- Akhir Navbar  -->
+
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <section class="individu m-5">
+                        <div class="container">
+                            <h2 class="text-center pt-5 fw-bold">Ubah Data Berita</h2>
+                            <form action="" method="POST">
+                                <div class="mb-3 pt-4">
+                                    <label for="exampleInputEmail1" class="form-label" hidden>ID</label>
+                                    <input type="hidden" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['id'] ?>" required>
+                                </div>
+                                <div class="mb-3 pt-4">
+                                    <label for="datepicker" class="form-label">Tanggal</label>
+                                    <input type="text" name="tanggal" class="form-control" id="datepicker" aria-describedby="emailHelp" value="<?= $berita['tanggal'] ?>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Judul</label>
+                                    <input type="text" name="judul" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['judul'] ?>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="ui-widget">
+                                        <label for="datepicker" class="form-label">Isi Berita</label>
+                                        <textarea class="form-control" name="teks" id="exampleFormControlTextarea1" rows="15"><?= $berita['teks'] ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Gambar</label><br>
+                                    <div class="text-center">
+                                        <img src="<?= $berita['gambar'] ?>" class="img-fluid mb-3" alt="..." style="width: 300px;" />
+                                    </div>
+                                    <div class="row featurette">
+                                        <div class="col-lg-6 text-center">
+                                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required <?php if (strpos($berita['gambar'], "http") === false) : echo "checked";
+                                                                                                                                            endif; ?> /><br>
+                                            <i class="far fa-images fa-2x"></i><br>Local Image
+                                            <div class="input-group">
+                                                <input type="file" class="form-control" id="inputGroupFile02" name="gambar">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 text-center">
+                                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required <?php if (strpos($berita['gambar'], "http") !== false) : echo "checked";
+                                                                                                                                    endif; ?> /><br>
+                                            <i class="fas fa-link fa-2x"></i><br>URL
+                                            <div class="input-group">
+                                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if (strpos($berita['gambar'], "http") !== false) : echo $berita['gambar'];
+                                                                                                                                                                    endif; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Penulis</label>
+                                    <input type="text" name="penulis" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $berita['penulis'] ?>" required>
+                                </div>
+                                <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>
 
 </html>
