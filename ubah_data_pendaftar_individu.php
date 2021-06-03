@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
     $(function() {
       $("#datepicker").datepicker({
         dateFormat: "dd-mm-yy",
-        yearRange : '1980:2021',
+        yearRange: '1980:2021',
         changeMonth: true,
         changeYear: true
       });

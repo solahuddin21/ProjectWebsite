@@ -93,8 +93,8 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
   </section>
   <!-- Akhir Berita -->
 
-   <!-- Footer -->
-   <footer>
+  <!-- Footer -->
+  <footer>
     <div class="main-content">
       <div class="left box">
         <h2>Tentang Kami</h2>
@@ -134,20 +134,20 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
             <strong>Terima Kasih!</strong> Pesan terkirim. Akan kami kontak kembali.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <form action="#" method = "post" name= "PSM-kontak">
+          <form action="#" method="post" name="PSM-kontak">
             <div class="email">
               <div class="text">Email <span class="text-danger">*</span></div>
-              <input class="text-white" type="email" name = "email" required>
+              <input class="text-white" type="email" name="email" required>
             </div>
             <div class="msg">
               <div class="text">Message <span class="text-danger">*</span></div>
-              <textarea class="text-white" rows="2" cols="25" name = "pesan" required></textarea>
+              <textarea class="text-white" rows="2" cols="25" name="pesan" required></textarea>
             </div>
-              <button class="btn btn-danger text-center btn-kirim" type="submit">Send</button>
-              <button class="btn btn-danger text-center btn-loading d-none" type="button" disabled>
+            <button class="btn btn-danger text-center btn-kirim" type="submit">Send</button>
+            <button class="btn btn-danger text-center btn-loading d-none" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Loading...
-              </button>
+            </button>
           </form>
         </div>
       </div>
@@ -166,32 +166,35 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
   <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbz1fgAPY6aoWrtpG7BbduiQvU0hbbN-0HpVkdmCVp2e49sh49dynMS08pI2lSh8TudM/exec';
-  const form = document.forms['PSM-kontak'];
-  const btnKirim = document.querySelector('.btn-kirim');
-  const btnLoading = document.querySelector('.btn-loading'); 
-  const myAlert  = document.querySelector('.my-alert');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz1fgAPY6aoWrtpG7BbduiQvU0hbbN-0HpVkdmCVp2e49sh49dynMS08pI2lSh8TudM/exec';
+    const form = document.forms['PSM-kontak'];
+    const btnKirim = document.querySelector('.btn-kirim');
+    const btnLoading = document.querySelector('.btn-loading');
+    const myAlert = document.querySelector('.my-alert');
 
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    // Ketika tombol submit diklik 
-    btnLoading.classList.toggle('d-none');
-    btnKirim.classList.toggle('d-none');
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
-        // menampilkan tombol loading, hidden tombol kirim
-        btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');
-        // Tampilkan Alert
-        myAlert.classList.toggle('d-none');
-        //reset formnya
-        form.reset();
-        console.log('Success!', response);
-      })
-      .catch(error => console.error('Error!', error.message))
-  })
-</script>
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // Ketika tombol submit diklik 
+      btnLoading.classList.toggle('d-none');
+      btnKirim.classList.toggle('d-none');
+      fetch(scriptURL, {
+          method: 'POST',
+          body: new FormData(form)
+        })
+        .then(response => {
+          // menampilkan tombol loading, hidden tombol kirim
+          btnLoading.classList.toggle('d-none');
+          btnKirim.classList.toggle('d-none');
+          // Tampilkan Alert
+          myAlert.classList.toggle('d-none');
+          //reset formnya
+          form.reset();
+          console.log('Success!', response);
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
 </body>
 
 </html>

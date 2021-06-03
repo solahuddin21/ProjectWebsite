@@ -1,5 +1,5 @@
 <?php
-  include 'cek_cookie.php';
+include 'cek_cookie.php';
 ?>
 
 <!DOCTYPE html>
