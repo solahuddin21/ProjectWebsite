@@ -265,6 +265,7 @@ if (isset($_POST['cari'])) {
                     </div>
                   </div>
                 </div>
+                <br><a href="invoice.php?id=<?= $individu['id']; ?>" target="_blank"><button class="btn btn-dark mt-2" type="button"><i class="fas fa-print"></i> Print Invoice</button></a>
               </td>
             </tr>
             <!-- Jalankan statement increment untuk variabel nomor -->

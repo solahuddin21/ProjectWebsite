@@ -6,6 +6,8 @@ $array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC LIMIT 3");
 $cabang = query("SELECT * FROM lokasi_cabang");
 
 $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LIMIT 1")[0];
+
+$data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC LIMIT 1")[0];
 ?>
 
 <!DOCTYPE html>
@@ -170,6 +172,33 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
           </div>
           <div class="modal-footer">
             <a href="invoice.php?id=<?= $data_daftar_individu['id']; ?>" target="_blank"><button class="btn btn-dark" type="button">Lihat Invoice</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php unset($_SESSION['tambahdata']) ?>
+  <?php elseif (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "suksess") : ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#staticBackdrop<?= $data_daftar_institusi['id'] ?>').modal('show');
+      });
+    </script>
+    <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_institusi['id'] ?>">Hidden Button</button>
+    <div class="modal fade" id="staticBackdrop<?= $data_daftar_institusi['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+              <strong>Berhasil!</strong><br>
+              Data Pendaftaran Institusi Telah Berhasil Ditambahkan
+            </div>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Tutup</button>
           </div>
         </div>
       </div>
