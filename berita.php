@@ -60,6 +60,11 @@ $berita = query("SELECT * FROM berita WHERE id = $id")[0];
           <li class="nav-item ps-2">
             <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+            <li class="nav-item">
+              <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>

@@ -3,11 +3,11 @@ include 'cek_cookie.php';
 
 if (isset($_POST['submit'])) {
     if (tambah_individu($_POST) > 0) {
-        mysqli_query($koneksi,"COMMIT");
+        mysqli_query($koneksi, "COMMIT");
         $_SESSION['tambahdata'] = 'sukses';
         header('location:index.php');
     } else {
-        mysqli_query($koneksi,"ROLLBACK");
+        mysqli_query($koneksi, "ROLLBACK");
         echo "
             <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
               <strong>Gagal!</strong> Masukkan data dengan benar.
@@ -50,7 +50,7 @@ if (isset($_POST['submit'])) {
         $(function() {
             $("#datepicker").datepicker({
                 dateFormat: "dd-mm-yy",
-                yearRange : '1980:2021',
+                yearRange: '1980:2021',
                 changeMonth: true,
                 changeYear: true
             });
@@ -88,6 +88,11 @@ if (isset($_POST['submit'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+                        <li class="nav-item">
+                            <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -143,26 +148,26 @@ if (isset($_POST['submit'])) {
                         </label>
                     </div>
                 </div>
-                
+
                 <button type="button" class="btn btn-warning mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal">Submit</button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Data </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Apakah yakin data sudah benar?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                        <button type="submit" name="submit" class="btn btn-warning">Submit</button>
-                    </div>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Data </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah yakin data sudah benar?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                <button type="submit" name="submit" class="btn btn-warning">Submit</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
-                
+
             </form>
         </div>
     </section>

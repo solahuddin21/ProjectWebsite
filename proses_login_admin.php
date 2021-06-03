@@ -23,7 +23,7 @@
         setcookie('password', hash('sha256', $row['password']), time()+3600);
       }
 
-      header("location:index.php");
+      header("location:dashboard_admin.php");
       exit;
     } else {
       $_SESSION['login'] = "gagal";

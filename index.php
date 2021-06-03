@@ -137,6 +137,11 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
           <li class="nav-item ps-2">
             <a href="#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
           </li>
+          <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+            <li class="nav-item">
+              <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+            </li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
@@ -328,20 +333,8 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
             <a href="gabung_institusi.php">Gabung</a>
           </div>
         </div>
-        <a href="https://wa.me/+6282215716543" target="_blank"><button type="#" class="btn btn-warning text-center mt-5">Kontak Kami</button></a><br>
         <?php if (!isset($_SESSION['username']) and !isset($_SESSION['status'])) : ?>
           <a href="login_admin.php"><button type="#" class="btn btn-outline-light text-center mt-5">Login Admin</button></a><br>
-        <?php endif; ?>
-        <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
-          <h3 class="mt-5 text-center">Selamat datang, <?= ucwords($_SESSION['username']) ?></h3>
-          <a href="data_pendaftar_individu.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Individu</button></a>
-          <a href="data_pendaftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-4">Data Pendaftar Institusi</button></a><br>
-          <a href="log_daftar_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Individu</button></a>
-          <a href="log_daftar_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Log Daftar Institusi</button></a><br>
-          <a href="data_peringkat_cabang_individu.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Individu</button></a>
-          <a href="data_peringkat_cabang_institusi.php"><button type="#" class="btn btn-warning text-center mt-5">Data Peringkat Cabang Institusi</button></a><br>
-          <a href="data_berita.php"><button type="#" class="btn btn-warning text-center mt-5">Data Berita</button></a><br>
-          <a href="logout_admin.php"><button type="#" class="btn btn-warning text-center mt-5">Logout</button></a>
         <?php endif; ?>
       </div>
   </section>
@@ -361,7 +354,7 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
             <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-instagram"></span></a>
-            <a href="#"><span style="color: red;" class="fab fa-whatsapp"></span></a>
+            <a href="https://wa.me/+6282215716543" target="_blank"><span style="color: red;" class="fab fa-whatsapp"></span></a>
           </div>
         </div>
       </div>
@@ -389,20 +382,20 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
             <strong>Terima Kasih!</strong> Pesan terkirim. Akan kami kontak kembali.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-          <form action="#" method = "post" name= "PSM-kontak">
+          <form action="#" method="post" name="PSM-kontak">
             <div class="email">
               <div class="text">Email <span class="text-danger">*</span></div>
-              <input class="text-white" type="email" name = "email" required>
+              <input class="text-white" type="email" name="email" required>
             </div>
             <div class="msg">
               <div class="text">Message <span class="text-danger">*</span></div>
-              <textarea class="text-white" rows="2" cols="25" name = "pesan" required></textarea>
+              <textarea class="text-white" rows="2" cols="25" name="pesan" required></textarea>
             </div>
-              <button class="btn btn-danger text-center btn-kirim" type="submit">Send</button>
-              <button class="btn btn-danger text-center btn-loading d-none" type="button" disabled>
+            <button class="btn btn-danger text-center btn-kirim" type="submit">Send</button>
+            <button class="btn btn-danger text-center btn-loading d-none" type="button" disabled>
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               Loading...
-              </button>
+            </button>
           </form>
         </div>
       </div>
@@ -421,32 +414,35 @@ $data_daftar_individu = query("SELECT * FROM daftar_individu ORDER BY id DESC LI
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
   <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbz1fgAPY6aoWrtpG7BbduiQvU0hbbN-0HpVkdmCVp2e49sh49dynMS08pI2lSh8TudM/exec';
-  const form = document.forms['PSM-kontak'];
-  const btnKirim = document.querySelector('.btn-kirim');
-  const btnLoading = document.querySelector('.btn-loading'); 
-  const myAlert  = document.querySelector('.my-alert');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz1fgAPY6aoWrtpG7BbduiQvU0hbbN-0HpVkdmCVp2e49sh49dynMS08pI2lSh8TudM/exec';
+    const form = document.forms['PSM-kontak'];
+    const btnKirim = document.querySelector('.btn-kirim');
+    const btnLoading = document.querySelector('.btn-loading');
+    const myAlert = document.querySelector('.my-alert');
 
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    // Ketika tombol submit diklik 
-    btnLoading.classList.toggle('d-none');
-    btnKirim.classList.toggle('d-none');
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
-        // menampilkan tombol loading, hidden tombol kirim
-        btnLoading.classList.toggle('d-none');
-        btnKirim.classList.toggle('d-none');
-        // Tampilkan Alert
-        myAlert.classList.toggle('d-none');
-        //reset formnya
-        form.reset();
-        console.log('Success!', response);
-      })
-      .catch(error => console.error('Error!', error.message))
-  })
-</script>
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      // Ketika tombol submit diklik 
+      btnLoading.classList.toggle('d-none');
+      btnKirim.classList.toggle('d-none');
+      fetch(scriptURL, {
+          method: 'POST',
+          body: new FormData(form)
+        })
+        .then(response => {
+          // menampilkan tombol loading, hidden tombol kirim
+          btnLoading.classList.toggle('d-none');
+          btnKirim.classList.toggle('d-none');
+          // Tampilkan Alert
+          myAlert.classList.toggle('d-none');
+          //reset formnya
+          form.reset();
+          console.log('Success!', response);
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
 </body>
 
 </html>

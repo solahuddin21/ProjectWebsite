@@ -1,27 +1,8 @@
 <?php
 include 'cek_cookie.php';
 
-if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
-  header('location:forbidden.php');
-  exit;
-}
-
-$id = $_GET['id'];
-$pendaftar_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];
-
-if (isset($_POST['submit'])) {
-  if (ubah_data_pendaftar_individu($_POST) > 0) {
-    $_SESSION['ubahdata'] = 'sukses';
-    header('location:data_pendaftar_individu.php');
-  } else {
-    echo "
-      <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
-      <strong>Gagal!</strong> Masukkan data dengan benar.
-      <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-      </div>
-    ";
-  }
-}
+$username = $_SESSION['username'];
+$data_admin = query("SELECT * FROM admin WHERE username = '$username'")[0];
 ?>
 
 <!DOCTYPE html>
@@ -52,15 +33,16 @@ if (isset($_POST['submit'])) {
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-  <script type="text/javascript">
-    $(function() {
-      $("#datepicker").datepicker({
-        dateFormat: "dd-mm-yy",
-        yearRange : '1980:2021',
-        changeMonth: true,
-        changeYear: true
-      });
-    });
+
+  <script>
+    // Animasi fadeout dan auto close untuk alert
+    window.setTimeout(function() {
+      $('.alert')
+        .fadeTo(500, 0)
+        .slideUp(500, function() {
+          $(this).remove();
+        });
+    }, 2500);
   </script>
 
   <title>Prisai Sakti Mataram</title>
@@ -105,60 +87,25 @@ if (isset($_POST['submit'])) {
   </nav>
   <!-- Akhir Navbar  -->
 
-  <!-- Form Pendaftaran Individu -->
-  <section class="individu m-5">
-    <div class="container">
-      <h2 class="text-center pt-5 fw-bold">Ubah Data Pendaftar Individu</h2>
-      <form action="" method="POST">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label" hidden>ID</label>
-          <input type="hidden" name="id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['id'] ?>" required>
-        </div>
-        <div class="mb-3 pt-4">
-          <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-          <input type="text" name="nama" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['nama'] ?>" required>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Domisili</label>
-          <input type="text" name="domisili" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['domisili'] ?>" required>
-        </div>
-        <div class="mb-3">
-          <div class="ui-widget">
-            <label for="datepicker" class="form-label">Tanggal Lahir: </label>
-            <input type="text" id="datepicker" name="tanggal_lahir" class="form-control" aria-describedby="emailHelp" value="<?= $pendaftar_individu['tanggal_lahir'] ?>" required />
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
-          <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"><?= $pendaftar_individu['alamat'] ?></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
-          <input type="text" name="no_ktp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['no_ktp'] ?>" required>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-          <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?= $pendaftar_individu['no_telp'] ?>" required>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
-          <select class="form-select" name="cabang" aria-label="Default select example">
-            <option hidden>Silahkan Pilih Cabang</option>
-            <option value="Jakarta" <?php if ($pendaftar_individu['cabang'] == 'Jakarta') echo 'selected="Jakarta"' ?>>Jakarta</option>
-            <option value="Makassar" <?php if ($pendaftar_individu['cabang'] == 'Makassar') echo 'selected="Makassar"' ?>>Makassar</option>
-            <option value="Medan" <?php if ($pendaftar_individu['cabang'] == 'Medan') echo 'selected="Medan"' ?>>Medan</option>
-          </select>
-        </div>
-        <button type="submit" name="submit" class="btn btn-warning mb-5">Submit</button>
-      </form>
-    </div>
-  </section>
+  <h1 class="text-center my-3">Data Admin</h1>
+  <div class="container my-5">
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>:</td>
+        <td><b><?= $data_admin['username'] ?></b></td>
+      </tr>
+      <tr>
+        <td>No. Telepon</td>
+        <td>:</td>
+        <td><b><?= $data_admin['no_telp'] ?></b></td>
+      </tr>
+    </table>
   </div>
-  <!-- Akhir Form Pendaftaran Individu -->
 
   <!-- Footer -->
   <footer>
-    <div class="main-content">
+    <div class="main-content mt-5">
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">

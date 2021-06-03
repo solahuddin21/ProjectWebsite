@@ -1,6 +1,11 @@
 <?php
 include 'cek_cookie.php';
 
+if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    header('location:forbidden.php');
+    exit;
+}
+
 $pendaftar_individu = query("SELECT cabang, COUNT(cabang) as jml_pendaftar, DENSE_RANK() OVER(ORDER BY jml_pendaftar DESC) AS peringkat FROM daftar_individu GROUP BY cabang ORDER BY peringkat ASC");
 
 if (isset($_POST['cari'])) {
@@ -79,6 +84,11 @@ if (isset($_POST['cari'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+                        <li class="nav-item">
+                            <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

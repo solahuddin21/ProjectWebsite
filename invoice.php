@@ -4,8 +4,9 @@ include 'cek_cookie.php';
 $id = $_GET['id'];
 $data_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];
 
+$tanggal = substr($data_individu['invoice'], 4, 10);
+
 $output = '
-  
   <table border="1" width="100%" cellpadding="5" cellspacing="0" >
       <tr>
         <td colspan="2" align="center" style="font-size:18px"><b>INVOICE</b></td>
@@ -65,7 +66,7 @@ $output = '
                   <tr>
                     <td>Tanggal</td>
                     <td>:</td>
-                    <td>'.substr($data_individu['invoice'], 4, 10).'</td>
+                    <td>'.$tanggal.'</td>
                   </tr>
                 </table>
               </td>
@@ -97,7 +98,7 @@ $output = '
     </table>
 ';
 
-$invoiceFileName = 'Invoice-'.$data_individu['id'].'.pdf';
+$invoiceFileName = $data_individu['invoice'].'_'.$data_individu['nama'];
 require_once 'dompdf/src/Autoloader.php';
 Dompdf\Autoloader::register();
 use Dompdf\Dompdf;

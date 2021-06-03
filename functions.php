@@ -39,19 +39,24 @@
         IN alamat_anggota varchar(100),
         IN no_ktp_anggota varchar(25),
         IN no_telp_anggota varchar(50),
-        IN cabang_anggota varchar(50)
+        IN cabang_anggota varchar(50),
+        IN invoice_anggota varchar(100)
       )
       BEGIN
-        INSERT INTO daftar_individu (nama, domisili, tanggal_lahir, alamat, no_ktp, no_telp, cabang)
-        VALUES (nama_anggota, domisili_anggota, tanggal_lahir_anggota, alamat_anggota, no_ktp_anggota, no_telp_anggota, cabang_anggota);
+        INSERT INTO daftar_individu (nama, domisili, tanggal_lahir, alamat, no_ktp, no_telp, cabang, invoice)
+        VALUES (nama_anggota, domisili_anggota, tanggal_lahir_anggota, alamat_anggota, no_ktp_anggota, no_telp_anggota, cabang_anggota, invoice_anggota);
       END";
 
       mysqli_query($koneksi, $query000) or die('Procedure Gagal Dibuat');
     }
 
+    $query_last_id = query("SELECT MAX(id) as id FROM daftar_individu")[0];
+    $last_id = str_pad((int)$query_last_id['id']+1, 5, '0', STR_PAD_LEFT);
+    $invoice = "INV/".date('d/m/Y')."/".$last_id;
+
     mysqli_query($koneksi,"SET autocommit = OFF");
     mysqli_query($koneksi,"START TRANSACTION");
-    $query = "CALL tambah_daftar_individu('$nama', '$domisili', '$tanggal_lahir', '$alamat', '$no_ktp', '$no_telp', '$cabang')";
+    $query = "CALL tambah_daftar_individu('$nama', '$domisili', '$tanggal_lahir', '$alamat', '$no_ktp', '$no_telp', '$cabang', '$invoice')";
 
     mysqli_query($koneksi, $query) or die('Tambah Data Dengan Procedure Gagal');
     return mysqli_affected_rows($koneksi);

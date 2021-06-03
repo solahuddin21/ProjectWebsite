@@ -1,6 +1,11 @@
 <?php
 include 'cek_cookie.php';
 
+if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    header('location:forbidden.php');
+    exit;
+}
+
 if (isset($_POST['submit'])) {
     if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {
         $_POST['gambar'] = $_POST['gambar2'];
@@ -57,7 +62,7 @@ if (isset($_POST['submit'])) {
         $(function() {
             $("#datepicker").datetimepicker({
                 dateFormat: "dd-mm-yy",
-                timeFormat:  "HH:mm:ss",
+                timeFormat: "HH:mm:ss",
                 changeMonth: true,
                 changeYear: true
             });
@@ -95,6 +100,11 @@ if (isset($_POST['submit'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+                        <li class="nav-item">
+                            <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>

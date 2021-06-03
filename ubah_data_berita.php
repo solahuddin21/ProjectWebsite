@@ -1,6 +1,11 @@
 <?php
 include 'cek_cookie.php';
 
+if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    header('location:forbidden.php');
+    exit;
+}
+
 $id = $_GET['id'];
 $berita = query("SELECT * FROM berita WHERE id = $id")[0];
 
@@ -60,7 +65,7 @@ if (isset($_POST['submit'])) {
         $(function() {
             $("#datepicker").datetimepicker({
                 dateFormat: "dd-mm-yy",
-                timeFormat:  "HH:mm:ss",
+                timeFormat: "HH:mm:ss",
                 changeMonth: true,
                 changeYear: true
             });
@@ -98,6 +103,11 @@ if (isset($_POST['submit'])) {
                     <li class="nav-item ps-2">
                         <a href="index.php#gabung"><button class="btn btn-outline-warning" type="submit">Gabung</button></a>
                     </li>
+                    <?php if (isset($_SESSION['username']) and isset($_SESSION['status'])) : ?>
+                        <li class="nav-item">
+                            <a href="dashboard_admin.php"><button class="btn btn-outline-danger ms-2" type="submit">Admin</button></a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -134,17 +144,20 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="row featurette">
                         <div class="col-lg-6 text-center">
-                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required <?php if (strpos($berita['gambar'], "http") === false) : echo "checked"; endif; ?> /><br>
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="local_image" required <?php if (strpos($berita['gambar'], "http") === false) : echo "checked";
+                                                                                                                            endif; ?> /><br>
                             <i class="far fa-images fa-2x"></i><br>Local Image
                             <div class="input-group">
                                 <input type="file" class="form-control" id="inputGroupFile02" name="gambar">
                             </div>
                         </div>
                         <div class="col-lg-6 text-center">
-                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required <?php if (strpos($berita['gambar'], "http") !== false) : echo "checked"; endif; ?>/><br>
+                            <input class="form-check-input" type="radio" name="radio_gambar" value="url" required <?php if (strpos($berita['gambar'], "http") !== false) : echo "checked";
+                                                                                                                    endif; ?> /><br>
                             <i class="fas fa-link fa-2x"></i><br>URL
                             <div class="input-group">
-                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if (strpos($berita['gambar'], "http") !== false) : echo $berita['gambar']; endif; ?>">
+                                <input type="text" name="gambar2" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php if (strpos($berita['gambar'], "http") !== false) : echo $berita['gambar'];
+                                                                                                                                                    endif; ?>">
                             </div>
                         </div>
                     </div>

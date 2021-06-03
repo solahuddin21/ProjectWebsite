@@ -2,7 +2,7 @@
 include 'cek_cookie.php';
 
 if (isset($_SESSION['username']) and isset($_SESSION['status'])) {
-  header('location: index.php');
+  header('location: dashboard_admin.php');
   exit;
 }
 ?>
@@ -71,7 +71,7 @@ if (isset($_SESSION['username']) and isset($_SESSION['status'])) {
 <body>
   <section class="container mx-auto">
     <div class="row g-0">
-      <div class="col-lg-5">
+      <div class="col-lg-5 my-auto">
         <img src="img/Logo_PSM.png" alt="" class="img-fluid mx-auto d-block" style="width: 65%;" />
       </div>
       <div class="col-lg-7 px-5 pt-3">
@@ -91,7 +91,13 @@ if (isset($_SESSION['username']) and isset($_SESSION['status'])) {
             <label class="form-check-label" for="remember">Ingat Saya</label>
           </div>
           <div class="form-floating col-lg-11 d-grid">
-            <button type="submit" class="button-1 btn btn-dark btn-lg my-1" name="login">Login</button>
+            <button type="submit" class="btn btn-dark btn-lg my-1" name="login">Login</button>
+          </div>
+          <div class="col-lg-11 text-center my-2">
+            <label>Atau</label>
+          </div>
+          <div class="form-floating col-lg-11 d-grid">
+            <a href="index.php" class="d-grid btn btn-outline-secondary btn-lg my-1 mb-4" style="text-decoration: none;">Masuk Sebagai Tamu</a>
           </div>
           <?php if (isset($_SESSION['login']) and $_SESSION['login'] == "gagal") : ?>
             <div class="alert alert-danger alert-dismissible fade show mt-2 col-lg-11" role="alert" id="alert_password_salah">

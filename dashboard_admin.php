@@ -1,3 +1,12 @@
+<?php
+include 'cek_cookie.php';
+
+if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
+    header('location:forbidden.php');
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,7 +16,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <link rel="icon" href="img/Logo_PSM.png">
-        <title>Dashboard - SB Admin</title>
+        <title>Dashboard Admin PSM</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -24,7 +33,7 @@
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
+                <div class="input-group" hidden>
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
@@ -34,10 +43,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="logout_admin.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -49,12 +55,16 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark bg-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Pages Admin</div>
-                            <a class="nav-link" href="dashboard.php">
+                            <div class="sb-sidenav-menu-heading">Halaman</div>
+                            <a class="nav-link" href="dashboard_admin.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Features</div>
+                            <a class="nav-link" href="index.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                Index
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Menu</div>
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseIndividu" aria-expanded="false" aria-controls="collapseIndividu">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
@@ -63,9 +73,9 @@
                             </a>
                             <div class="collapse" id="collapseIndividu" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">List Daftar Individu</a>
-                                    <a class="nav-link" href="#">Log Daftar Individu</a>
-                                    <a class="nav-link" href="#">Peringkat Daftar Individu</a>
+                                    <a class="nav-link" href="data_pendaftar_individu.php">List Daftar Individu</a>
+                                    <a class="nav-link" href="log_daftar_individu.php">Log Daftar Individu</a>
+                                    <a class="nav-link" href="data_peringkat_cabang_individu.php">Peringkat Cabang Individu</a>
                                 </nav>
                             </div>
 
@@ -76,9 +86,9 @@
                             </a>
                             <div class="collapse" id="collapseInstitusi" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">List Daftar Institusi</a>
-                                    <a class="nav-link" href="#">Log Daftar Institusi</a>
-                                    <a class="nav-link" href="#">Peringkat Daftar Institusi</a>
+                                <a class="nav-link" href="data_pendaftar_institusi.php">List Daftar Institusi</a>
+                                    <a class="nav-link" href="log_daftar_institusi.php">Log Daftar Institusi</a>
+                                    <a class="nav-link" href="data_peringkat_cabang_institusi.php">Peringkat Cabang Institusi</a>
                                 </nav>
                             </div>
 
@@ -89,30 +99,30 @@
                             </a>
                             <div class="collapse" id="collapseBerita" aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="#">List Daftar Berita</a>
-                                    <a class="nav-link" href="#">Tambah Daftar Berita</a>
+                                    <a class="nav-link" href="data_berita.php">Kelola Daftar Berita</a>
                                 </nav>
                             </div>
 
 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user-circle"></i></div>
-                                Admin
+                                Data Admin
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    <a class="nav-link" href="login.html">Detail</a>
+                                    <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                         Authentication
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                    </a> -->
+                                    <!-- <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="login.html">Login</a>
                                             <a class="nav-link" href="register.html">Register</a>
                                             <a class="nav-link" href="password.html">Forgot Password</a>
                                         </nav>
-                                </nav>
+                                </nav> -->
                             </div>
                             <a class="nav-link" href="logout_admin.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
@@ -121,8 +131,8 @@
                             </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Admin
+                        <div class="small">Masuk sebagai:</div>
+                        <?= ucwords($_SESSION['username']) ?>
                     </div>
                 </nav>
             </div>
@@ -134,14 +144,14 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Selamat Datang! Anda berada di Laman Admin.</li>
+                            <li class="breadcrumb-item active">Selamat Datang di Halaman Admin!</li>
                         </ol>
                         <div class="row">
                             <div class="col-md-6 float-md-end mb-5 ">
                                 <div class="card bg-primary text-white my-5 mx-1 shadow">
                                     <div class="card-body"> <h5>Data Individu</h5></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="menu_data_individu.php">Lihat Detail</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -150,7 +160,7 @@
                                 <div class="card bg-warning text-white my-5 mx-1 shadow ">
                                     <div class="card-body"> <h5> Data Institusi </h5></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="menu_data_institusi.php">Lihat Detail</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -159,7 +169,7 @@
                                 <div class="card bg-success text-white my-5 mx-1 shadow">
                                     <div class="card-body"><h5>Data Berita</h5></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="data_berita.php">Lihat Detail</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -168,7 +178,7 @@
                                 <div class="card bg-danger text-white my-5 mx-1 shadow">
                                     <div class="card-body"><h5>Data Admin</h5></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="menu_data_admin.php">Lihat Detail</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
