@@ -157,7 +157,7 @@ if (isset($_POST['cari'])) {
     <div id="map"></div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0l_6IDf0692HjV9Wq5k_AkkwKbUOqEYM&callback=initMap&libraries=&v=weekly" async></script>
     <form action="" method="POST">
-      <div class="row justify-content-center ms-5 mt-3">
+      <div class="row justify-content-center ms-5 mt-3 mb-5">
         <div class="col-5 my-2">
           <input class="form-control" type="search" placeholder="Masukkan Alamat atau Koordinat..." aria-label="Cari" name="keyword" autocomplete="off">
         </div>
