@@ -116,7 +116,7 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" href="login.html">Detail</a>
+                                <a class="nav-link" href="menu_data_admin.php">Detail</a>
                         </div>
                         <a class="nav-link" href="logout_admin.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
