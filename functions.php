@@ -199,12 +199,12 @@
   }
 
   function cari_log_individu($keyword) {
-    $query = "SELECT * FROM log_daftar_individu WHERE status LIKE '%$keyword%' OR waktu LIKE '%$keyword%' OR id_pendaftar LIKE '%$keyword%'";
+    $query = "SELECT * FROM log_daftar_individu WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
     return query($query);
   }
   
   function cari_log_institusi($keyword) {
-    $query = "SELECT * FROM log_daftar_institusi WHERE status LIKE '%$keyword%' OR waktu LIKE '%$keyword%' OR id_pendaftar LIKE '%$keyword%'";
+    $query = "SELECT * FROM log_daftar_institusi WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
     return query($query);
   }
 
