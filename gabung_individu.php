@@ -187,9 +187,7 @@ if (isset($_POST['submit'])) {
             <div class="left box">
                 <h2>Tentang Kami</h2>
                 <div class="content">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat nulla at doloribus
-                        minus possimus
-                        ullam suscipit omnis laudantium cupiditate!</p>
+                    <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat.</p>
                     <div class="social">
                         <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
                         <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
