@@ -96,6 +96,12 @@ $output = '
         </td>
       </tr>
     </table>
+    </br>
+    <textarea  cols="30" rows="10">
+      Untuk Pembayaran Silahkan melalui Rekening Berikut : 104801740 a.n Saya (BankJagoan)
+      Setelah itu kirim bukti transaksi melalui WA +8910401903 atau pada footer tertera kontak kami
+    </textarea>
+
 ';
 
 $invoiceFileName = $data_individu['invoice'].'_'.$data_individu['nama'];
