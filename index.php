@@ -225,8 +225,8 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
         <rect width="100%" height="100%" fill="#777"></rect>
         <div class="container">
           <div class="carousel-caption">
-            <h2 class="text-white">First slide label</h2>
-            <p class="text-white text-center">Some representative placeholder content for the first slide.</p>
+            <h2 class="text-white">Prisai Sakti Mataram<</h2>
+            <p class="text-white text-center">insigh mengenai informasi yang ditampilkan.</p>
           </div>
         </div>
       </div>
@@ -235,8 +235,8 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
         <rect width="100%" height="100%" fill="#777"></rect>
         <div class="container">
           <div class="carousel-caption">
-            <h2 class="text-white">Second slide label</h2>
-            <p class="text-white text-center">Some representative placeholder content for the first slide.</p>
+            <h2 class="text-white">Prisai Sakti Mataram<</h2>
+            <p class="text-white text-center">insigh mengenai informasi yang ditampilkan.</p>
           </div>
         </div>
       </div>
@@ -245,8 +245,8 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
         <rect width="100%" height="100%" fill="#777"></rect>
         <div class="container">
           <div class="carousel-caption">
-            <h2 class="text-white">Third slide label</h2>
-            <p class="text-white text-center">Some representative placeholder content for the first slide.</p>
+            <h2 class="text-white">Prisai Sakti Mataram<</h2>
+            <p class="text-white text-center">insigh mengenai informasi yang ditampilkan.</p>
           </div>
         </div>
       </div>
@@ -269,12 +269,8 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
         <h2 class="featurette-heading">Tentang Kami</h2>
         <hr class="featurette-divider" />
         <p class="lead">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-          quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-          praesentium. Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem
-          corrupti assumenda ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus
-          recusandae ea
-          adipisci dicta? <br />
+        Disini adalah deskripsi mengenai Prisai Sakti Mataram, bisa berupa 
+        sejarah terbentuknya PSM, prestasi PSM, dan lain sebagainya. <br />
           <a href="profil.php"><button type="#" class="btn btn-outline-secondary w-25 h-25 mt-3">Selengkapnya</button></a>
         </p>
       </div>
@@ -350,9 +346,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
             <h2>
               Individu</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita ullam aliquid non eligendi, nemo est
-              neque
-              reiciendis error?</p>
+              Gabung ke Prisai Sakti Mataram secara Individu</p>
             <a href="gabung_individu.php">Gabung</a>
           </div>
           <div class="konten konten-2">
@@ -362,9 +356,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
             <h2>
               Institusi</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita ullam aliquid non eligendi, nemo est
-              neque
-              reiciendis error?</p>
+            Gabung ke Prisai Sakti Mataram melalui Institusi</p>
             <a href="gabung_institusi.php">Gabung</a>
           </div>
         </div>
@@ -379,9 +371,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat nulla at doloribus minus
-            possimus
-            ullam suscipit omnis laudantium cupiditate!</p>
+          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat.</p>
           <div class="social">
             <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
