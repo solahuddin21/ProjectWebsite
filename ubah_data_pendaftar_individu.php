@@ -207,7 +207,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Alamat</label>
-                  <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3"><?= $pendaftar_individu['alamat'] ?></textarea>
+                  <textarea class="form-control" name="alamat" id="exampleFormControlTextarea1" rows="3" required><?= $pendaftar_individu['alamat'] ?></textarea>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
