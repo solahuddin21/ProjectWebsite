@@ -143,9 +143,7 @@
     $no_telp = htmlspecialchars($post['no_telp']);
     $cabang = htmlspecialchars($post['cabang']);
     $tanggal_lahir  = date("Y-m-d",strtotime($tgl_lahir));
-
-    mysqli_query($koneksi,"SET autocommit = OFF");
-    mysqli_query($koneksi,"START TRANSACTION");
+    
     $query = "UPDATE daftar_individu SET nama = '$nama', domisili = '$domisili', tanggal_lahir = '$tanggal_lahir', alamat = '$alamat', no_ktp = '$no_ktp', no_telp = '$no_telp', cabang = '$cabang' WHERE id = $id";
 
     mysqli_query($koneksi, $query);
@@ -162,8 +160,6 @@
     $no_telp = htmlspecialchars($post['no_telp']);
     $cabang = htmlspecialchars($post['cabang']);
     
-    mysqli_query($koneksi,"SET autocommit = OFF");
-    mysqli_query($koneksi,"START TRANSACTION");
     $query = "UPDATE daftar_institusi SET nama = '$nama', jumlah = $jumlah, alamat = '$alamat', no_telp = '$no_telp', cabang = '$cabang' WHERE id = $id";
 
     mysqli_query($koneksi, $query);
