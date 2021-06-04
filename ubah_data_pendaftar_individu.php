@@ -8,6 +8,14 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
 
 $id = $_GET['id'];
 $pendaftar_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];
+
+if (isset($_POST['submit'])) {
+  $ubah_data_pendaftar_individu = ubah_data_pendaftar_individu($_POST);
+  if ($ubah_data_pendaftar_individu >= 0) {
+    $_SESSION['ubahdata'] = 'sukses';
+    header('location:data_pendaftar_individu.php');
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -165,21 +173,18 @@ $pendaftar_individu = query("SELECT * FROM daftar_individu WHERE id = $id")[0];
         <div class="container-fluid px-4">
           <section class="individu m-5">
             <div class="container">
-              <?php
+            <?php
               if (isset($_POST['submit'])) {
-                if (ubah_data_pendaftar_individu($_POST) > 0) {
-                  $_SESSION['ubahdata'] = 'sukses';
-                  header('location:data_pendaftar_individu.php');
-                } else {
+                if ($ubah_data_pendaftar_individu < 0) {
                   echo "
-                      <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
-                      <strong>Gagal!</strong> Masukkan data dengan benar.
-                      <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-                      </div>
-                    ";
+                    <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+                    <strong>Gagal!</strong> Masukkan data dengan benar.
+                    <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                    </div>
+                  ";
                 }
               }
-              ?>
+            ?>
               <h2 class="text-center pt-5 fw-bold">Ubah Data Pendaftar Individu</h2>
               <form action="" method="POST">
                 <div class="mb-3">

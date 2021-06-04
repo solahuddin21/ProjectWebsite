@@ -8,6 +8,14 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
 
 $id = $_GET['id'];
 $pendaftar_institusi = query("SELECT * FROM daftar_institusi WHERE id = $id")[0];
+
+if (isset($_POST['submit'])) {
+  $ubah_data_pendaftar_institusi = ubah_data_pendaftar_institusi($_POST);
+  if ($ubah_data_pendaftar_institusi >= 0) {
+    $_SESSION['ubahdata'] = 'sukses';
+    header('location:data_pendaftar_institusi.php');
+  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -152,10 +160,7 @@ $pendaftar_institusi = query("SELECT * FROM daftar_institusi WHERE id = $id")[0]
             <div class="container">
               <?php
               if (isset($_POST['submit'])) {
-                if (ubah_data_pendaftar_institusi($_POST) > 0) {
-                  $_SESSION['ubahdata'] = 'sukses';
-                  header('location:data_pendaftar_institusi.php');
-                } else {
+                if ($ubah_data_pendaftar_institusi < 0) {
                   echo "
                     <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
                     <strong>Gagal!</strong> Masukkan data dengan benar.

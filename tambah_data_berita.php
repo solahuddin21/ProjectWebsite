@@ -14,16 +14,10 @@ if (isset($_POST['submit'])) {
             $_POST['gambar'] = "img/" . $_POST['gambar'];
         }
     }
-    if (tambah_data_berita($_POST) > 0) {
+    $tambah_data_berita = tambah_data_berita($_POST);
+    if ($tambah_data_berita > 0) {
         $_SESSION['tambahdata'] = 'sukses';
         header('location:data_berita.php');
-    } else {
-        echo "
-        <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
-          <strong>Gagal!</strong> Masukkan data dengan benar.
-          <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-        </div>
-      ";
     }
 }
 ?>
@@ -185,6 +179,18 @@ if (isset($_POST['submit'])) {
                 <div class="container-fluid px-4">
                     <section class="individu m-5">
                         <div class="container">
+                            <?php
+                            if (isset($_POST['submit'])) {
+                                if ($tambah_data_berita < 1) {
+                                    echo "
+                                        <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+                                        <strong>Gagal!</strong> Masukkan data dengan benar.
+                                        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                                        </div>
+                                    ";
+                                }
+                            }
+                            ?>
                             <h2 class="text-center pt-5 fw-bold">Tambah Data Berita</h2>
                             <form action="" method="POST">
                                 <div class="mb-3 pt-4">

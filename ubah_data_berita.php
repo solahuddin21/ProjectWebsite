@@ -17,8 +17,8 @@ if (isset($_POST['submit'])) {
             $_POST['gambar'] = "img/" . $_POST['gambar'];
         }
     }
-    $ubah_data = ubah_data_berita($_POST);
-    if ($ubah_data > 0) {
+    $ubah_data_berita = ubah_data_berita($_POST);
+    if ($ubah_data_berita >= 0) {
         $_SESSION['ubahdata'] = 'sukses';
         header('location:data_berita.php');
     }
@@ -184,7 +184,7 @@ if (isset($_POST['submit'])) {
                         <div class="container">
                         <?php
                             if (isset($_POST['submit'])) {
-                                if ($ubah_data < 1) {
+                                if ($ubah_data_berita < 0) {
                                     echo "
                                         <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
                                         <strong>Gagal!</strong> Masukkan data dengan benar.
