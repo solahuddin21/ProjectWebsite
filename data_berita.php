@@ -9,12 +9,24 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
   exit;
 }
 
-// Lakukan query berita dengan urutan berdasarkan tanggal
-$array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC");
+$limit = 5;
+$query = "SELECT * FROM berita";
+$result = mysqli_query($koneksi, $query);
+$jumlah_result = mysqli_num_rows($result);
+$jumlah_page = ceil($jumlah_result / $limit);
 
-// Kondisi jika tombol cari ditekan
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+$pagination = true;
+$page_awal = ($page - 1) * $limit;
+$array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC LIMIT $page_awal, $limit");
+
 if (isset($_POST['cari'])) {
-  // Kirim keyword ke fungsi cari_berita pada function.php dan perbarui hasil query baru ke variabel array_berita
+  $pagination = false;
   $array_berita = cari_berita($_POST['keyword']);
 }
 ?>
@@ -291,6 +303,29 @@ if (isset($_POST['cari'])) {
       </div>
     <?php endif; ?>
   </section>
+        <!-- Pagination -->
+<section class="page my-5">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+      <?php $nomor = 1 ?>
+        <?php if (empty($_GET['page']) and $pagination == true) : ?>
+          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+            <li class="page-item"><a class="page-link text-warning" href="data_berita.php?page=<?= $page ?>"><?= $page ?></a></li>
+          <?php endfor; ?>
+        <?php elseif (!empty($_GET['page']) and $pagination == true) : ?>
+          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+            <?php if ($page == $_GET['page']) : ?>
+              <li class="page-item active"><a class="page-link" href="data_berita.php?page=<?= $page ?>"><?= $page ?></a></li>
+            <?php else : ?>
+              <li class="page-item"><a class="page-link text-warning" href="data_berita.php?page=<?= $page ?>"><?= $page ?></a></li>
+            <?php endif; ?>
+          <?php endfor; ?>
+        <?php endif; ?>
+        <?php $nomor++ ?>
+      </ul>
+    </nav>
+  </section>
+  <!-- Akhir Pagination -->
 </div>
 </main>
 </div>
