@@ -8,27 +8,6 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
 
 $id = $_GET['id'];
 $berita = query("SELECT * FROM berita WHERE id = $id")[0];
-
-if (isset($_POST['submit'])) {
-    if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {
-        $_POST['gambar'] = $_POST['gambar2'];
-    } else {
-        if (!file_exists($_POST['gambar'])) {
-            $_POST['gambar'] = "img/" . $_POST['gambar'];
-        }
-    }
-    if (ubah_data_berita($_POST) > 0) {
-        $_SESSION['ubahdata'] = 'sukses';
-        header('location:data_berita.php');
-    } else {
-        echo "
-            <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
-            <strong>Gagal!</strong> Masukkan data dengan benar.
-            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
-            </div>
-        ";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +167,28 @@ if (isset($_POST['submit'])) {
                 <div class="container-fluid px-4">
                     <section class="individu m-5">
                         <div class="container">
+                            <?php
+                            if (isset($_POST['submit'])) {
+                                if (isset($_POST['radio_gambar']) and $_POST['radio_gambar'] == 'url') {
+                                    $_POST['gambar'] = $_POST['gambar2'];
+                                } else {
+                                    if (!file_exists($_POST['gambar'])) {
+                                        $_POST['gambar'] = "img/" . $_POST['gambar'];
+                                    }
+                                }
+                                if (ubah_data_berita($_POST) > 0) {
+                                    $_SESSION['ubahdata'] = 'sukses';
+                                    header('location:data_berita.php');
+                                } else {
+                                    echo "
+                                            <div class='container alert alert-danger alert-dismissible fade show mt-5' role='alert'>
+                                            <strong>Gagal!</strong> Masukkan data dengan benar.
+                                            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+                                            </div>
+                                        ";
+                                }
+                            }
+                            ?>
                             <h2 class="text-center pt-5 fw-bold">Ubah Data Berita</h2>
                             <form action="" method="POST">
                                 <div class="mb-3 pt-4">
