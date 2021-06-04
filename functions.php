@@ -70,9 +70,29 @@
     $no_telp = htmlspecialchars($post['no_telp']);
     $cabang = htmlspecialchars($post['cabang']);
 
+    $query0 = "SELECT 1 FROM mysql.proc p WHERE db = 'psm' AND name = 'tambah_daftar_institusi'";
+
+    mysqli_query($koneksi, $query0);
+    
+    if(mysqli_num_rows(mysqli_query($koneksi, $query0)) == 0) {
+      $query000 = "CREATE PROCEDURE tambah_daftar_institusi(
+        IN nama_anggota varchar(50),
+        IN jumlah_anggota varchar(100),
+        IN alamat_anggota varchar(100),
+        IN no_telp_anggota varchar(50),
+        IN cabang_anggota varchar(50)
+      )
+      BEGIN
+        INSERT INTO daftar_institusi (nama, jumlah, alamat, no_telp, cabang)
+        VALUES (nama_anggota, jumlah_anggota, alamat_anggota, no_telp_anggota, cabang_anggota);
+      END";
+
+      mysqli_query($koneksi, $query000) or die('Procedure Gagal Dibuat');
+    }
+
     mysqli_query($koneksi,"SET autocommit = OFF");
     mysqli_query($koneksi,"START TRANSACTION");
-    $query = "INSERT INTO daftar_institusi (nama, jumlah, alamat, no_telp, cabang) VALUES ('$nama', $jumlah, '$alamat', '$no_telp', '$cabang')";
+    $query = "CALL tambah_daftar_institusi('$nama', $jumlah, '$alamat', '$no_telp', '$cabang')";
 
     mysqli_query($koneksi, $query);
 

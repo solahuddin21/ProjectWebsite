@@ -150,60 +150,66 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
   </nav>
   <!-- Akhir Navbar  -->
 
-  <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "sukses") : ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#staticBackdrop<?= $data_daftar_individu['id'] ?>').modal('show');
-      });
-    </script>
-    <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_individu['id'] ?>">Hidden Button Invoice</button>
-    <div class="modal fade" id="staticBackdrop<?= $data_daftar_individu['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
-              <strong>Berhasil!</strong><br>
-              Silahkan lihat invoice untuk melanjutkan pembayaran.
+  <?php if (!empty($data_daftar_individu)) : ?>
+    <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "sukses") : ?>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#staticBackdrop<?= $data_daftar_individu['id'] ?>').modal('show');
+        });
+      </script>
+      <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_individu['id'] ?>">Hidden Button Invoice</button>
+      <div class="modal fade" id="staticBackdrop<?= $data_daftar_individu['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <a href="invoice.php?id=<?= $data_daftar_individu['id']; ?>" target="_blank"><button class="btn btn-dark" type="button">Lihat Invoice</button></a>
+            <div class="modal-body">
+              <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+                <strong>Berhasil!</strong><br>
+                Silahkan lihat invoice untuk melanjutkan pembayaran.
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="invoice.php?id=<?= $data_daftar_individu['id']; ?>" target="_blank"><button class="btn btn-dark" type="button">Lihat Invoice</button></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <?php unset($_SESSION['tambahdata']) ?>
-  <?php elseif (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "suksess") : ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#staticBackdrop<?= $data_daftar_institusi['id'] ?>').modal('show');
-      });
-    </script>
-    <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_institusi['id'] ?>">Hidden Button</button>
-    <div class="modal fade" id="staticBackdrop<?= $data_daftar_institusi['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
-              <strong>Berhasil!</strong><br>
-              Data Pendaftaran Institusi Telah Berhasil Ditambahkan
+      <?php unset($_SESSION['tambahdata']) ?>
+    <?php endif; ?>
+  <?php endif; ?>
+
+  <?php if (!empty($data_daftar_institusi)) : ?>
+    <?php if (isset($_SESSION['tambahdata']) and $_SESSION['tambahdata'] == "suksess") : ?>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          $('#staticBackdrop<?= $data_daftar_institusi['id'] ?>').modal('show');
+        });
+      </script>
+      <button type="button" class="btn btn-primary" style="display: none;" data-bs-toggle="modal" data-bs-target="#staticBackdrop<?= $data_daftar_institusi['id'] ?>">Hidden Button</button>
+      <div class="modal fade" id="staticBackdrop<?= $data_daftar_institusi['id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Data Telah Ditambahkan </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
-          <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Tutup</button>
+            <div class="modal-body">
+              <div class="container alert alert-success alert-dismissible fade show mt-2" role="alert">
+                <strong>Berhasil!</strong><br>
+                Data Pendaftaran Institusi Telah Berhasil Ditambahkan
+              </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Tutup</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <?php unset($_SESSION['tambahdata']) ?>
+      <?php unset($_SESSION['tambahdata']) ?>
+    <?php endif; ?>
   <?php endif; ?>
 
   <!-- Carousel -->
