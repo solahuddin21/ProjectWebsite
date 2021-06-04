@@ -74,44 +74,17 @@ include 'cek_cookie.php';
     <hr class="featurette-divider mb-5" />
     <h3>Prisai Sakti Mataram</h3>
     <p class="lead">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
+      Disini adalah deskripsi mengenai Prisai Sakti Mataram, bisa berupa sejarah terbentuknya PSM, prestasi PSM, dan lain sebagainya.
     </p>
     <h3 class="mt-5">Visi Misi</h3>
     <p class="lead">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
+      Disini adalah visi misi dari Prisai Sakti Mataram. Visi akan ditampilkan secara paragraf, dan misi akan ditampilkan secara poin per poin.
     </p>
     <h3 class="mt-5">Struktur Organisasi</h3>
     <img src="img/struktur_organisasi.png" class="card-img mb-4" alt="..." />
     <h3 class="mt-5">Pendidikan PSM</h3>
     <p class="lead mb-5 pb-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut vitae alias repudiandae dignissimos, fugit dolor
-      quisquam neque officiis provident commodi porro quibusdam vel quaerat quas quod ipsam molestiae illum optio
-      praesentium.
-      Inventore esse expedita in itaque aperiam repellat reprehenderit, deleniti odio nihil dolorem corrupti assumenda
-      ipsum perferendis eveniet cupiditate officiis voluptas libero similique. Possimus recusandae ea adipisci dicta?
-      Illum
-      id sed quasi commodi alias nam, ea repellendus harum iste deserunt, possimus accusantium labore aperiam? Porro
-      animi neque officia obcaecati incidunt ex dicta, inventore dignissimos libero amet assumenda voluptas quo
-      temporibus rem
-      sequi vero in fugiat deserunt beatae atque provident suscipit.
+      Disini berisi tentang Pendidikan apa saja yang dilakukan di Perguruan Pencak Silat Prisai Sakti Mataram.
     </p>
   </div>
   <!-- Akhir Profil -->
@@ -122,9 +95,7 @@ include 'cek_cookie.php';
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus quaerat nulla at doloribus minus
-            possimus
-            ullam suscipit omnis laudantium cupiditate!</p>
+          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat.</p>
           <div class="social">
             <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
