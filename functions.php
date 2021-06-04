@@ -143,7 +143,7 @@
     $no_telp = htmlspecialchars($post['no_telp']);
     $cabang = htmlspecialchars($post['cabang']);
     $tanggal_lahir  = date("Y-m-d",strtotime($tgl_lahir));
-
+    
     $query = "UPDATE daftar_individu SET nama = '$nama', domisili = '$domisili', tanggal_lahir = '$tanggal_lahir', alamat = '$alamat', no_ktp = '$no_ktp', no_telp = '$no_telp', cabang = '$cabang' WHERE id = $id";
 
     mysqli_query($koneksi, $query);
