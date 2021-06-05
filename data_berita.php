@@ -23,7 +23,7 @@ if (!isset($_GET['page'])) {
 
 $pagination = true;
 $page_awal = ($page - 1) * $limit;
-$array_berita = query("SELECT * FROM berita ORDER BY tanggal DESC LIMIT $page_awal, $limit");
+$array_berita = query("SELECT *, ROW_NUMBER() OVER (ORDER BY tanggal DESC) as nomor FROM berita ORDER BY tanggal DESC LIMIT $page_awal, $limit");
 
 if (isset($_POST['cari'])) {
   $pagination = false;
@@ -246,12 +246,10 @@ if (isset($_POST['cari'])) {
           </tr>
         </thead>
         <tbody>
-          <!-- Definisikan variabel nomor sebagai urutan -->
-          <?php $nomor = 1 ?>
           <!-- Lakukakan loop foreach untuk setiap array_berita dan assign ke variabel berita -->
           <?php foreach ($array_berita as $berita) : ?>
             <tr>
-              <td><?= $nomor ?></td>
+              <td><?= $berita['nomor'] ?></td>
               <td><?= $berita['tanggal'] ?></td>
               <td><?= $berita['judul'] ?></td>
               <?php
@@ -291,8 +289,6 @@ if (isset($_POST['cari'])) {
                 </div>
               </td>
             </tr>
-            <!-- Jalankan statement increment untuk variabel nomor -->
-            <?php $nomor++ ?>
           <?php endforeach; ?>
         </tbody>
       </table>
