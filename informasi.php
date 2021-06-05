@@ -145,7 +145,8 @@ if (isset($_POST['cari'])) {
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <?php if (empty($_GET['page']) and $pagination == true) : ?>
-          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+          <li class="page-item active"><a class="page-link" href="informasi.php?page=1">1</a></li>
+          <?php for ($page = 2; $page <= $jumlah_page; $page++) : ?>
             <li class="page-item"><a class="page-link text-warning" href="informasi.php?page=<?= $page ?>"><?= $page ?></a></li>
           <?php endfor; ?>
         <?php elseif (!empty($_GET['page']) and $pagination == true) : ?>

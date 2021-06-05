@@ -9,8 +9,23 @@ if (empty($_SESSION['username']) and empty($_SESSION['status'])) {
   exit;
 }
 
-// Lakukan query data pendaftar individu serta panggil fungsi jenis_cabang pada DB
-$pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu");
+$limit = 5;
+$query = "SELECT * FROM daftar_individu";
+$result = mysqli_query($koneksi, $query);
+$jumlah_result = mysqli_num_rows($result);
+$jumlah_page = ceil($jumlah_result / $limit);
+
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+$pagination = true;
+$page_awal = ($page - 1) * $limit;
+
+// Lakukan query data pendaftar individu, panggil fungsi jenis_cabang, dan panggil fungsi row_number pada DB
+$pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM daftar_individu LIMIT $page_awal, $limit");
 
 // Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
@@ -229,12 +244,10 @@ if (isset($_POST['cari'])) {
                   </tr>
                 </thead>
                 <tbody>
-                  <!-- Definisikan variabel nomor sebagai urutan -->
-                  <?php $nomor = 1 ?>
                   <!-- Lakukakan loop foreach untuk setiap pendaftar_individu dan assign ke variabel individu -->
                   <?php foreach ($pendaftar_individu as $individu) : ?>
                     <tr>
-                      <td><?= $nomor ?></td>
+                      <td><?= $individu['nomor'] ?></td>
                       <td><?= $individu['nama'] ?></td>
                       <td><?= $individu['domisili'] ?></td>
                       <td><?= $individu['tanggal_lahir'] ?></td>
@@ -268,8 +281,6 @@ if (isset($_POST['cari'])) {
                         <br><a href="invoice.php?id=<?= $individu['id']; ?>" target="_blank"><button class="btn btn-dark mt-2" type="button"><i class="fas fa-print"></i> Print Invoice</button></a>
                       </td>
                     </tr>
-                    <!-- Jalankan statement increment untuk variabel nomor -->
-                    <?php $nomor++ ?>
                   <?php endforeach; ?>
                 </tbody>
               </table>
@@ -280,6 +291,30 @@ if (isset($_POST['cari'])) {
               </div>
             <?php endif; ?>
           </section>
+
+          <!-- Pagination -->
+          <section class="page my-5">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+                <?php if (empty($_GET['page']) and $pagination == true) : ?>
+                  <li class="page-item active"><a class="page-link" href="data_pendaftar_individu.php?page=1">1</a></li>
+                  <?php for ($page = 2; $page <= $jumlah_page; $page++) : ?>
+                    <li class="page-item"><a class="page-link text-warning" href="data_pendaftar_individu.php?page=<?= $page ?>"><?= $page ?></a></li>
+                  <?php endfor; ?>
+                <?php elseif (!empty($_GET['page']) and $pagination == true) : ?>
+                  <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+                    <?php if ($page == $_GET['page']) : ?>
+                      <li class="page-item active"><a class="page-link" href="data_pendaftar_individu.php?page=<?= $page ?>"><?= $page ?></a></li>
+                    <?php else : ?>
+                      <li class="page-item"><a class="page-link text-warning" href="data_pendaftar_individu.php?page=<?= $page ?>"><?= $page ?></a></li>
+                    <?php endif; ?>
+                  <?php endfor; ?>
+                <?php endif; ?>
+              </ul>
+            </nav>
+          </section>
+          <!-- Akhir Pagination -->
+
         </div>
       </main>
     </div>

@@ -303,9 +303,9 @@ if (isset($_POST['cari'])) {
 <section class="page my-5">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
-      <?php $nomor = 1 ?>
         <?php if (empty($_GET['page']) and $pagination == true) : ?>
-          <?php for ($page = 1; $page <= $jumlah_page; $page++) : ?>
+          <li class="page-item active"><a class="page-link" href="data_berita.php?page=1">1</a></li>
+          <?php for ($page = 2; $page <= $jumlah_page; $page++) : ?>
             <li class="page-item"><a class="page-link text-warning" href="data_berita.php?page=<?= $page ?>"><?= $page ?></a></li>
           <?php endfor; ?>
         <?php elseif (!empty($_GET['page']) and $pagination == true) : ?>
@@ -317,7 +317,6 @@ if (isset($_POST['cari'])) {
             <?php endif; ?>
           <?php endfor; ?>
         <?php endif; ?>
-        <?php $nomor++ ?>
       </ul>
     </nav>
   </section>
