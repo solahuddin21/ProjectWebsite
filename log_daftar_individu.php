@@ -21,7 +21,7 @@ if (!isset($_GET['page'])) {
 $pagination = true;
 $page_awal = ($page - 1) * $limit;
 
-$pendaftar_individu = query("SELECT ROW_NUMBER() OVER (ORDER BY id ASC) as nomor, waktu, status, id_pendaftar FROM log_daftar_individu  LIMIT $page_awal, $limit");
+$pendaftar_individu = query("SELECT id, ROW_NUMBER() OVER (ORDER BY id ASC) as nomor, waktu, status, id_pendaftar FROM log_daftar_individu  LIMIT $page_awal, $limit");
 
 if (isset($_POST['cari'])) {
   $pagination = false;
@@ -232,7 +232,7 @@ if (isset($_POST['cari'])) {
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title text-dark" id="exampleModalLabel">Detail Log No. <?= $nomor ?></h5>
+                                <h5 class="modal-title text-dark" id="exampleModalLabel">Detail Log No. <?= $individu['nomor'] ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">

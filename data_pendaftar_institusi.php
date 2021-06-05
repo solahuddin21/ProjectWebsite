@@ -263,7 +263,7 @@ if (isset($_POST['cari'])) {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $nomor ?>?</label>
+                                <label class="text-dark">Yakin Ingin Menghapus Data No. <?= $institusi['nomor'] ?>?</label>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
