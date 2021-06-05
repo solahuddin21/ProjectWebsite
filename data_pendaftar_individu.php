@@ -29,6 +29,7 @@ $pendaftar_individu = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', R
 
 // Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
+  $pagination = false;
   // Kirim keyword ke fungsi cari_data_individu pada function.php dan perbarui hasil query baru ke variabel pendaftar_individu
   $pendaftar_individu = cari_data_individu($_POST['keyword']);
 }

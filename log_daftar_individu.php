@@ -24,6 +24,7 @@ $page_awal = ($page - 1) * $limit;
 $pendaftar_individu = query("SELECT ROW_NUMBER() OVER (ORDER BY id ASC) as nomor, waktu, status, id_pendaftar FROM log_daftar_individu  LIMIT $page_awal, $limit");
 
 if (isset($_POST['cari'])) {
+  $pagination = false;
   $pendaftar_individu = cari_log_individu($_POST['keyword']);
 }
 ?>

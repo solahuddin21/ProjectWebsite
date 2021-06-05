@@ -25,10 +25,11 @@ $pagination = true;
 $page_awal = ($page - 1) * $limit;
 
 // Lakukan query data pendaftar institusi serta panggil fungsi jenis_cabang pada DB
-$pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM daftar_institusi  LIMIT $page_awal, $limit");
+$pendaftar_institusi = query("SELECT *, jenis_cabang(cabang) as 'jenis_cabang', ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM daftar_institusi LIMIT $page_awal, $limit");
 
 // Kondisi jika tombol cari ditekan
 if (isset($_POST['cari'])) {
+  $pagination = false;
   // Kirim keyword ke fungsi cari_data_institusi pada function.php dan perbarui hasil query baru ke variabel pendaftar_institusi
   $pendaftar_institusi = cari_data_institusi($_POST['keyword']);
 }

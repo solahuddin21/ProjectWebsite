@@ -188,23 +188,23 @@
     return mysqli_affected_rows($koneksi);
   }
 
-  function cari_data_individu($keyword) {
-    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_individu WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
+  function cari_data_individu($keyword  ) {
+    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang', ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM daftar_individu WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
     return query($query);
   }
 
   function cari_data_institusi($keyword) {
-    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang' FROM daftar_institusi WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
+    $query = "SELECT *, jenis_cabang(cabang) as 'jenis_cabang', ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM daftar_institusi WHERE nama LIKE '%$keyword%' OR cabang LIKE '%$keyword%'";
     return query($query);
   }
 
   function cari_log_individu($keyword) {
-    $query = "SELECT * FROM log_daftar_individu WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
+    $query = "SELECT *, ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM log_daftar_individu WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
     return query($query);
   }
   
   function cari_log_institusi($keyword) {
-    $query = "SELECT * FROM log_daftar_institusi WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
+    $query = "SELECT *, ROW_NUMBER() OVER (ORDER BY id ASC) as nomor FROM log_daftar_institusi WHERE waktu = '$keyword' OR id_pendaftar = '$keyword' OR status LIKE '%$keyword%'";
     return query($query);
   }
 
@@ -214,7 +214,7 @@
   }
 
   function cari_berita($keyword) {
-    $query = "SELECT * FROM berita WHERE judul LIKE '%$keyword%' OR teks LIKE '%$keyword%' OR penulis LIKE '%$keyword%' ORDER BY tanggal DESC";
+    $query = "SELECT *, ROW_NUMBER() OVER (ORDER BY tanggal DESC) as nomor FROM berita WHERE judul LIKE '%$keyword%' OR teks LIKE '%$keyword%' OR penulis LIKE '%$keyword%' ORDER BY tanggal DESC";
     return query($query);
   }
 

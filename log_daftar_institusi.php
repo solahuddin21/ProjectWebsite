@@ -24,6 +24,7 @@ $page_awal = ($page - 1) * $limit;
 $pendaftar_institusi = query("SELECT ROW_NUMBER() OVER (ORDER BY id ASC) as nomor, waktu, status, id_pendaftar FROM log_daftar_institusi LIMIT $page_awal, $limit");
 
 if (isset($_POST['cari'])) {
+  $pagination = false;
   $pendaftar_institusi = cari_log_institusi($_POST['keyword']);
 }
 ?>
