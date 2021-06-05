@@ -131,11 +131,11 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">No. KTP / NISN</label>
-                    <input type="text" name="no_ktp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input type="number" name="no_ktp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required maxlength="16" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">No. Telepon / Handphone</label>
-                    <input type="text" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input type="number" name="no_telp" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required maxlength="12" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Pilihan Cabang</label>
