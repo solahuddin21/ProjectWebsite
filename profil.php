@@ -75,16 +75,21 @@ include 'cek_cookie.php';
     <h3>Prisai Sakti Mataram</h3>
     <p class="lead">
       Disini adalah deskripsi mengenai Prisai Sakti Mataram, bisa berupa sejarah terbentuknya PSM, prestasi PSM, dan lain sebagainya.
+      Deskripsi ditulis tidak terlalu panjang, namun sarat akan informasi mengenai Prisai Sakti Mataram.
+      Informasi ditulis semenarik mungkin agar pembaca tidak bosan dan semakin tertarik dengan Prisai Sakti Mataram.
     </p>
     <h3 class="mt-5">Visi Misi</h3>
     <p class="lead">
       Disini adalah visi misi dari Prisai Sakti Mataram. Visi akan ditampilkan secara paragraf, dan misi akan ditampilkan secara poin per poin.
+      Visi itu merupakan serangkaian kata yang menunjukkan impian, cita-cita atau nilai inti sebuah keinginan sekelompok orang atau secara pribadi dengan pandangan yang jauh ke masa depan demi mencapai sebuah tujuan yang diinginkan.
+      Sedangkan Misi adalah suatu pernyataan tentang apa yang harus dikerjakan dalam usaha mewujudkan suatu visi yang telah dibuat. 
     </p>
     <h3 class="mt-5">Struktur Organisasi</h3>
     <img src="img/struktur_organisasi.png" class="card-img mb-4" alt="..." />
     <h3 class="mt-5">Pendidikan PSM</h3>
     <p class="lead mb-5 pb-3">
       Disini berisi tentang Pendidikan apa saja yang dilakukan di Perguruan Pencak Silat Prisai Sakti Mataram.
+      pendidikan ini bisa berupa pengembangan karakter, sarana membangun jati diri, dan sebagainya.
     </p>
   </div>
   <!-- Akhir Profil -->
@@ -95,7 +100,7 @@ include 'cek_cookie.php';
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">
-          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat.</p>
+          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat. Bisa berupa profil, atau deskripsi.</p>
           <div class="social">
             <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>

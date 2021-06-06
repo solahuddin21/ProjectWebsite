@@ -346,7 +346,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
             <h2>
               Individu</h2>
             <p>
-              Gabung ke Prisai Sakti Mataram secara Individu</p>
+              Bergabung dengan Prisai Sakti Mataram secara Individu</p>
             <a href="gabung_individu.php">Gabung</a>
           </div>
           <div class="konten konten-2">
@@ -356,7 +356,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
             <h2>
               Institusi</h2>
             <p>
-            Gabung ke Prisai Sakti Mataram melalui Institusi</p>
+            Bergabung dengan Prisai Sakti Mataram melalui Institusi</p>
             <a href="gabung_institusi.php">Gabung</a>
           </div>
         </div>
@@ -371,7 +371,7 @@ $data_daftar_institusi = query("SELECT * FROM daftar_institusi ORDER BY id DESC 
       <div class="left box">
         <h2>Tentang Kami</h2>
         <div class="content">
-          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat.</p>
+          <p>Disini adalah deskripsi mengenai Prisai Sakti Mataram secara singkat. Bisa berupa profil, atau deskripsi.</p>
           <div class="social">
             <a href="#"><span style="color: red;" class="fab fa-facebook-f"></span></a>
             <a href="#"><span style="color: red;" class="fab fa-twitter"></span></a>
